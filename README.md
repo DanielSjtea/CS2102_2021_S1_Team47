@@ -1,5 +1,9 @@
 # CS2102_2021_S1_Team47
 
+![ER Diagram](./resources/ER_Diagram.jpeg)
+
+
+
 ## Entity Constraints: 
 - A pet owner can be a caretaker at the same time. However, they are not allowed to be a caretaker of their own pet. 
 - Every user is identified by their profile ID. This is a IS-A relationship between Pet Owners, Caretakers, Pets and PCS Administrators. 
