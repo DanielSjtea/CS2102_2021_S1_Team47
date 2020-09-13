@@ -1,6 +1,6 @@
 # CS2102_2021_S1_Team47
 
-![ER Diagram](./resources/ER_Diagram.jpeg)
+![ER Diagram](./resources/ER_Diagram.jpg)
 
 
 
