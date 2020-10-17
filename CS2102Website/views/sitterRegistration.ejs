@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<%- include('headerSignedIn.ejs') %>
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+</head>
+
+
+<body>
+  <div class="parent">
+    <div class="leftSection">
+
+    </div>
+
+    <div class="rightSection">
+      <div class="mainTitle">
+        <h1>Sitter Registration</h1>
+      </div>
+
+      <div class="sitterRegistrationBox">
+        <form>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="inputEmail4"><b>Email</b></label>
+              <p>Email to retrieve from EJS</p>
+            </div>
+            <div class="form-group col-md-6">
+              <label for="inputPassword4"><b>Password</b></label>
+              <p>Password to retrieve from EJS</p>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="Username"><b>Username</b></label>
+              <p>Username to retrieve from EJS</p>
+            </div>
+            <div class="form-group col-md-6">
+              <label for="ContactNumber"><b>Contact Number</b></label>
+              <p>Contact Number to retrieve from EJS</p>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="Area"><b>Area of Work</b></label>
+              <p>Area to retrieve from EJS</p>
+            </div>
+            <div class="form-group col-md-6">
+              <label for="Credit Cards"><b>Credit Cards registered</b></label>
+              <li>Credit card 1</li>
+              <li>Credit card 2</li>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="inputAddress"><b>Pets you are willing to take care of</b></label>
+            <input type="text" class="form-control" id="petsWillingToTakeCare" placeholder="Dogs, Cats, Parrots">
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="inputState">Pet Services Provided</label>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="Pet Grooming">
+                <label class="form-check-label" for="gridCheck1">
+                  Pet Grooming
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="Full Day Pet Care">
+                <label class="form-check-label" for="gridCheck1">
+                  Full Day Pet Care
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="Multiple Days Pet Care">
+                <label class="form-check-label" for="gridCheck1">
+                  Multiple Days Pet Care
+                </label>
+              </div>
+            </div>
+            <div class="form-group col-md-4">
+              <label for="petTransferMethod">Pet Transfer Method</label>
+              <select id="petTransferMethod" class="form-control">
+                <option selected>Choose...</option>
+                <option value="Car">Car</option>
+                <option value="Bike">Bike</option>
+                <option value="Cycle">Cycle</option>
+                <option value="Walk">Walk</option>
+              </select>
+            </div>
+            <div class="form-group col-md-4">
+              <label for="FullPartTime">Full/Part Time</label>
+              <select id="FullPartTime" class="form-control">
+                <option selected>Choose...</option>
+                <option value="Full Time">Full Time</option>
+                <option value="Part Time">Part Time</option>
+              </select>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div>
+        <button type="button" class="registerSitter" name="button" onclick="location.href = '/mySitterProfile'">
+          Register!
+        </button>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

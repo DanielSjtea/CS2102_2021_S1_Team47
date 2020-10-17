@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<%- include('headerSignedIn.ejs') %>
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+</head>
+
+<body>
+  <div class="parent">
+    <div class="leftSection">
+
+    </div>
+
+    <div class="rightSection">
+      <div class="mainTitle">
+        <h1>Your Profile</h1>
+      </div>
+
+      <div class="profileLogoandCreditCard">
+        <div class="logoandCreditCard">
+          <div class="profilePhoto">
+            <img class="profileLogo" src="https://www.creativefabrica.com/wp-content/uploads/2018/03/Cat-Paw-Print.jpg" alt="">
+          </div>
+          <div class="changePhoto">
+            <form class="md-form" action="/myProfile" method="post">
+              <div class="file-field">
+                <div class="btn btn-primary btn-sm float-left">
+                  <input type="file" value="newProfilePhoto">
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="CreditCards">
+        <div class="CreditCardHeading">
+          <div class="CreditCardList">
+            <div class="tableheading">
+              <h4>Credit Cards</h4>
+            </div>
+            <div class="mostrecent3reviews">
+              <h6>Retrieve Card Brand</h6>
+              <p>Retrieve Card Number</p>
+              <hr>
+              <h6>Retrieve Card brand</h6>
+              <p>Retrieve Card Number</p>
+              <hr>
+              <div class="BidButton">
+                <button type="button" class="btn btn-outline-primary" onclick="location.href = '/registerNewCard'">Add Card</button>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="profileUserDetails">
+          <h4>Name</h4>
+          <p>Retrieve name from EJS</p>
+          <h4>Email</h4>
+          <p>Retrieve email from EJS</p>
+          <h4>Username</h4>
+          <p>Retrieve username from EJS</p>
+          <h4>Contact Number</h4>
+          <p>Retrieve contact number from EJS</p>
+          <h4>Role(s)</h4>
+          <p>Caretaker, Pet Owner</p>
+          <h4>Area</h4>
+          <p>Marina Bay</p>
+
+          <div class="editProfile">
+            <button type="button" class="btn btn-outline-primary" onclick="location.href = '/editProfile'">Edit Details</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="myPets">
+        <div class="myPetProfile">
+          <div class="petProfilePhoto">
+            <img class="petphoto" src="images\photo-1548858565-461b87144b6a.jpg" alt="">
+            <!-- REMEMBER TO CHANGE TO EJS PET PROFILE PHOTO -->
+          </div>
+          <div class="petDescription">
+            <h6>Pet Name</h6>
+            <p>Retrieve from EJS</p>
+            <h6>Type</h6>
+            <p>Retrieve from EJS</p>
+            <h6>Special Requirements</h6>
+            <p>Retrieve from EJS</p>
+
+          </div>
+        </div>
+
+        <div class="addPets">
+          <div class="newPetPhoto">
+            <img class="petphoto" src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQHzdCJQfYVU2sVvDQyEisH0H8QQPmmixjBPw&usqp=CAU" alt="">
+            <!-- REMEMBER TO CHANGE TO EJS PET PROFILE PHOTO -->
+            <form class="md-form" action="/myProfile" method="post">
+              <div class="file-field">
+                <div class="btn btn-primary btn-sm float-left">
+                  <input type="file" value="newProfilePhoto">
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="newPetDescription">
+            <form action="/addPets" method="post">
+              <div class="form-group">
+                <label for="newPetName">Pet Name</label>
+                <input type="text" class="form-control" id="newPetName" aria-describedby="emailHelp">
+              </div>
+              <div class="form-group">
+                <label for="newPetType">Pet Type</label>
+                <input type="text" class="form-control" id="newPetType" aria-describedby="emailHelp">
+              </div>
+              <div class="form-group">
+                <label for="newPetSpecialReq">Pet Name</label>
+                <input type="text" class="form-control" id="newPetSpecialReq" aria-describedby="emailHelp">
+              </div>
+              <button type="submit" class="btn btn-primary" onclick="location.href ='myProfile'">Add Pet</button>
+            </form>
+
+          </div>
+
+
+        </div>
+      </div>
+</body>
+
+</html>

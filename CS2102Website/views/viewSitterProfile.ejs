@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<%- include('headerSignedIn.ejs') %>
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+</head>
+
+<body>
+  <div class="parent">
+    <div class="leftSection">
+
+    </div>
+
+    <div class="rightSection">
+      <div class="mainTitle">
+        <h1>Caretaker Profile</h1>
+      </div>
+
+      <div class="logoAndDetails">
+        <div class="logo">
+          <div class="profilePhoto">
+            <img class="viewProfileLogo" src="https://www.creativefabrica.com/wp-content/uploads/2018/03/Cat-Paw-Print.jpg" alt="">
+          </div>
+        </div>
+        <div class="viewDetails">
+          <div class="viewDetailsLeftColumn">
+            <h4>Area</h4>
+            <p>Retrieve Area from EJS</p>
+            <h4>Contact Number</h4>
+            <p>Retrieve Contact Number from EJS</p>
+            <h4>Email</h4>
+            <p>Retrieve email from EJS</p>
+          </div>
+          <div class="viewDetailsRightColumn">
+            <h4>Pet Transfer Preference</h4>
+            <p>Retrieve Pet Transfer Preference from EJS</p>
+            <h4>Average Rating</h4>
+            <div class="ratingStars">
+              <span class="fa fa-star checked"></span>
+              <span class="fa fa-star checked"></span>
+              <span class="fa fa-star checked"></span>
+              <span class="fa fa-star checked"></span>
+              <span class="fa fa-star checked"></span>
+            </div>
+            <h4>Services Provided</h4>
+            <p>Retrieve services from EJS</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="ReviewsandPrice">
+        <div class="ReviewsHeading">
+          <h3>Reviews</h3>
+          <div class="ReviewList">
+            <div class="tableheading">
+              <h4>Daily Price</h4>
+            </div>
+            <div class="mostrecent3reviews">
+              <h6>Retrieve name</h6>
+              <p>Retrieve date</p>
+              <p>Retrieve text</p>
+              <hr>
+              <h6>Retrieve next name</h6>
+              <p>Retrieve date</p>
+              <p>Retreive text</p>
+              <hr>
+              <h6>Retrieve next name</h6>
+              <p>Retrieve date</p>
+              <p>Retreive text</p>
+            </div>
+          </div>
+        </div>
+        <div class="viewpricetableheading">
+          <h3>Pricing Per Day</h3>
+        </div>
+        <div class="viewReviewPricingTable">
+          <table class="table">
+            <tbody>
+              <tr>
+                <th scope="row">1</th>
+                <td>Cat</td>
+                <td class="noborderright">$20</td>
+              </tr>
+              <tr>
+                <th scope="row">2</th>
+                <td>Dog</td>
+                <td class="noborderright">$20</td>
+              </tr>
+              <tr>
+                <th scope="row">3</th>
+                <td>Bird</td>
+                <td class="noborderright">$20</td>
+              </tr>
+              <tr>
+                <th scope="row">4</th>
+                <td>Snake</td>
+                <td class="noborderright">$20</td>
+              </tr>
+              <tr>
+                <th scope="row">5</th>
+                <td>Hamster</td>
+                <td class="noborderright">$999</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="BidforCaretaker">
+        <form class="" action="/viewSitterProfile" method="post">
+          <div class="BidAmount">
+            <h4>Bid Amount</h4>
+            <input type="text" class="form-control" id="caretakerBid" placeholder="$50">
+          </div>
+          <div class="BidButton">
+            <button type="button" class="btn btn-outline-primary" onclick="location.href = '/bidSent'">Submit</button>
+          </div>
+        </form>
+        <div class="textRightOfBid">
+            <p><em>The bidding system helps to decide which Pet Owner will be given priority to have this Care Taker based on the input bid amount. </em></p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</body>
+
+</html>

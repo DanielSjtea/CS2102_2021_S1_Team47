@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<%- include('headerSignedIn.ejs') %>
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+
+<body>
+  <div class="parent">
+    <div class="leftSection">
+
+    </div>
+
+    <div class="rightSection">
+      <div class="mainTitle">
+        <h1>My Bids</h1>
+
+      </div>
+
+      <div class="bidsDivider">
+        <div class="btn-group" role="group" aria-label="Basic example">
+          <button type="button" class="btn btn-secondary" onclick="location.href = '/myBids'"><b>Bids Received</b></button>
+          <button type="button" class="btn btn-secondary btn-lg active" onclick="location.href = '/bidsSubmitted'"><b>Bids Submitted</b></button>
+        </div>
+      </div>
+
+
+      <div class="bidDetails">
+        <div class="firstcol">
+          <h4>Name</h4>
+          <p>Retrieve Name from EJS</p>
+          <h4>Username</h4>
+          <p>Retrieve Username from EJS</p>
+          <h4>Start Time</h4>
+          <p>Retrieve start time from EJS</p>
+          <h4>Status</h4>
+          <p>Retrieve status from EJS</p>
+          <h4>Service Provided</h4>
+          <p>Retrieve service from EJS</p>
+        </div>
+
+        <div class="secondcol">
+          <h4>Bid Amount</h4>
+          <p>Retrieve bid amount from EJS</p>
+          <h4>Date</h4>
+          <p>Retrieve date from EJS</p>
+          <h4>End Time</h4>
+          <p>Retrieve end time from EJS</p>
+          <h4>Transfer Method</h4>
+          <p>Retrieve transfer method from EJS</p>
+          <h4>Payment Type</h4>
+          <p>Credit Card</p>
+        </div>
+      </div>
+
+      <div class="petProfileAndRatings">
+        <div class="petProfile">
+          <div class="petProfilePhoto">
+            <img class="petphoto" src="images\photo-1548858565-461b87144b6a.jpg" alt="">
+            <!-- REMEMBER TO CHANGE TO EJS PET PROFILE PHOTO -->
+          </div>
+          <div class="petDescription">
+            <h6>Pet Name</h6>
+            <p>Retrieve from EJS</p>
+            <h6>Type</h6>
+            <p>Retrieve from EJS</p>
+            <h6>Special Requirements</h6>
+            <p>Retrieve from EJS</p>
+
+          </div>
+        </div>
+
+        <div class="petRatings">
+          <div class="petRatingleft">
+            <br>
+            <h6>Rating</h6>
+            <div class="ratingStars">
+              <span class="fa fa-star"></span>
+              <span class="fa fa-star"></span>
+              <span class="fa fa-star"></span>
+              <span class="fa fa-star"></span>
+              <span class="fa fa-star"></span>
+            </div>
+            <br>
+            <h6>Reviews</h6>
+            <p>No Reviews Found</p>
+          </div>
+
+          <div class="petRatingRight">
+            <form action="/bidsSubmitted" method="action">
+              <div class="form-group">
+                <label for="rating">Rate from 1 to 5</label>
+                <input type="number" class="form-control" id="rating" aria-describedby="emailHelp" placeholder="5">
+              </div>
+              <div class="form-group">
+                <label for="review">Add a Review</label>
+                <input type="text" class="form-control" id="review" placeholder="Be nice!">
+              </div>
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</body>
+
+</html>
