@@ -18,6 +18,14 @@ const pool = new Pool({
     port: 5432,
 })
 ```
+3. Initialise the database by running the SQL commands in /CS2102Website/data/init.sql
+
+4. Go to CS2102Website folder directory on your Terminal/Command Prompt. Run the website by typing this in Terminal/Command Prompt:
+```
+npm start
+```
+
+5. View the website on localhost:3030
 
 # Folders
 1. Data Folder
