@@ -141,8 +141,8 @@ color: #FFFFFF;
   position: absolute;
   width: 409px;
   height: 66px;
-  left: 650px;
-  top: 480px;
+  left: 190px;
+  top: 240px;
   color: white;
   font-size: 28;
   background: #1B4965;
@@ -486,14 +486,24 @@ button.secondary:focus {
 
 /****************** Sign Up Page *****************/
 .signUpBox {
-    width: 800px;
-    height: 480px;
+    width: 900px;
+    height: 370px;
     background-color: white;
-    margin-left: 290px;
+    margin-left: 200px;
     margin-top: 150px;
     border-radius: 20px;
     position: absolute;
     padding: 50px;
+}
+
+.errorBox {
+  width: 900px;
+  height: 480px;
+  margin-left: 200px;
+  margin-top: 590px;
+  border-radius: 20px;
+  position: absolute;
+  padding: 50px;
 }
 
 
@@ -501,8 +511,8 @@ button.secondary:focus {
   position: absolute;
   width: 409px;
   height: 66px;
-  left: 650px;
-  top: 530px;
+  left: 230px;
+  top: 400px;
   color: white;
   font-size: 28;
   background: #1B4965;

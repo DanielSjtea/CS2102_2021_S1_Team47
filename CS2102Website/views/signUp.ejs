@@ -5,7 +5,6 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
-
 <body>
   <div class="parent">
     <div class="leftSection">
@@ -18,37 +17,53 @@
       </div>
 
       <div class="signUpBox">
-        <form action="/signUp" method="post">
+        <form action="/signUp" method="POST" id="signUpForm">
           <div class="form-group row">
-            <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
+            <label for="email" class="col-sm-2 col-form-label">Email</label>
             <div class="col-sm-10">
-              <input type="email" class="form-control" id="email" placeholder="Email" autocomplete="off">
+              <input type="email" class="form-control" id="email" name="email" placeholder="Email" autocomplete="off" required>
             </div>
           </div>
           <div class="form-group row">
-            <label for="inputUsername" class="col-sm-2 col-form-label">Username</label>
+            <label for="username" class="col-sm-2 col-form-label">Username</label>
             <div class="col-sm-10">
-              <input type="text" class="form-control" id="username" placeholder="Username" autocomplete="off">
+              <input type="text" class="form-control" id="username" name="username" placeholder="Username" autocomplete="off" required>
             </div>
           </div>
           <div class="form-group row">
-            <label for="inputContactNumber" class="col-sm-2 col-form-label">Contact</label>
+            <label for="name" class="col-sm-2 col-form-label">Name</label>
             <div class="col-sm-10">
-              <input type="text" class="form-control" id="contactnumber" placeholder="Contact Number" autocomplete="off">
+              <input type="text" class="form-control" id="name" name="name" placeholder="Name" autocomplete="off" required>
             </div>
           </div>
           <div class="form-group row">
-            <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
+            <label for="contact_num" class="col-sm-2 col-form-label">Contact</label>
             <div class="col-sm-10">
-              <input type="password" class="form-control" id="password" placeholder="Password" autocomplete="off">
+              <input type="text" class="form-control" id="contact_num" name="contact_num" placeholder="Contact Number" autocomplete="off" required>
             </div>
           </div>
+          <div class="form-group row">
+            <label for="password" class="col-sm-2 col-form-label">Password</label>
+            <div class="col-sm-10">
+              <input type="password" class="form-control" id="password" name="password" placeholder="Password" autocomplete="off" required>
+            </div>
+          </div>
+            <button type="submit" class="signUpButtonText" id="submitForm">
+              Sign Up
+            </button>
         </form>
       </div>
-      <div>
-        <button type="button" class="signUpButtonText" name="button" onclick="location.href = '/myProfile'">
-          Sign Up
-        </button>
+      <div class="errorBox">
+        <% if(typeof alert != 'undefined') { %>
+          <% alert.forEach(function(error) { %>
+              <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <%= error.msg %>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+          <% }) %>
+      <% } %>
       </div>
     </div>
   </div>
