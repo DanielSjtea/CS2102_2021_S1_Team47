@@ -23,7 +23,19 @@ var sql = {
     add_pet: 'INSERT INTO owns_pet(pet_owner_username, name, ptype, sp_req) VALUES ($1, $2, $3, $4)', //[pet_owner_username, name, ptype, sp_req] ptype, sp_req defaults are -1
     update_pet: 'UPDATE owns_pet SET ptype = $3, sp_req = $4 WHERE pet_owner_username = $1 AND name = $2', //[pet_owner_username, name, ptype, sp_req]
     delete_pet: 'DELETE FROM owns_pet WHERE pet_owner_username = $1 AND name = $2', //[pet_owner_username, name]
-    get_all_owned_pets: 'SELECT * FROM owns_pet WHERE pet_owner_username = $1' //[pet_owner_username]
+    get_all_owned_pets: 'SELECT * FROM owns_pet WHERE pet_owner_username = $1', //[pet_owner_username]
+
+    //Availability related
+    add_availability: 'INSERT INTO has_availability(care_taker_username, s_date, s_time, e_time) VALUES ($1, $2, $3, $4)', //[username, s_date, s_time, e_time]
+    //Currently delete_availability deletes ALL availability for date
+    delete_availability: 'DELETE FROM has_availability WHERE care_taker_username = $1 AND s_date = $2', //[username, s_date] in datetime format (?)
+    get_availability_sitter: 'SELECT s_date, s_time, e_time FROM has_availability WHERE care_taker_username = $1', //[care_taker_username] returns all availability of specific caretaker
+    get_availability_date: 'SELECT * FROM has_availability WHERE s_date = $1', //[s_date] in datetime format (?), returns all available caretakers for that day
+
+    //Bids related
+
+    //Reviews related 
+
 }
 
 module.exports = sql;
