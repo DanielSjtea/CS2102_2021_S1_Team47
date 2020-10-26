@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<%- include('pcsHeader.ejs') %>
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+</head>
+
+<body>
+  <div class="parent">
+    <div class="leftSection">
+
+    </div>
+
+    <div class="rightSection">
+      <div class="mainTitle">
+        <h1>Salaries</h1>
+      </div>
+
+      <div class="Salaries">
+        <div class="salariesLeftCol">
+          <div class="">
+            <p><b>Total Salary to be paid </b></p>
+            <p><b>for the current month:</b></p>
+          </div>
+
+        </div>
+
+        <div class="salariesRightCol">
+          <div>
+            <h1 class="salary"><b>$9000.00</b></h1>
+          </div>
+        </div>
+      </div>
+
+      <div class="filterBox">
+        <div class="filterText">
+          <h4>Filter for Salary</h4>
+        </div>
+        <form class="filterForm" action="/pcsSalary" method="post">
+
+          <div class="row">
+            <div class="col-auto my-10">
+              <label class="mr-sm-2" for="inlineFormCustomSelect">Month:</label>
+              <select class="custom-select mr-sm-2" id="month" name="month">
+                <option selected>Choose...</option>
+                <option value="Jan">January</option>
+                <option value="Feb">February</option>
+                <option value="Mar">March</option>
+                <option value="Apr">April</option>
+                <option value="May">May</option>
+                <option value="Jun">June</option>
+                <option value="Jul">July</option>
+                <option value="Aug">August</option>
+                <option value="Sep">September</option>
+                <option value="Oct">October</option>
+                <option value="Nov">November</option>
+                <option value="Dec">December</option>
+              </select>
+            </div>
+            <div class="col-auto my-10">
+              <label class="mr-sm-2" for="inlineFormCustomSelect">Year:</label>
+              <select class="custom-select mr-sm-2" id="year" name="year">
+                <option selected>Choose...</option>
+                <option value="2011">2011</option>
+                <option value="2012">2012</option>
+                <option value="2013">2013</option>
+                <option value="2014">2014</option>
+                <option value="2015">2015</option>
+                <option value="2016">2016</option>
+                <option value="2017">2017</option>
+                <option value="2018">2018</option>
+                <option value="2019">2019</option>
+                <option value="2020">2020</option>
+              </select>
+            </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="form-group col-md-6">
+              <label for="inputEmail4">Name</label>
+              <input type="email" class="form-control" id="name" name="name" placeholder="Name" autocomplete="off">
+            </div>
+            <div class="form-group col-md-6">
+              <label for="inputPassword4">Username</label>
+              <input type="password" class="form-control" id="username" name="username" placeholder="Username" autocomplete="off">
+            </div>
+          </div>
+          <div class="addPetButton">
+            <button type="button" class="btn btn-outline-primary" onclick="location.href = '/pcsSalary'">Filter</button>
+          </div>
+
+        </form>
+      </div>
+
+
+      <div class="filteredSalary">
+        <div class="tableheading">
+          <h4>Salaries</h4>
+        </div>
+        <div class="salaryTable">
+          <table class="table">
+            <tbody>
+              <tr>
+                <th scope="row">Name</th>
+                <th>Username</th>
+                <th>Job Type</th>
+                <th>Salary</th>
+                <th class="noborderright">Bonus</th>
+              </tr>
+              <tr>
+                <td>Bob</td>
+                <td>bobby</td>
+                <td>Full Time</td>
+                <td>$3000</td>
+                <td class="noborderright">$20</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

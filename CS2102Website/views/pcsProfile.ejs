@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<%- include('pcsHeader.ejs') %>
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+</head>
+
+<body>
+  <div class="parent">
+    <div class="leftSection">
+
+    </div>
+
+    <div class="rightSection">
+      <div class="mainTitle">
+        <h1>Your Profile</h1>
+      </div>
+
+      <div class="profileLogoandCreditCard">
+        <div class="logoandCreditCard">
+          <div class="profilePhoto">
+            <img class="profileLogo" src="https://www.creativefabrica.com/wp-content/uploads/2018/03/Cat-Paw-Print.jpg" alt="">
+          </div>
+          <div class="changePhoto">
+            <form class="md-form" action="/myProfile" method="post">
+              <div class="file-field">
+                <div class="btn btn-primary btn-sm float-left">
+                  <input type="file" value="newProfilePhoto">
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+
+
+      </div>
+
+
+      <div class="CreditCards">
+        <div class="profileUserDetails">
+          <h4>Name</h4>
+          <p>Retrieve name from EJS</p>
+          <h4>Email</h4>
+          <p>Retrieve email from EJS</p>
+          <h4>Username</h4>
+          <p>Retrieve username from EJS</p>
+          <h4>Contact Number</h4>
+          <p>Retrieve contact number from EJS</p>
+          <h4>Role(s)</h4>
+          <p>Caretaker, Pet Owner</p>
+
+          <div class="editProfile">
+            <button type="button" class="btn btn-outline-primary" onclick="location.href = '/editPCSProfile'">Edit Details</button>
+          </div>
+        </div>
+      </div>
+
+
+  </div>
+</body>
+
+</html>
