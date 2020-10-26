@@ -8,16 +8,16 @@ CREATE TABLE users (
 
 CREATE TABLE pet_owner (
   username VARCHAR(255) PRIMARY KEY REFERENCES users(username) ON DELETE cascade,
-  card_cvc VARCHAR(10),
-  card_name VARCHAR(255),
-  card_no VARCHAR(255),
-  area VARCHAR(255)
+  card_cvc VARCHAR(10) DEFAULT -1,
+  card_name VARCHAR(255) DEFAULT -1,
+  card_no VARCHAR(255) DEFAULT -1,
+  area VARCHAR(255) DEFAULT -1
 );
 
 CREATE TABLE care_taker (
   username VARCHAR(255) PRIMARY KEY REFERENCES users(username) ON DELETE cascade,
-  ctype VARCHAR(255),
-  area VARCHAR(255)
+  ctype VARCHAR(255) DEFAULT -1,
+  area VARCHAR(255) DEFAULT -1
 );
 
 CREATE TABLE pcs_admin (
@@ -26,9 +26,9 @@ CREATE TABLE pcs_admin (
 
 CREATE TABLE owns_pet (
   pet_owner_username VARCHAR(255) REFERENCES pet_owner(username) ON DELETE cascade,
-  ptype VARCHAR(255),
   name VARCHAR(255),
-  sp_req VARCHAR(255),
+  ptype VARCHAR(255) DEFAULT -1,
+  sp_req VARCHAR(255) DEFAULT -1,
   PRIMARY KEY (pet_owner_username, name)
 );
 
