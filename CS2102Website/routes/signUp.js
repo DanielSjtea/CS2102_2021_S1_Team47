@@ -1,5 +1,6 @@
 var express = require("express");
 const bodyParser = require("body-parser");
+const bcrypt = require('bcrypt');
 const { check, validationResult } = require('express-validator');
 var database = require("../data/index");
 var router = express.Router();
@@ -25,14 +26,23 @@ router.post("/",[
       let name = req.body.name;
       let email = req.body.email;
 
-      try {
-        let params = [username, contact_num, password, name, email];
-        database.db(sql.signUp, params);
-        res.redirect("signIn");
-      } catch (err) {
-        console.log("Error: " + err);
-        res.sendStatus(404);
-      }
+      bcrypt.hash(password, 10, function(err, hash) {
+        if (err) {
+          console.log("Bcrypt Error: " + err);
+          res.sendStatus(404);
+        } else {
+          let params = [username, contact_num, hash, name, email];
+          database.query(sql.signUp, params, (err, data) => {
+            if (err) {
+              console.log("Error: " + err);
+              const taken = "Username is taken!";
+              res.render("signUp", { taken });
+            } else {
+              res.redirect("signIn");
+            }
+          });
+        }
+      })
     }
   }
 );

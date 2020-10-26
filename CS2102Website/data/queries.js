@@ -2,7 +2,7 @@
 var sql = {
 
     // User related
-    signIn: 'SELECT * FROM users WHERE username = $1 AND password = $2',
+    signIn: 'SELECT * FROM users WHERE username = $1',
     signUp: 'INSERT INTO users(username, contact_num, password, name, email) VALUES($1, $2, $3, $4, $5)',
 
     edit_profile: 'UPDATE users SET contact_num = $2, name = $3, email = $4 WHERE username = $1', //[username, contact_num, name, email]

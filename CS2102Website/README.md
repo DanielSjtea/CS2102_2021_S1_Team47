@@ -7,6 +7,12 @@ npm install nodemon
 npm install pg
 npm install body-parser
 npm install express-validator
+npm install passport
+npm install passport-local
+npm install bcrypt
+npm install connect-flash
+npm install cookie-parser
+npm install express-session
 ```
 2. Go to /CS2102Website/data/index.js and change the Postgres Credentials to your own. The code should look something like this:
 ```

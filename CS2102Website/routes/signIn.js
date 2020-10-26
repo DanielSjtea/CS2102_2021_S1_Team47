@@ -1,4 +1,5 @@
 var express = require("express");
+const passport = require("passport");
 const bodyParser = require("body-parser");
 const { check, validationResult } = require('express-validator');
 var database = require("../data/index");
@@ -9,12 +10,13 @@ router.get("/", function(req, res, next) {
     res.render("signIn");
 });
 
+/*
 router.post("/", function(req, res, next) {
     let username = req.body.username;
     let password = req.body.inputPassword;
 
     try {
-        let params = [username, password];
+        let params = [username];
         var user;
         database.query(sql.signIn, params, (err, data) => {
             if (err) {
@@ -31,6 +33,12 @@ router.post("/", function(req, res, next) {
         console.log("Error: " + err);
         res.sendStatus(404);
       }
-});
+});*/
+
+router.post("/", passport.authenticate('local', {
+    successRedirect: '/signedIn',
+    failureRedirect: '/signIn',
+    failureFlash: true
+}));
 
 module.exports = router;

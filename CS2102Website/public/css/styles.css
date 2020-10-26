@@ -146,9 +146,18 @@ color: #FFFFFF;
   color: white;
   font-size: 28;
   background: #1B4965;
-  border-radius: 10px;
+  border-radius: 10px
 }
 
+.signInErrorBox {
+  width: 900px;
+  height: 480px;
+  margin-left: -100px;
+  margin-top: 150px;
+  border-radius: 20px;
+  position: absolute;
+  padding: 50px;
+};
 
 /*************** Sitter Registration *************/
 .sitterRegistrationBox {
