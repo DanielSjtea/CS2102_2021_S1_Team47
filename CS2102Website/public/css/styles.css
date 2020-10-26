@@ -1,4 +1,9 @@
 /********************* Home Page **********************/
+.dropdown-menu {
+  width: 180px;
+  ;
+}
+
 .parent {
   height: 230vh;
   display: flex;
@@ -8,7 +13,7 @@
 }
 
 .leftSection {
-  width:200px;
+  width: 200px;
   height: auto;
   background: #62B6CB;
 }
@@ -18,7 +23,7 @@
   background: #E5E5E5;
   display: flex;
   flex-direction: column;
-  justify-content:flex-start;
+  justify-content: flex-start;
 }
 
 .mainTitle {
@@ -66,7 +71,6 @@
   border-radius: 20px;
 }
 
-
 .bookings {
   width: 1050px;
   height: 200px;
@@ -76,7 +80,6 @@
   border-radius: 20px;
 }
 
-
 .bookingstext1 {
   position: absolute;
   width: 538px;
@@ -84,91 +87,74 @@
   left: 557px;
   top: 678px;
   padding-top: 60px;
-
   font-family: Roboto;
   font-style: normal;
   font-weight: normal;
   font-size: 30px;
   line-height: 35px;
   text-align: center;
-
   color: #000000;
-
-
 }
 
 .bookingsbutton {
-position: absolute;
-width: 579px;
-height: 70px;
-left: 536px;
-top: 738px;
-background: #62B6CB;
-justify-content: center;
-align-items: center;
-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-border-radius: 45px;
-margin-top: 50px;
+  position: absolute;
+  width: 579px;
+  height: 70px;
+  left: 536px;
+  top: 738px;
+  background: #62B6CB;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 45px;
+  margin-top: 50px;
 }
 
 .bookButtonText {
   padding-top: 10px;
-font-family: Roboto;
-font-style: normal;
-font-weight: bold;
-font-size: 25px;
-line-height: 35px;
-text-align: center;
-color: #FFFFFF;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 25px;
+  line-height: 35px;
+  text-align: center;
+  color: #FFFFFF;
 }
-
 
 /******************** Sign In Page *******************/
-
 .signInBox {
-    width: 800px;
-    height: 200px;
-    background-color: white;
-    margin-left: 290px;
-    margin-top: 150px;
-    border-radius: 20px;
-    position: absolute;
-    padding: 50px;
+  width: 800px;
+  height: 200px;
+  background-color: white;
+  margin-left: 290px;
+  margin-top: 150px;
+  border-radius: 20px;
+  position: absolute;
+  padding: 50px;
 }
-
 
 .signInButtonText {
   position: absolute;
   width: 409px;
   height: 66px;
-  left: 190px;
-  top: 240px;
+  left: 650px;
+  top: 480px;
   color: white;
   font-size: 28;
   background: #1B4965;
-  border-radius: 10px
+  border-radius: 10px;
 }
 
-.signInErrorBox {
-  width: 900px;
-  height: 480px;
-  margin-left: -100px;
+/*************** Sitter Registration *************/
+.sitterRegistrationBox {
+  width: 800px;
+  height: 800px;
+  background-color: white;
+  margin-left: 290px;
   margin-top: 150px;
   border-radius: 20px;
   position: absolute;
   padding: 50px;
-};
-
-/*************** Sitter Registration *************/
-.sitterRegistrationBox {
-    width: 800px;
-    height: 800px;
-    background-color: white;
-    margin-left: 290px;
-    margin-top: 150px;
-    border-radius: 20px;
-    position: absolute;
-    padding: 50px;
 }
 
 .registerSitter {
@@ -183,17 +169,16 @@ color: #FFFFFF;
   border-radius: 10px;
 }
 
-
 /************** Edit sitter profile ***********/
 .sitterUpdateBox {
-    width: 800px;
-    height: 1140px;
-    background-color: white;
-    margin-left: 290px;
-    margin-top: 150px;
-    border-radius: 20px;
-    position: absolute;
-    padding: 50px;
+  width: 800px;
+  height: 1140px;
+  background-color: white;
+  margin-left: 290px;
+  margin-top: 150px;
+  border-radius: 20px;
+  position: absolute;
+  padding: 50px;
 }
 
 .updateSitter {
@@ -213,7 +198,6 @@ color: #FFFFFF;
   margin: 0;
   border: 0;
 } */
-
 /* body {
   flex-direction: column;
   display: flex;
@@ -228,41 +212,35 @@ color: #FFFFFF;
   height: 100vh;
 
 } */
-
-.offset {
-
-}
+.offset {}
 
 .outer {
-  position:relative;
+  position: relative;
 }
 
 .calendar {
-    margin: 0 auto;
+  margin: 0 auto;
   max-width: 1280px;
   min-width: 500px;
-
-  box-shadow: 0px 30px 50px rgba(0, 0, 0, 0.2) ,0px 3px 7px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 30px 50px rgba(0, 0, 0, 0.2), 0px 3px 7px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
 }
-.wrap {
 
+.wrap {
   overflow-x: hidden;
   overflow-y: scroll;
-    max-width: 1280px;
+  max-width: 1280px;
   height: 500px;
   border-radius: 8px;
 }
 
 thead {
-    box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.2);
 }
 
 thead th {
-
   text-align: center;
   width: 100%;
-
 }
 
 header {
@@ -279,25 +257,23 @@ header {
 }
 
 header h1 {
- font-size: 1.25rem;
- text-align: center;
- font-weight: normal;
-
+  font-size: 1.25rem;
+  text-align: center;
+  font-weight: normal;
 }
+
 tbody {
-    position: relative;
+  position: relative;
   top: 100px;
 }
+
 table {
   background: #fff;
   width: 100%;
   height: 100%;
   border-collapse: collapse;
   table-layout: fixed;
-
 }
-
-
 
 .headcol {
   width: 60px;
@@ -320,18 +296,19 @@ thead th {
 }
 
 thead {
-    z-index: 2;
-    background: white;
-    border-bottom: 2px solid #ddd;
-
+  z-index: 2;
+  background: white;
+  border-bottom: 2px solid #ddd;
 }
 
 tr, tr td {
   height: 20px;
 }
+
 td {
   text-align: center;
 }
+
 tr:nth-child(odd) td:not(.headcol) {
   border-bottom: 1px solid #e8e8e8;
 }
@@ -353,26 +330,24 @@ tbody tr td {
   height: 40px;
   padding: 0.25rem 0.25rem 0 0.25rem;
   width: auto;
-
 }
 
 .secondary {
   color: rgba(0, 0, 0, 0.4);
 }
 
-
 .checkbox {
-   display: none;
+  display: none;
 }
 
-.checkbox + label {
-    border: 0;
-    outline: 0;
-    width: 100px;
-    heigth: 100px;
-    background: white;
-    color: transparent;
-    display:block;
+.checkbox+label {
+  border: 0;
+  outline: 0;
+  width: 100px;
+  heigth: 100px;
+  background: white;
+  color: transparent;
+  display: block;
   display: none;
 }
 
@@ -407,7 +382,6 @@ tbody tr td {
 .event.double {
   height: 200%;
 } */
-
 /**
 thead {
     tr {
@@ -422,9 +396,6 @@ tbody {
     height: 100%;
   }
 */
-
-
-
 calendar.td:hover:after {
   content: "+";
   vertical-align: middle;
@@ -449,9 +420,11 @@ button.secondary {
 button.secondary:hover {
   background: #fafafa;
 }
+
 button.secondary:active {
   box-shadow: none;
 }
+
 button.secondary:focus {
   outline: 0;
 }
@@ -459,7 +432,6 @@ button.secondary:focus {
 /* tr td:nth-child(2), tr td:nth-child(3), .past {
   background: #fafafa;
 } */
-
 /* .today {
   color: red;
 }
@@ -467,7 +439,6 @@ button.secondary:focus {
 .now {
   box-shadow: 0px -1px 0px 0px red;
 } */
-
 .icon {
   font-size: 1.5rem;
   margin: 0 1rem;
@@ -482,66 +453,43 @@ button.secondary:focus {
   color: red;
 }
 
-
-
-
-
 /************************************************************************************************ End of CSS Calender *******************************************************************************************************/
-
-
-
-
-
-
 /****************** Sign Up Page *****************/
 .signUpBox {
-    width: 900px;
-    height: 370px;
-    background-color: white;
-    margin-left: 200px;
-    margin-top: 150px;
-    border-radius: 20px;
-    position: absolute;
-    padding: 50px;
-}
-
-.errorBox {
-  width: 900px;
+  width: 800px;
   height: 480px;
-  margin-left: 200px;
-  margin-top: 590px;
+  background-color: white;
+  margin-left: 290px;
+  margin-top: 150px;
   border-radius: 20px;
   position: absolute;
   padding: 50px;
 }
 
-
 .signUpButtonText {
   position: absolute;
   width: 409px;
   height: 66px;
-  left: 230px;
-  top: 400px;
+  left: 650px;
+  top: 530px;
   color: white;
   font-size: 28;
   background: #1B4965;
   border-radius: 10px;
 }
 
-
 /**************** Caretaker Profile **************/
-
 .RatingsBox {
-    width: 800px;
-    height: 200px;
-    background-color: white;
-    margin-left: 290px;
-    margin-top: 150px;
-    border-radius: 20px;
-    position: absolute;
-    padding: 25px;
-    display: flex;
-    justify-content: flex-start;
+  width: 800px;
+  height: 200px;
+  background-color: white;
+  margin-left: 290px;
+  margin-top: 150px;
+  border-radius: 20px;
+  position: absolute;
+  padding: 25px;
+  display: flex;
+  justify-content: flex-start;
 }
 
 .ratingsLeftCol {
@@ -558,19 +506,17 @@ button.secondary:focus {
   background-color: white;
 }
 
-
-
 .DetailsBox {
-    width: 800px;
-    height: 215px;
-    background-color: white;
-    margin-left: 290px;
-    margin-top: 400px;
-    border-radius: 20px;
-    position: absolute;
-    padding: 23px;
-    display: flex;
-    justify-content: flex-start;
+  width: 800px;
+  height: 215px;
+  background-color: white;
+  margin-left: 290px;
+  margin-top: 400px;
+  border-radius: 20px;
+  position: absolute;
+  padding: 23px;
+  display: flex;
+  justify-content: flex-start;
 }
 
 .detailsLeftCol {
@@ -585,51 +531,49 @@ button.secondary:focus {
 }
 
 .pricingBox {
-    width: 800px;
-    height: 320px;
-    background-color: white;
-    margin-left: 290px;
-    margin-top: 670px;
-    border-radius: 20px;
-    position: absolute;
-    padding: 23px;
-    display: flex;
-    justify-content: flex-start;
-    flex-direction: column;
+  width: 800px;
+  height: 320px;
+  background-color: white;
+  margin-left: 290px;
+  margin-top: 670px;
+  border-radius: 20px;
+  position: absolute;
+  padding: 23px;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
 }
 
 .noborderright {
   border-right: 0px;
 }
 
-
 .availabilityBox {
-    width: 800px;
-    height: 550px;
-    background-color: white;
-    margin-left: 290px;
-    margin-top: 1055px;
-    border-radius: 20px;
-    position: absolute;
-    padding: 23px;
-    display: flex;
-    justify-content: flex-start;
-    flex-direction: column;
+  width: 800px;
+  height: 550px;
+  background-color: white;
+  margin-left: 290px;
+  margin-top: 1055px;
+  border-radius: 20px;
+  position: absolute;
+  padding: 23px;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
 }
-
 
 /********* Search and search results *********/
 .searchSitterBox {
-    width: 800px;
-    height: 500px;
-    background-color: white;
-    margin-left: 290px;
-    margin-top: 150px;
-    border-radius: 20px;
-    position: absolute;
-    padding: 25px;
-    display: flex;
-    justify-content: flex-start;
+  width: 800px;
+  height: 500px;
+  background-color: white;
+  margin-left: 290px;
+  margin-top: 150px;
+  border-radius: 20px;
+  position: absolute;
+  padding: 25px;
+  display: flex;
+  justify-content: flex-start;
 }
 
 .searchSitter {
@@ -644,31 +588,27 @@ button.secondary:focus {
   border-radius: 10px;
 }
 
-
 .searchResultBox {
-    width: 800px;
-    height: 250px;
-    background-color: white;
-    margin-left: 290px;
-    margin-top: 150px;
-    border-radius: 20px;
-    position: absolute;
-    padding: 25px;
-    display: flex;
-    justify-content: flex-start;
-    display: flex;
-    flex-direction: row;
+  width: 800px;
+  height: 250px;
+  background-color: white;
+  margin-left: 290px;
+  margin-top: 150px;
+  border-radius: 20px;
+  position: absolute;
+  padding: 25px;
+  display: flex;
+  justify-content: flex-start;
+  display: flex;
+  flex-direction: row;
 }
 
-.resultLeftBox {
-
-}
+.resultLeftBox {}
 
 .resultRightBox {
-    margin-left: 120px;
-    margin-top: 5px;
+  margin-left: 120px;
+  margin-top: 5px;
 }
-
 
 .visitProfile {
   position: absolute;
@@ -682,15 +622,11 @@ button.secondary:focus {
   border-radius: 10px;
 }
 
-
-
-
 /**************** View Caretaker Profile *************/
 .logoAndDetails {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
-
 }
 
 .logo {
@@ -721,13 +657,11 @@ button.secondary:focus {
   margin-left: 40px;
 }
 
-
 .ReviewsandPrice {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
 }
-
 
 .ReviewsHeading {
   margin-top: 10px;
@@ -782,7 +716,7 @@ button.secondary:focus {
   border-radius: 20px;
   position: absolute;
   padding: 23px;
-  color: 	#1B4965;
+  color: #1B4965;
 }
 
 .BidAmount {
@@ -796,10 +730,7 @@ button.secondary:focus {
 
 .textRightOfBid {
   padding: 40px;
-
 }
-
-
 
 /********** Successful bid sent ************/
 .happydoggo {
@@ -820,13 +751,10 @@ button.secondary:focus {
   border-radius: 20px;
   position: absolute;
   padding: 23px;
-  color: 	#1B4965;
+  color: #1B4965;
 }
 
-
-
 /******* Bids received and submitted ********/
-
 .bidsDivider {
   display: flex;
   justify-content: center;
@@ -835,16 +763,15 @@ button.secondary:focus {
   margin-top: -40px;
 }
 
-
 .bidsList {
-    width: 800px;
-    height: 200px;
-    background-color: white;
-    margin-left: 290px;
-    margin-top: 180px;
-    border-radius: 20px;
-    position: absolute;
-    padding: 50px;
+  width: 800px;
+  height: 200px;
+  background-color: white;
+  margin-left: 290px;
+  margin-top: 180px;
+  border-radius: 20px;
+  position: absolute;
+  padding: 50px;
 }
 
 .listOfBids {
@@ -956,13 +883,11 @@ button.secondary:focus {
   margin-left: 120px;
 }
 
-
 .CreditCards {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
 }
-
 
 .CreditCardHeading {
   margin-top: 10px;
@@ -986,19 +911,15 @@ button.secondary:focus {
   flex-direction: column;
 }
 
-
-
-
-
-
 /******* Register New Card Page *******/
 .form-check-input[type=checkbox].filled-in:checked+label:after,
 label.btn input[type=checkbox].filled-in:checked+label:after {
- border: 2px solid #4285f4;
- background-color: #4285f4;
+  border: 2px solid #4285f4;
+  background-color: #4285f4;
 }
+
 .mb-4-5 {
- margin-bottom: 24px;
+  margin-bottom: 24px;
 }
 
 .registerCreditCardRight {
@@ -1006,7 +927,7 @@ label.btn input[type=checkbox].filled-in:checked+label:after {
   background: #E5E5E5;
   display: flex;
   flex-direction: column;
-  justify-content:flex-start;
+  justify-content: flex-start;
   padding-left: 180px;
 }
 
@@ -1067,14 +988,297 @@ label.btn input[type=checkbox].filled-in:checked+label:after {
   padding-top: 100px;
 }
 
-
 .newPetPhoto {
   margin-top: -75px;
   margin-left: 0px;
 }
 
-
 .newPetDescription {
-  padding:20px;
+  padding: 20px;
   margin-top: -120px;
+}
+
+/************ My Bookings *********************/
+.myBookingsBox {
+  position: absolute;
+  width: 1081px;
+  height: 200px;
+  left: 300px;
+  top: 250px;
+  background: #FFFFFF;
+  border-radius: 20px;
+  padding: 30px;
+}
+
+/************ PCS Profile Page *****************/
+.pcsProfile {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+}
+
+.editPCSProfile {
+  width: 500px;
+  height: 530px;
+  background-color: white;
+  margin-left: 700px;
+  margin-top: -370px;
+  border-radius: 20px;
+  position: absolute;
+  padding: 30px;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+}
+
+/********** PCS Salaries Page *************/
+.Salaries {
+  width: 1230px;
+  height: 130px;
+  background-color: white;
+  margin-left: 50px;
+  margin-top: 150px;
+  border-radius: 20px;
+  position: absolute;
+  padding: 25px;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.salariesLeftCol {
+  width: 375px;
+  background-color: white;
+  margin-left: 100px;
+}
+
+.sallariesRightCol {
+  width: 375px;
+  background-color: white;
+  margin-bottom: 50px;
+}
+
+.salary {
+  position: center;
+  width: 388px;
+  height: 105px;
+  left: 1300px;
+  top: 232px;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 100;
+  line-height: 80px;
+  text-align: center;
+  margin-left: 500px;
+  margin-bottom: 250px;
+  color: #1B4965;
+}
+
+.filterBox {
+  width: 800px;
+  height: 260px;
+  background-color: white;
+  margin-left: 280px;
+  margin-top: 330px;
+  border-radius: 20px;
+  position: absolute;
+  padding: 23px;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: row;
+}
+
+.filterText {
+  margin-right: 50px;
+  margin-top: 70px;
+}
+
+.filteredSalary {
+  width: 800px;
+  height: 300px;
+  background-color: white;
+  margin-left: 290px;
+  margin-top: 650px;
+  border-radius: 20px;
+  position: absolute;
+  padding: 23px;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+}
+
+/******** PCS Statistics Page ************/
+.subTitle {
+  display: flex;
+  justify-content: center;
+  background-color: #E5E5E5;
+  padding: 0;
+  margin-top: -40px;
+}
+
+.Statistics {
+  display: flex;
+  justify-content: left;
+  background-color: #E5E5E5;
+  padding: 0;
+  margin-top: 100px;
+  flex-direction: row;
+}
+
+.statisticsLeftSection {
+  width: 350px;
+  height: 250px;
+  background-color: white;
+  margin-left: 65px;
+  margin-top: -50px;
+  border-radius: 20px;
+  position: absolute;
+  padding: 23px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.statisticsMiddleSection {
+  width: 350px;
+  height: 250px;
+  background-color: white;
+  margin-left: 495px;
+  margin-top: -50px;
+  border-radius: 20px;
+  position: absolute;
+  padding: 23px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.statisticsRightSection {
+  width: 350px;
+  height: 250px;
+  background-color: white;
+  margin-left: 925px;
+  margin-top: -50px;
+  border-radius: 20px;
+  position: absolute;
+  padding: 23px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.firstBoxBigText {
+  /* 316 */
+  position: absolute;
+  width: 259px;
+  height: 176px;
+  left: 295px;
+  top: 267px;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 150px;
+  line-height: 176px;
+  /* identical to box height */
+  text-align: center;
+  color: #1B4965;
+  margin-left: -250px;
+  margin-top: -265px;
+}
+
+.firstBoxSmallText {
+  /* Number of Pets Taken Care */
+  position: absolute;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 25px;
+  line-height: 29px;
+  text-align: center;
+  color: #000000;
+  margin-top: 150px;
+}
+
+.secondBoxBigText {
+  /* 18 */
+  position: absolute;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 150px;
+  line-height: 176px;
+  /* identical to box height */
+  text-align: center;
+  color: #1B4965;
+  margin-left: 70px;
+  margin-top: -50px;
+}
+
+.secondBoxSmallText {
+  /* Underperforming Care Takers */
+  position: absolute;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 25px;
+  line-height: 29px;
+  text-align: center;
+  color: #000000;
+  margin-right: 30px;
+  margin-top: 150px;
+}
+
+.thirdBoxBigText {
+  /* Jan 2020 */
+  position: absolute;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 75px;
+  line-height: 88px;
+  text-align: center;
+  color: #1B4965;
+  margin-top: -50px;
+}
+
+.thirdBoxSmallText {
+  /* Month with Highest Number of Jobs */
+  position: absolute;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 25px;
+  line-height: 29px;
+  text-align: center;
+  color: #000000;
+  margin-top: 150px;
+  margin-right: 30px;
+}
+
+.UnderperformingBoxLabel {
+  /* Underperforming Care Takers */
+  position: absolute;
+  width: 397px;
+  height: 34px;
+  left: 248px;
+  top: 555px;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 25px;
+  line-height: 29px;
+  text-align: center;
+  color: #000000;
+}
+
+.underperformingBox {
+  /* Rectangle 7 */
+  position: absolute;
+  width: 1081px;
+  height: 200px;
+  left: 273px;
+  top: 607px;
+  background: #FFFFFF;
+  border-radius: 20px;
+  padding: 30px;
 }
