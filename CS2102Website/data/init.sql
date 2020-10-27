@@ -8,16 +8,16 @@ CREATE TABLE users (
 
 CREATE TABLE pet_owner (
   username VARCHAR(255) PRIMARY KEY REFERENCES users(username) ON DELETE cascade,
-  card_cvc VARCHAR(10) DEFAULT -1,
-  card_name VARCHAR(255) DEFAULT -1,
-  card_no VARCHAR(255) DEFAULT -1,
-  area VARCHAR(255) DEFAULT -1
+  card_cvc VARCHAR(10),
+  card_name VARCHAR(255),
+  card_no VARCHAR(255),
+  area VARCHAR(255)
 );
 
 CREATE TABLE care_taker (
   username VARCHAR(255) PRIMARY KEY REFERENCES users(username) ON DELETE cascade,
-  ctype VARCHAR(255) DEFAULT -1,
-  area VARCHAR(255) DEFAULT -1
+  ctype VARCHAR(255),
+  area VARCHAR(255)
 );
 
 CREATE TABLE pcs_admin (
@@ -27,12 +27,12 @@ CREATE TABLE pcs_admin (
 CREATE TABLE owns_pet (
   pet_owner_username VARCHAR(255) REFERENCES pet_owner(username) ON DELETE cascade,
   name VARCHAR(255),
-  ptype VARCHAR(255) DEFAULT -1,
-  sp_req VARCHAR(255) DEFAULT -1,
+  ptype VARCHAR(255),
+  sp_req VARCHAR(255),
   PRIMARY KEY (pet_owner_username, name)
 );
 
-CREATE TABLE specify_trf_perf (
+CREATE TABLE specify_trf_pref (
   care_taker_username VARCHAR(255) REFERENCES care_taker(username) ON DELETE cascade,
   trf_mthd VARCHAR(255)
 );
@@ -65,8 +65,8 @@ CREATE TABLE specify (
 CREATE TABLE has_availability(
   care_taker_username VARCHAR(255) REFERENCES care_taker(username) ON DELETE cascade,
   s_date DATE,  
-  s_time DATE,  
-  e_time DATE,  
+  s_time TIME,  
+  e_time TIME,  
   PRIMARY KEY(s_date, s_time, e_time, care_taker_username),
   UNIQUE(s_date, s_time, e_time, care_taker_username)
 );
@@ -81,8 +81,8 @@ CREATE TABLE does_service(
 CREATE TABLE bid(
   care_taker_username VARCHAR(255),
   s_date DATE,  
-  s_time DATE,  
-  e_time DATE, 
+  s_time TIME,  
+  e_time TIME, 
   name VARCHAR(255),
   pet_owner_username VARCHAR(255),
   review VARCHAR(255),
@@ -96,3 +96,17 @@ CREATE TABLE bid(
   FOREIGN KEY (s_date, s_time, e_time, care_taker_username) REFERENCES has_availability(s_date, s_time, e_time, care_taker_username),
   FOREIGN KEY (pet_owner_username, name) REFERENCES owns_pet(pet_owner_username, name)
 );
+
+-- Functions, Procedures and Triggers
+CREATE OR REPLACE FUNCTION
+avg_rating(ctusername VARCHAR)
+RETURNS NUMERIC AS
+$avgr$ 
+  BEGIN 
+  SELECT AVG(rating)::NUMERIC(10,1)
+  FROM bid
+  WHERE care_taker_username = ctusername
+  END;
+$avgr$
+LANGUAGE plpgsql;
+
