@@ -145,6 +145,16 @@
   border-radius: 10px;
 }
 
+.signInErrorBox {
+  width: 900px;
+  height: 480px;
+  margin-left: -100px;
+  margin-top: 150px;
+  border-radius: 20px;
+  position: absolute;
+  padding: 50px;
+};
+
 /*************** Sitter Registration *************/
 .sitterRegistrationBox {
   width: 800px;
@@ -456,11 +466,21 @@ button.secondary:focus {
 /************************************************************************************************ End of CSS Calender *******************************************************************************************************/
 /****************** Sign Up Page *****************/
 .signUpBox {
-  width: 800px;
+    width: 900px;
+    height: 370px;
+    background-color: white;
+    margin-left: 200px;
+    margin-top: 150px;
+    border-radius: 20px;
+    position: absolute;
+    padding: 50px;
+}
+
+.errorBox {
+  width: 900px;
   height: 480px;
-  background-color: white;
-  margin-left: 290px;
-  margin-top: 150px;
+  margin-left: 200px;
+  margin-top: 590px;
   border-radius: 20px;
   position: absolute;
   padding: 50px;
@@ -470,8 +490,21 @@ button.secondary:focus {
   position: absolute;
   width: 409px;
   height: 66px;
-  left: 650px;
-  top: 530px;
+  left: 230px;
+  top: 400px;
+  color: white;
+  font-size: 28;
+  background: #1B4965;
+  border-radius: 10px;
+}
+
+
+.signUpButtonText {
+  position: absolute;
+  width: 409px;
+  height: 66px;
+  left: 230px;
+  top: 400px;
   color: white;
   font-size: 28;
   background: #1B4965;
