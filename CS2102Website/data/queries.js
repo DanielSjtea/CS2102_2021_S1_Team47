@@ -8,8 +8,8 @@ var sql = {
     edit_profile: 'UPDATE users SET contact_num = $2, name = $3, email = $4 WHERE username = $1', //[username, contact_num, name, email]
     edit_password: 'UPDATE users SET password = $2 WHERE username = $1', //[username, password]
 
-    add_caretaker: 'INSERT INTO care_taker(username, ctype, area) VALUES ($1, $2, $3)', //[username, ctype, area] ctype, area defaults are -1
-    add_owner: 'INSERT INTO pet_owner(username, area) VALUES ($1, $2)', //[username, area] area defaults are -1
+    add_caretaker: 'CALL insert_caretaker_pricelist($1, $2, $3, $4)', //[username, ctype, area, pettype] 
+    add_owner: 'INSERT INTO pet_owner(username, area) VALUES ($1, $2)', //[username, area] 
     add_admin: 'INSERT INTO pcs_admin(username) VALUES ($1)', //[username]
     registerNewCard: 'UPDATE pet_owner SET card_cvc = $1, card_name = $2, card_no = $3 WHERE username = $4', //[card_cvc, card_name, card_no, username]
 
@@ -35,23 +35,27 @@ var sql = {
     get_availability_sitter: 'SELECT s_date, s_time, e_time FROM has_availability WHERE care_taker_username = $1', //[care_taker_username] returns all availability of specific caretaker
     get_availability_date: 'SELECT * FROM has_availability WHERE s_date::date = date $1', //[s_date] in datetime format (?), returns all available caretakers for that day
 
-    //Reviews related
-    view_caretaker_review: 'SELECT s_date, review, rating FROM bid WHERE care_taker_username = $1 AND review IS NOT NULL AND successful = TRUE ORDER BY s_date DESC',
-    get_avg_rating_caretaker: 'CALL avg_rating($1)', //[care_taker_username]
-    add_review: 'UPDATE bid SET review = $1, rating = $2 WHERE pet_owner_username=$3 AND name=$4 AND care_taker_username=$5 AND s_date::date=date $6 AND s_time= time $7', //[review, rating, pet_owner_username, pet_name, care_taker_username, s_date, s_time]
-
     //PCS statistics
     get_total_salary_month: '',
-    get_total_pet_care: '',
+    get_total_pet_cared_month: 'SELECT COUNT(*) FROM bids WHERE successful = TRUE AND EXTRACT(MONTH FROM s_date) = $1', //[month] in numeric, where 1 = January
 
     //Caretaker statistics
     get_self_salary: '',
-    get_parttime_salary: '',
     get_petdays_month: '',
-    get_past_work: '',
-    get_work_schedule: '',
+    get_past_work: 'SELECT s_date, s_time, e_time, name, pet_owner_username, review, price, rating, svc_type FROM bids WHERE care_taker_username = $1 AND successful = TRUE AND s_date < CURRENT_DATE ORDER BY s_date DESC',//[care_taker_username]
+    get_work_schedule: 'SELECT * FROM bids WHERE care_taker_username = $1 AND successful = TRUE AND s_date >= CURRENT_DATE ORDER BY s_date ASC', //[care_taker_username]
+
+    //Pet Owner statistics
+    get_past_orders: 'SELECT care_taker_username, s_date, s_time, e_time, name, review, price, rating, svc_type FROM bid WHERE pet_owner_username = $1 AND successful = TRUE AND s_date < CURRENT_DATE ORDER BY s_date DESC', // [pet_owner_username]
+    get_caretaker_nearby_area: 'SELECT * FROM care_taker WHERE area = $1', // [area]
 
     //Bids related
+    make_bid: '',
+
+    //Reviews related
+    view_caretaker_review: 'SELECT s_date, review, rating FROM bid WHERE care_taker_username = $1 AND review IS NOT NULL AND successful = TRUE ORDER BY s_date DESC', // [care_taker_username]
+    get_avg_rating_caretaker: 'CALL avg_rating($1)', //[care_taker_username]
+    add_review: 'UPDATE bid SET review = $1, rating = $2 WHERE pet_owner_username=$3 AND name=$4 AND care_taker_username=$5 AND s_date::date=date $6 AND s_time= time $7', //[review, rating, pet_owner_username, pet_name, care_taker_username, s_date, s_time]
 
 }
 

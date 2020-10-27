@@ -49,7 +49,7 @@ CREATE TABLE has_price_list (
   care_taker_username VARCHAR(255) REFERENCES care_taker(username) ON DELETE cascade,
   ptype VARCHAR(255),
   price NUMERIC,
-  PRIMARY KEY (care_taker_username, ptype, price)
+  PRIMARY KEY (care_taker_username, ptype)
 );
 
 CREATE TABLE specify (
@@ -68,7 +68,7 @@ CREATE TABLE has_availability(
   s_time TIME,  
   e_time TIME,  
   PRIMARY KEY(s_date, s_time, e_time, care_taker_username),
-  UNIQUE(s_date, s_time, e_time, care_taker_username)
+  CHECK(s_time < e_time)
 );
 
 
@@ -77,6 +77,7 @@ CREATE TABLE does_service(
   svc_type VARCHAR(255),
   PRIMARY KEY(care_taker_username)
 );
+
 
 CREATE TABLE bid(
   care_taker_username VARCHAR(255),
@@ -97,16 +98,64 @@ CREATE TABLE bid(
   FOREIGN KEY (pet_owner_username, name) REFERENCES owns_pet(pet_owner_username, name)
 );
 
--- Functions, Procedures and Triggers
+-- Functions, Procedures
 CREATE OR REPLACE FUNCTION
-avg_rating(ctusername VARCHAR)
+avg_rating(ctusername VARCHAR(255))
 RETURNS NUMERIC AS
-$avgr$ 
+$$ 
   BEGIN 
   SELECT AVG(rating)::NUMERIC(10,1)
   FROM bid
   WHERE care_taker_username = ctusername
   END;
-$avgr$
+$$
 LANGUAGE plpgsql;
 
+CREATE OR REPLACE PROCEDURE 
+insert_caretaker_pricelist(cname VARCHAR(255), ctype VARCHAR(255), area VARCHAR(255), pettype VARCHAR(255)) AS
+$$ 
+  DECLARE ctx NUMERIC
+  BEGIN
+    SELECT COUNT(*) INTO ctx 
+    FROM has_price_list P
+    WHERE P.care_taker_username = cname;
+  IF ctx = 0 THEN
+    INSERT INTO has_price_list(care_taker_username, ptype) VALUES (cname, pettype);
+  END IF;
+  INSERT INTO care_taker VALUES (cname, ctype, area);
+  END; $$
+LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION not_admin()
+RETURNS TRIGGER AS
+$$
+  DECLARE ctx NUMERIC
+  BEGIN
+  SELECT COUNT(*) INTO ctx FROM pcs_admin P
+  WHERE NEW.username = P.username;
+  IF ctx > 0 THEN
+    RETURN NULL;
+  ELSE
+    RETURN NEW;
+  END IF;
+  END; $$
+LANGUAGE plpgsql;
+
+-- TODO
+CREATE OR REPLACE FUNCTION
+self_salary_month(ctusername VARCHAR(255), )
+RETURNS NUMERIC AS
+$$ 
+  BEGIN 
+  END;
+$$
+LANGUAGE plpgsql;
+
+-- Trigger
+CREATE TRIGGER check_pet_owner()
+BEFORE INSERT OR UPDATE ON pet_owner
+FOR EACH ROW EXECUTE PROCEDURE not_admin();
+
+CREATE TRIGGER check_care_taker()
+BEFORE INSERT OR UPDATE ON care_taker
+FOR EACH ROW EXECUTE PROCEDURE not_admin();
