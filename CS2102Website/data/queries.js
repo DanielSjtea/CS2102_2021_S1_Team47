@@ -32,8 +32,11 @@ var sql = {
     add_availability: 'INSERT INTO has_availability(care_taker_username, s_date, s_time, e_time) VALUES ($1, $2, $3, $4)', //[username, s_date, s_time, e_time]
     delete_availability: 'DELETE FROM has_availability WHERE care_taker_username = $1 AND s_date::date = date $2', //[username, s_date] in datetime format (?)
     delete_specific_availability: 'DELETE FROM has_availability WHERE care_taker_username = $1 AND s_date::date = date $2 AND s_time <= time $3 AND e_time >= time $4', //[username, s_date, s_time, e_time] s_time & e_time in TIME format: HH:MM:SS
-    get_availability_sitter: 'SELECT s_date, s_time, e_time FROM has_availability WHERE care_taker_username = $1', //[care_taker_username] returns all availability of specific caretaker
-    get_availability_date: 'SELECT * FROM has_availability WHERE s_date::date = date $1', //[s_date] in datetime format (?), returns all available caretakers for that day
+    get_self_availability: 'SELECT * FROM has_availability WHERE care_taker_username = $1 AND s_date >= CURRNT_DATE ORDER BY s_date ASC', //[s_date] in datetime format (?), returns all available caretakers for that day
+
+    //complex query, look at bottom of init.sql for easier interpretation
+    //[beginning_date, end_date, min_avg_rating, svc_type]
+    find_service_date: 'SELECT HAvail.care_taker_username as care_taker_username, ARate.average_rating as average_rating, HAvail.s_date as s_date, HAvail.s_time as s_time, HAvail.e_time as e_time FROM (SELECT care_taker_username, AVG(rating)::NUMERIC(10,1) as average_rating FROM bid GROUP BY care_taker_username) ARate JOIN has_availability HAvail ON ARate.care_taker_username = HAvail.care_taker_username WHERE HAvail.s_date >= $1 AND HAvail.s_date <= $2 AND ARate.average_rating >= $3 AND EXISTS (SELECT 1 FROM does_service S WHERE S.care_taker_username = HAvail.care_taker_username AND S.svc_type = $4) AND NOT EXISTS (SELECT 1 FROM bid B WHERE B.s_date = HAvail.s_date AND B.care_taker_username = HAvail.care_taker_username AND B.successful = TRUE) ORDER BY HAvail.s_date ASC, HAvail.s_time ASC, ARate.average_rating DESC',
 
     //PCS statistics
     get_total_salary_month: '',
@@ -54,7 +57,7 @@ var sql = {
 
     //Reviews related
     view_caretaker_review: 'SELECT s_date, review, rating FROM bid WHERE care_taker_username = $1 AND review IS NOT NULL AND successful = TRUE ORDER BY s_date DESC', // [care_taker_username]
-    get_avg_rating_caretaker: 'CALL avg_rating($1)', //[care_taker_username]
+    get_avg_rating_caretaker: 'SELECT AVG(rating)::NUMERIC(10,1) FROM bid WHERE care_taker_username = $1', //[care_taker_username]
     add_review: 'UPDATE bid SET review = $1, rating = $2 WHERE pet_owner_username=$3 AND name=$4 AND care_taker_username=$5 AND s_date::date=date $6 AND s_time= time $7', //[review, rating, pet_owner_username, pet_name, care_taker_username, s_date, s_time]
 
 }

@@ -68,7 +68,8 @@ CREATE TABLE has_availability(
   s_time TIME,  
   e_time TIME,  
   PRIMARY KEY(s_date, s_time, e_time, care_taker_username),
-  CHECK(s_time < e_time)
+  CHECK(s_time < e_time),
+  CHECK(s_date >= CURRENT_DATE)
 );
 
 
@@ -99,18 +100,6 @@ CREATE TABLE bid(
 );
 
 -- Functions, Procedures
-CREATE OR REPLACE FUNCTION
-avg_rating(ctusername VARCHAR(255))
-RETURNS NUMERIC AS
-$$ 
-  BEGIN 
-  SELECT AVG(rating)::NUMERIC(10,1)
-  FROM bid
-  WHERE care_taker_username = ctusername
-  END;
-$$
-LANGUAGE plpgsql;
-
 CREATE OR REPLACE PROCEDURE 
 insert_caretaker_pricelist(cname VARCHAR(255), ctype VARCHAR(255), area VARCHAR(255), pettype VARCHAR(255)) AS
 $$ 
@@ -141,16 +130,6 @@ $$
   END; $$
 LANGUAGE plpgsql;
 
--- TODO
-CREATE OR REPLACE FUNCTION
-self_salary_month(ctusername VARCHAR(255), )
-RETURNS NUMERIC AS
-$$ 
-  BEGIN 
-  END;
-$$
-LANGUAGE plpgsql;
-
 -- Trigger
 CREATE TRIGGER check_pet_owner()
 BEFORE INSERT OR UPDATE ON pet_owner
@@ -159,3 +138,30 @@ FOR EACH ROW EXECUTE PROCEDURE not_admin();
 CREATE TRIGGER check_care_taker()
 BEFORE INSERT OR UPDATE ON care_taker
 FOR EACH ROW EXECUTE PROCEDURE not_admin();
+
+
+-- Complex Queries
+-- find_service_date
+-- SELECT HAvail.care_taker_username as care_taker_username, ARate.average_rating as average_rating, HAvail.s_date as s_date, HAvail.s_time as s_time, HAvail.e_time as e_time
+-- FROM (
+--   SELECT care_taker_username, AVG(rating)::NUMERIC(10,1) as average_rating
+--   FROM bid 
+--   GROUP BY care_taker_username
+-- ) ARate JOIN has_availability HAvail ON ARate.care_taker_username = HAvail.care_taker_username
+-- WHERE HAvail.s_date >= $1 
+-- AND HAvail.s_date <= $2
+-- AND ARate.average_rating >= $3
+-- AND EXISTS (
+--   SELECT 1
+--   FROM does_service S
+--   WHERE S.care_taker_username = HAvail.care_taker_username
+--   AND S.svc_type = $4
+-- )
+-- AND NOT EXISTS (
+--   SELECT 1 
+--   FROM bid B
+--   WHERE B.s_date = HAvail.s_date
+--   AND B.care_taker_username = HAvail.care_taker_username
+--   AND B.successful = TRUE
+-- ) 
+-- ORDER BY HAvail.s_date ASC, HAvail.s_time ASC, ARate.average_rating DESC
