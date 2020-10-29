@@ -34,7 +34,8 @@ CREATE TABLE owns_pet (
 
 CREATE TABLE specify_trf_pref (
   care_taker_username VARCHAR(255) REFERENCES care_taker(username) ON DELETE cascade,
-  trf_mthd VARCHAR(255)
+  trf_mthd VARCHAR(255),
+  PRIMARY KEY(care_taker_username)
 );
 
 CREATE TABLE pay (
@@ -57,7 +58,7 @@ CREATE TABLE specify (
   care_taker_username VARCHAR(255),
   ptype VARCHAR(255),
   price NUMERIC,
-  PRIMARY KEY (pcs_admin_username, care_taker_username, ptype, price),
+  PRIMARY KEY (pcs_admin_username, care_taker_username, ptype),
   FOREIGN KEY (care_taker_username, ptype, price) REFERENCES has_price_list(care_taker_username, ptype, price)
 );
 
@@ -76,7 +77,7 @@ CREATE TABLE has_availability(
 CREATE TABLE does_service(
   care_taker_username VARCHAR(255) REFERENCES care_taker(username) ON DELETE cascade,
   svc_type VARCHAR(255),
-  PRIMARY KEY(care_taker_username)
+  PRIMARY KEY(care_taker_username, svc_type)
 );
 
 
