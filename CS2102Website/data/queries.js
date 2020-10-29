@@ -17,7 +17,7 @@ var sql = {
     is_owner: 'SELECT * FROM pet_owner WHERE username = $1', //[username] Check if user is pet owner (returns empty if false)
     is_admin: 'SELECT * FROM pcs_admin WHERE username = $1', //[username] Check if user is pcs admin (returns empty if false)
 
-    get_all_caretaker: 'SELECT * FROM care_taker',
+    get_all_caretaker: 'SELECT * FROM care_taker NATURAL JOIN users',
     get_profile: 'SELECT * FROM users WHERE username = $1', //[username] returns [username, contact_num, password, name, email]
     //get_caretaker_profile takes in [username]  and returns [username, contact_num, name, email, ctype, area, svc_type, trf_mthd]
     get_caretaker_profile: 'SELECT U.username as username, U.contact_num as contact_num, U.name as name, U.email as email, C.ctype as ctype, C.area as area, S.svc_type as svc_type, T.trf_mthd as trf_mthd FROM users U, care_taker C, does_service S, specify_trf_pref T WHERE U.username = $1 AND C.username = U.username AND S.care_taker_username = U.username AND T.care_taker_username = U.username',

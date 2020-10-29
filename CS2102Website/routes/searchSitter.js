@@ -5,11 +5,11 @@ var database = require("../data/index");
 var router = express.Router();
 var sql = require("../data/queries");
 
-router.get("/", function(req, res, next) {
+router.get("/", async function(req, res, next) {
     if (typeof req.user != 'undefined') {
         let username = req.user.username;
         var param = [username];
-        database.query(sql.is_owner, param, (err, data) => {
+        database.query(sql.is_owner, param, async (err, data) => {
             if (err) {
                 console.log("SQL error: " + err);
             } else {
@@ -18,16 +18,15 @@ router.get("/", function(req, res, next) {
                         if (err) {
                             console.log("SQL error: " + err);
                             res.render("signedIn", {user: req.user});
-                        } else {/*
-                            let promise = [database.db_get(sql.get_all_caretaker)];
-                            var careTakersResults = await Promise.all(promise);
-                            console.log("1: ");
-                            console.log(careTakersResults);*/
+                        } else {
+                            let promise = [database.db_get_promise(sql.get_all_caretaker)];
+                            let careTakersResults = await Promise.all(promise);
+                            console.log(careTakersResults[0]);
                             ownedPets = data.rows;
                             res.render("searchSitter", {
                                 user: req.user,
                                 ownedPets: ownedPets,
-                                //careTakers: careTakersResults[0]
+                                careTakers: careTakersResults[0]
                             });
                         }
                     });

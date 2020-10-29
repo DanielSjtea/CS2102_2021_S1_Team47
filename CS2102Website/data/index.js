@@ -21,14 +21,14 @@ pool.db = function(sql, params) {
     })
 }
 
-pool.db_get = function(sql) {
-    return new Promise((res, rej) => {
-        pool.query(sql, (err, res) => {
+pool.db_get_promise = function(sql, params) {
+    return new Promise((resolve, reject) => {
+        pool.query(sql, params, (err, res) => {
             if (err) {
                 console.log("SQL Error: " + err);
-                return rej(err);
+                return reject(err);
             } else {
-                return(res.rows);
+                resolve(res.rows);
             }
         })
     })

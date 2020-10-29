@@ -67,29 +67,27 @@
               <label for="careTakerChosen"><b>Caretaker Desired (Name)</b></label>
               <select id="careTakerChosen" class="form-control">
                 <option selected>Choose...</option>
-                <option value="Caretaker1">Caretaker1</option>
-                <option value="Caretaker2">Caretaker2</option>
-                <option value="Caretaker3">Caretaker3</option>
-                <option value="Caretaker4">Caretaker4</option>
+                <% if (typeof careTakers != 'undefined') { %>
+                  <% for(var i=0; i<careTakers.length; i++) { %>
+                  <option value="<%=careTakers[i].username%>"><%= careTakers[i].name %></option>
+                  <% } %>
+                <% } %>
               </select>
             </div>
             <div class="form-group col-md-6">
               <label for="SpecialReq"><b>Pet(s) Special Requirements</b></label>
               <input type="text" class="form-control" id="SpecialReq" placeholder="Key them in here!">
             </div>
-
-
             <div class="form-group col-md-6">
               <label for="startDate"><b>When would you like the service to begin?</b></label>
               <input type="date" class="form-control" id="startDate" aria-describedby="emailHelp">
             </div>
-
             <div class="form-group col-md-6">
               <label for="endDate"><b>When would you like the service to end?</b></label>
               <input type="date" class="form-control" id="endDate" aria-describedby="emailHelp">
             </div>
           </div>
-          <button type="submit" class="searchSitter" name="button" onclick="location.href = '/searchSitterResults'">
+          <button type="submit" class="searchSitter" name="button">
             Search!
           </button>
         </form>
