@@ -598,7 +598,7 @@ button.secondary:focus {
 /********* Search and search results *********/
 .searchSitterBox {
   width: 800px;
-  height: 500px;
+  height: 400px;
   background-color: white;
   margin-left: 290px;
   margin-top: 150px;
@@ -619,6 +619,7 @@ button.secondary:focus {
   font-size: 28;
   background: #1B4965;
   border-radius: 10px;
+  z-index: 10;
 }
 
 .noPetsErrorBox {

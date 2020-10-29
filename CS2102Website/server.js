@@ -11,6 +11,7 @@ var passportinit = require("./passportinit");
 
 // Files for the Routes
 var homeRouter = require('./routes/home');
+var logOutRouter = require('./routes/logOut');
 var signUpRouter = require('./routes/signUp');
 var signInRouter = require('./routes/signIn');
 var signedInRouter = require('./routes/signedIn');
@@ -48,7 +49,7 @@ app.use(cookieParser());
 app.use(session({
   secret: "secret",
   saveUninitialized: true,
-  resave: true
+  resave: false
 }));
 
 app.use(passport.initialize());
@@ -63,7 +64,8 @@ app.use(function (req, res, next) {
 });
 
 // Routes
-app.use('/', homeRouter)
+app.use('/', homeRouter);
+app.use('/logout', logOutRouter);
 app.use('/signUp', signUpRouter);
 app.use('/signIn', signInRouter);
 app.use('/signedIn', signedInRouter);

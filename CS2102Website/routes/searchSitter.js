@@ -48,14 +48,24 @@ router.post("/", function(req, res, next) {
     var startDate = req.body.startDate;
     var endDate = req.body.endDate;
 
-    res.render("searchSitterResults", {
-        serviceDesired: serviceDesired,
-        petsChosen: petsChosen,
-        careTakerChosen: careTakerChosen,
-        specialReq: specialReq,
-        startDate: startDate,
-        endDate: endDate
-    })
+    console.log(serviceDesired);
+    console.log(petsChosen);
+    console.log(careTakerChosen);
+    console.log(startDate);
+    
+
+    if (startDate > endDate) {
+        res.render("searchSitter", {message: "Start Date must not be before the End Date!"});
+    } else {
+        res.render("searchSitterResults", {
+            serviceDesired: serviceDesired,
+            petsChosen: petsChosen,
+            careTakerChosen: careTakerChosen,
+            specialReq: specialReq,
+            startDate: startDate,
+            endDate: endDate
+        })
+    }
 })
 
 module.exports = router;
