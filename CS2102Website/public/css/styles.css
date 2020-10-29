@@ -137,8 +137,8 @@
   position: absolute;
   width: 409px;
   height: 66px;
-  left: 650px;
-  top: 480px;
+  left: 190px;
+  top: 250px;
   color: white;
   font-size: 28;
   background: #1B4965;
@@ -613,13 +613,23 @@ button.secondary:focus {
   position: absolute;
   width: 409px;
   height: 66px;
-  left: 650px;
-  top: 600px;
+  left: 200px;
+  top: 550px;
   color: white;
   font-size: 28;
   background: #1B4965;
   border-radius: 10px;
 }
+
+.noPetsErrorBox {
+  width: 850px;
+  height: 480px;
+  margin-left: 270px;
+  margin-top: 500px;
+  border-radius: 20px;
+  position: absolute;
+  padding: 50px;
+};
 
 .searchResultBox {
   width: 800px;

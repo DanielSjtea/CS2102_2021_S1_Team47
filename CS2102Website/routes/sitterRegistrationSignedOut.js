@@ -6,9 +6,10 @@ var router = express.Router();
 var sql = require("../data/queries");
 
 router.get("/", function(req, res, next) {
-    res.render("sitterRegistration");
+    res.render("sitterRegistrationSignedOut");
 });
 
+/*
 router.post("/", function(req, res, next) {
     var petsWillingToTakeCare = req.body.petsWillingToTakeCare;
     var petServices = req.body.petServices;
@@ -16,6 +17,6 @@ router.post("/", function(req, res, next) {
     var fullPartTime = req.body.fullPartTime;
 
     res.render("/mySitterProfile");
-})
+})*/
 
 module.exports = router;
