@@ -20,7 +20,7 @@ module.exports = function() {
                     password_hash = data.rows[0].password;
                     bcrypt.compare(password, password_hash, (err, res) => {
                         if (res) {
-                            user = {username: data.rows[0].username, name: data.rows[0].name, email: data.rows[0].email};
+                            user = {username: data.rows[0].username, name: data.rows[0].name, email: data.rows[0].email, contactNum: data.rows[0].contact_num};
                             done(null, user); // supply Passport with the authenticated user
                         } else {
                             done(null, false, req.flash("message", "Incorrect password!"));

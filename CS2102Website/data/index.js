@@ -15,7 +15,22 @@ pool.db = function(sql, params) {
     pool.query(sql, params, (err, res) => {
         if (err) {
             console.log("SQL Error: " + err);
+        } else {
+            console.log(res);
         }
+    })
+}
+
+pool.db_get_promise = function(sql, params) {
+    return new Promise((resolve, reject) => {
+        pool.query(sql, params, (err, res) => {
+            if (err) {
+                console.log("SQL Error: " + err);
+                return reject(err);
+            } else {
+                resolve(res.rows);
+            }
+        })
     })
 }
 

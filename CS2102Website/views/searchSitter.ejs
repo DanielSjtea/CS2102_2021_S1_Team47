@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-<%- include('headerSignedIn.ejs') %>
+<% if (typeof user != 'undefined') { %>
+  <%- include('headerSignedIn.ejs') %>
+<% } else { %>
+  <%- include('headerSignedOut.ejs') %>
+<% } %>
 <link rel="stylesheet" href="css/styles.css">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
@@ -23,100 +27,81 @@
       </div>
 
       <div class="searchSitterBox">
-        <form>
+        <form action="/searchSitter" method="POST">
           <div class="form-row">
             <div class="form-group col-md-6">
               <label for="servicesDesired"><b>Pet Services Desired</b></label>
               <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="Pet Grooming">
-                <label class="form-check-label" for="Pet Grooming">
+                <input class="form-check-input" type="checkbox" id="petGrooming" name="petGrooming">
+                <label class="form-check-label" for="petGrooming">
                   Pet Grooming
                 </label>
               </div>
               <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="Full Day Pet Care">
-                <label class="form-check-label" for="Full Day Pet Care">
+                <input class="form-check-input" type="checkbox" id="fullDayPetCare" name="fullDayPetCare">
+                <label class="form-check-label" for="fullDayPetCare">
                   Full Day Pet Care
                 </label>
               </div>
               <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="Multiple Days Pet Care">
-                <label class="form-check-label" for="Multiple Days Pet Care">
+                <input class="form-check-input" type="checkbox" id="multipleDaysPetCare" name="multipleDaysPetCare">
+                <label class="form-check-label" for="multipleDaysPetCare">
                   Multiple Days Pet Care
                 </label>
               </div>
             </div>
             <div class="form-group col-md-6">
-              <label for="servicesDesired"><b>Pets that I want to send</b></label>
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="Pet1">
-                <label class="form-check-label" for="Pet1">
-                  Insert pet name from EJS
-                </label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="Pet2">
-                <label class="form-check-label" for="Pet2">
-                  Insert pet name from EJS
-                </label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="Pet3">
-                <label class="form-check-label" for="Pet3">
-                  Insert pet name from EJS
-                </label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="Pet4">
-                <label class="form-check-label" for="Pet4">
-                  Insert pet name from EJS
-                </label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="Pet5">
-                <label class="form-check-label" for="Pet5">
-                  Insert pet name from EJS
-                </label>
-              </div>
+              <label for="petsChosen"><b>Pets that I want to send</b></label>
+              <% if (typeof ownedPets != 'undefined') { %>
+                <% for(var i=0; i<ownedPets.length; i++) { %>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="<%= ownedPets[i].name %>" name="<%= ownedPets[i].name %>">
+                  <label class="form-check-label" for="<%= ownedPets[i].name %>">
+                    <%= ownedPets[i].name %>
+                  </label>
+                </div>
+                <% } %>
+              <% } %>
             </div>
             <div class="form-group col-md-6">
               <label for="careTakerChosen"><b>Caretaker Desired (Name)</b></label>
-              <select id="careTakerChosen" class="form-control">
+              <select id="careTakerChosen" name="careTakerChosen" class="form-control">
                 <option selected>Choose...</option>
-                <option value="Caretaker1">Caretaker1</option>
-                <option value="Caretaker2">Caretaker2</option>
-                <option value="Caretaker3">Caretaker3</option>
-                <option value="Caretaker4">Caretaker4</option>
+                <% if (typeof careTakers != 'undefined') { %>
+                  <% for(var i=0; i<careTakers.length; i++) { %>
+                  <option value="<%=careTakers[i].username%>"><%= careTakers[i].name %></option>
+                  <% } %>
+                <% } %>
               </select>
             </div>
             <div class="form-group col-md-6">
               <label for="SpecialReq"><b>Pet(s) Special Requirements</b></label>
-              <input type="text" class="form-control" id="SpecialReq" placeholder="Key them in here!">
+              <input type="text" class="form-control" id="SpecialReq" name="SpecialReq" placeholder="Key them in here!">
             </div>
-
-
             <div class="form-group col-md-6">
               <label for="startDate"><b>When would you like the service to begin?</b></label>
-              <input type="date" class="form-control" id="startDate" aria-describedby="emailHelp">
+              <input type="date" class="form-control" id="startDate" name="startDate" aria-describedby="emailHelp">
             </div>
-
             <div class="form-group col-md-6">
               <label for="endDate"><b>When would you like the service to end?</b></label>
-              <input type="date" class="form-control" id="endDate" aria-describedby="emailHelp">
+              <input type="date" class="form-control" id="endDate" name="endDate" aria-describedby="emailHelp">
             </div>
-
-
-
-
-
           </div>
+          <button type="submit" class="searchSitter" name="button">
+            Search!
+          </button>
         </form>
       </div>
-      <div>
-        <button type="button" class="searchSitter" name="button" onclick="location.href = '/searchSitterResults'">
-          Search!
-        </button>
-      </div>
+      <div class="noPetsErrorBox">
+        <% if(message.length > 0) { %>
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+              <%= message %>
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+      <% } %>
+    </div>
     </div>
   </div>
 </body>

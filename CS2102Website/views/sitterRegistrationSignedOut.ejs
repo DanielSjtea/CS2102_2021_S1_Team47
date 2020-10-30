@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-<%- include('headerSignedIn.ejs') %>
+<%- include('headerSignedOut.ejs') %>
 <link rel="stylesheet" href="css/styles.css">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
@@ -27,7 +27,7 @@
           <div class="form-row">
             <div class="form-group col-md-6">
               <label for="inputEmail4"><b>Email</b></label>
-              <p><%= user.email %></p>
+              <input type="text" class="form-control" id="inputEmail4" name="inputEmail4" placeholder="Email"/>
             </div>
             <div class="form-group col-md-6">
               <label for="inputPassword4"><b>Password</b></label>
@@ -36,18 +36,18 @@
           </div>
           <div class="form-row">
             <div class="form-group col-md-6">
-              <label for="Username"><b>Username</b></label>
-              <p><%= user.username %></p>
+              <label for="username"><b>Username</b></label>
+              <input type="text" class="form-control" id="username" name="username" placeholder="Username"/>
             </div>
             <div class="form-group col-md-6">
-              <label for="ContactNumber"><b>Contact Number</b></label>
-              <p><%= user.contactNum %></p>
+              <label for="contactNumber"><b>Contact Number</b></label>
+              <input type="text" class="form-control" id="contactNumber" name="contactNumber" placeholder="Contact Number"/>
             </div>
           </div>
           <div class="form-row">
             <div class="form-group col-md-6">
-              <label for="Area"><b>Area of Work</b></label>
-              <p>Area to retrieve from EJS</p>
+              <label for="area"><b>Area of Work</b></label>
+              <input type="text" class="form-control" id="area" name="area" placeholder="Area"/>
             </div>
             <div class="form-group col-md-6">
               <label for="Credit Cards"><b>Credit Cards registered</b></label>
