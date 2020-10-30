@@ -59,7 +59,7 @@ CREATE TABLE specify (
   ptype VARCHAR(255),
   price NUMERIC,
   PRIMARY KEY (pcs_admin_username, care_taker_username, ptype),
-  FOREIGN KEY (care_taker_username, ptype, price) REFERENCES has_price_list(care_taker_username, ptype, price)
+  FOREIGN KEY (care_taker_username, ptype) REFERENCES has_price_list(care_taker_username, ptype)
 );
 
 
