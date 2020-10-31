@@ -1,7 +1,7 @@
 // list of all queries
 var sql = {
 
-    // User related
+    // User related 
     signIn: 'SELECT * FROM users WHERE username = $1',
     signUp: 'INSERT INTO users(username, contact_num, password, name, email) VALUES($1, $2, $3, $4, $5)',
 
@@ -54,8 +54,8 @@ var sql = {
     get_caretaker_nearby_area: 'SELECT * FROM care_taker WHERE area = $1', // [area]
 
     //Bids related
-    make_bid: '',
-
+    make_bid: 'INSERT INTO bid VALUES ($1, $2, $3, $4, $5, $6, NULL, $7, $8, $9, NULL, NULL, $10)', //[care_taker_username, s_date, s_time, e_time, name, pet_owner_name, price, trf_mthd, pay_type, svc_type]
+    
     //Reviews related
     view_caretaker_review: 'SELECT s_date, review, rating FROM bid WHERE care_taker_username = $1 AND review IS NOT NULL AND successful = TRUE ORDER BY s_date DESC', // [care_taker_username]
     get_avg_rating_caretaker: 'SELECT AVG(rating)::NUMERIC(10,1) FROM bid WHERE care_taker_username = $1', //[care_taker_username]
