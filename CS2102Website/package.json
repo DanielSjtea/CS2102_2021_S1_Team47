@@ -18,9 +18,19 @@
     "express": "^4.17.1",
     "express-session": "^1.17.1",
     "express-validator": "^6.6.1",
-    "nodemon": "^2.0.5",
+    "git": "^0.1.5",
+    "node": "^15.0.1",
+    "nodemon": "^2.0.6",
     "passport": "^0.4.1",
     "passport-local": "^1.0.0",
     "pg": "^8.4.1"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DanielSjtea/CS2102_2021_S1_Team47.git"
+  },
+  "bugs": {
+    "url": "https://github.com/DanielSjtea/CS2102_2021_S1_Team47/issues"
+  },
+  "homepage": "https://github.com/DanielSjtea/CS2102_2021_S1_Team47#readme"
 }
