@@ -17,6 +17,8 @@ var sql = {
     is_owner: 'SELECT * FROM pet_owner WHERE username = $1', //[username] Check if user is pet owner (returns empty if false)
     is_admin: 'SELECT * FROM pcs_admin WHERE username = $1', //[username] Check if user is pcs admin (returns empty if false)
 
+    add_caretaker_service: 'INSERT INTO does_service(care_taker_username, svc_type) VALUES($1, $2)',
+
     get_all_caretaker: 'SELECT * FROM care_taker NATURAL JOIN users',
     get_profile: 'SELECT * FROM users WHERE username = $1', //[username] returns [username, contact_num, password, name, email]
     //get_caretaker_profile takes in [username]  and returns [username, contact_num, name, email, ctype, area, svc_type, trf_mthd]
