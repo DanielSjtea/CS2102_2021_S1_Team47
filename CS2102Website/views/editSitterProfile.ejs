@@ -112,13 +112,13 @@
               <% for (var i = 6; i < 19; i++) {%>
                 <tr>
                   <td class="headcol"><%=i%>:00</td>
-                  <td><input class="form-check-input" type="checkbox" id="Available" name="Available" value="<%=nextWeek.getDate() + "/" + nextWeek.getMonth() + " " + i%>:00"></td>
-                  <td><input class="form-check-input" type="checkbox" id="Available" name="Available" value="<%=nextWeek1.getDate() + "/" + nextWeek1.getMonth() + " " + i%>:00"></td>
-                  <td><input class="form-check-input" type="checkbox" id="Available" name="Available" value="<%=nextWeek2.getDate() + "/" + nextWeek2.getMonth() + " " + i%>:00"></td>
-                  <td><input class="form-check-input" type="checkbox" id="Available" name="Available" value="<%=nextWeek3.getDate() + "/" + nextWeek3.getMonth() + " " + i%>:00"></td>
-                  <td><input class="form-check-input" type="checkbox" id="Available" name="Available" value="<%=nextWeek4.getDate() + "/" + nextWeek4.getMonth() + " " + i%>:00"></td>
-                  <td><input class="form-check-input" type="checkbox" id="Available" name="Available" value="<%=nextWeek5.getDate() + "/" + nextWeek5.getMonth() + " " + i%>:00"></td>
-                  <td><input class="form-check-input" type="checkbox" id="Available" name="Available" value="<%=nextWeek6.getDate() + "/" + nextWeek6.getMonth() + " " + i%>:00"></td>
+                  <td><input class="form-check-input" type="checkbox" id="Available" name="Available" value="<%=nextWeek.getDate() + "/" + nextWeek.getMonth() + " " + i + ":00 " + (i+1) + ":00" %>"></td>
+                  <td><input class="form-check-input" type="checkbox" id="Available" name="Available" value="<%=nextWeek1.getDate() + "/" + nextWeek1.getMonth() + " " + i + ":00 " + (i+1) + ":00" %>"></td>
+                  <td><input class="form-check-input" type="checkbox" id="Available" name="Available" value="<%=nextWeek2.getDate() + "/" + nextWeek2.getMonth() + " " + i+ ":00 " + (i+1) + ":00" %>"></td>
+                  <td><input class="form-check-input" type="checkbox" id="Available" name="Available" value="<%=nextWeek3.getDate() + "/" + nextWeek3.getMonth() + " " + i + ":00 " + (i+1) + ":00" %>"></td>
+                  <td><input class="form-check-input" type="checkbox" id="Available" name="Available" value="<%=nextWeek4.getDate() + "/" + nextWeek4.getMonth() + " " + i + ":00 " + (i+1) + ":00" %>"></td>
+                  <td><input class="form-check-input" type="checkbox" id="Available" name="Available" value="<%=nextWeek5.getDate() + "/" + nextWeek5.getMonth() + " " + i + ":00 " + (i+1) + ":00" %>"></td>
+                  <td><input class="form-check-input" type="checkbox" id="Available" name="Available" value="<%=nextWeek6.getDate() + "/" + nextWeek6.getMonth() + " " + i + ":00 " + (i+1) + ":00" %>"></td>
                 </tr>
               <% } %>
             </tbody>
