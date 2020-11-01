@@ -62,13 +62,9 @@ router.post("/", function(req, res, next) {
             } else {
                 if(data.rowCount == 0) {
                     database.db(sql.insert_trf_pref, transferParams);
-                    console.log('doneeee')
                 }
             }
         });
-        console.log(caretakerExist);
-        console.log(serviceExist);
-        console.log(trfExist);
 
         res.render("mySitterProfile");
     } catch(err) {
