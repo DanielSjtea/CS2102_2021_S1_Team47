@@ -23,7 +23,7 @@ var user = req.user;
               const taken = "Error adding pet!";
               res.render("addPets", { taken });
             } else {
-              res.redirect("addPets");
+              res.redirect("myProfile");
             }
           });
   }

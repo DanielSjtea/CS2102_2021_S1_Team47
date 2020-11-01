@@ -114,19 +114,41 @@
             <form action="/addPets" method="post">
               <div class="form-group">
                 <label for="newPetName">Pet Name</label>
-                <input type="text" class="form-control" id="newPetName" aria-describedby="emailHelp">
+                <input type="text" class="form-control" id="newPetName" name="newPetName" aria-describedby="emailHelp">
               </div>
               <div class="form-group">
                 <label for="newPetType">Pet Type</label>
-                <input type="text" class="form-control" id="newPetType" aria-describedby="emailHelp">
+                <input type="text" class="form-control" id="newPetType" name="newPetType" aria-describedby="emailHelp">
               </div>
               <div class="form-group">
                 <label for="newPetSpecialReq">Special Requirements</label>
-                <input type="text" class="form-control" id="newPetSpecialReq" aria-describedby="emailHelp">
+                <input type="text" class="form-control" id="newPetSpecialReq" name="newPetSpecialReq" aria-describedby="emailHelp">
               </div>
               <button type="submit" class="btn btn-primary" onclick="location.href ='myProfile'">Add Pet</button>
             </form>
           </div>
+                <div class="errorBox">
+                  <% if(typeof alert != 'undefined') { %>
+                    <% alert.forEach(function(error) { %>
+                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                          <%= error.msg %>
+                          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                    <% }) %>
+                <% } %>
+                </div>
+                <div class="errorBox">
+                  <% if(typeof taken != 'undefined') { %>
+                      <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                        <%= taken %>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                <% } %>
+                </div>
         </div>
       </div>
 </body>

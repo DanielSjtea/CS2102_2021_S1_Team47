@@ -5,7 +5,7 @@ var sql = {
     signIn: 'SELECT * FROM users WHERE username = $1',
     signUp: 'INSERT INTO users(username, contact_num, password, name, email) VALUES($1, $2, $3, $4, $5)',
 
-    edit_profile: 'UPDATE users SET contact_num = $2, name = $3, email = $4 WHERE username = $1', //[username, contact_num, name, email]
+    editProfile: 'UPDATE users SET contact_num = $2, name = $3, email = $4 WHERE username = $1', //[username, contact_num, name, email]
     edit_password: 'UPDATE users SET password = $2 WHERE username = $1', //[username, password]
 
     add_caretaker: 'CALL insert_caretaker_pricelist($1, $2, $3, $4)', //[username, ctype, area, pettype] 
