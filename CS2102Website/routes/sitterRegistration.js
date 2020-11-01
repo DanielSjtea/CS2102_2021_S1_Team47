@@ -62,19 +62,9 @@ router.post("/", function(req, res, next) {
             } else {
                 if(data.rowCount == 0) {
                     database.db(sql.insert_trf_pref, transferParams);
-<<<<<<< HEAD
                 }
             }
         });
-=======
-                    console.log('doneeee')
-                }
-            }
-        });
-        console.log(caretakerExist);
-        console.log(serviceExist);
-        console.log(trfExist);
->>>>>>> 81f81fa2ddfbbe282108250e34d8cc89e733c9c0
 
         res.render("mySitterProfile");
     } catch(err) {
