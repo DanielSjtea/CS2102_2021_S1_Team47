@@ -171,12 +171,24 @@
   position: absolute;
   width: 409px;
   height: 66px;
-  left: 650px;
-  top: 900px;
+  left: 610px;
+  top: 810px;
   color: white;
   font-size: 28;
   background: #1B4965;
   border-radius: 10px;
+  z-index: 1;
+}
+
+.sitterErrorBox {
+  width: 900px;
+  height: 480px;
+  margin-left: 200px;
+  margin-top: 800px;
+  border-radius: 20px;
+  position: absolute;
+  padding: 50px;
+  z-index: 2;
 }
 
 /************** Edit sitter profile ***********/
