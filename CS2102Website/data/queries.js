@@ -56,8 +56,9 @@ var sql = {
     get_caretaker_nearby_area: 'SELECT * FROM care_taker WHERE area = $1', // [area]
 
     //Bids related
-    make_bid: 'INSERT INTO bid VALUES ($1, $2, $3, $4, $5, $6, NULL, $7, $8, $9, NULL, NULL, $10)', //[care_taker_username, s_date, s_time, e_time, name, pet_owner_name, price, trf_mthd, pay_type, svc_type]
-    
+    make_bid: 'INSERT INTO bid (care_taker_username, s_date, s_time, e_time, name, pet_owner_username, review, price, trf_mthd, pay_type, rating, successful, svc_type) VALUES ($1, $2, $3, $4, $5, $6, NULL, $7, $8, $9, NULL, NULL, $10)', //[care_taker_username, s_date, s_time, e_time, name, pet_owner_name, price, trf_mthd, pay_type, svc_type]
+    get_completed_jobs: 'SELECT * FROM bid WHERE care_taker_username = $1 AND successful = TRUE AND s_date < now() ORDER BY s_date ASC, s_time ASC, e_time ASC', //[care_taker_username]
+
     //Reviews related
     view_caretaker_review: 'SELECT s_date, review, rating FROM bid WHERE care_taker_username = $1 AND review IS NOT NULL AND successful = TRUE ORDER BY s_date DESC', // [care_taker_username]
     get_avg_rating_caretaker: 'SELECT AVG(rating)::NUMERIC(10,1) FROM bid WHERE care_taker_username = $1', //[care_taker_username]
