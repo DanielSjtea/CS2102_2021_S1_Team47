@@ -11,7 +11,7 @@ router.get("/", function(req, res, next) {
         name: user.name,
         email: user.email,
         username: user.username,
-        contact_num: user.contact_num // doesn't print out contact number :(
+        contact_num: user.contact_num
     });
 });
 module.exports = router;

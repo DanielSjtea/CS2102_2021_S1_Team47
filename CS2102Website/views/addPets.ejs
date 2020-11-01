@@ -63,13 +63,13 @@
 
         <div class="profileUserDetails">
           <h4>Name</h4>
-          <p>Retrieve name from EJS</p>
+          <p><%= user.name %></p>
           <h4>Email</h4>
-          <p>Retrieve email from EJS</p>
+          <p><%= user.email %></p>
           <h4>Username</h4>
-          <p>Retrieve username from EJS</p>
+          <p><%= user.username %></p>
           <h4>Contact Number</h4>
-          <p>Retrieve contact number from EJS</p>
+          <p><%= user.contactNum %></p>
           <h4>Role(s)</h4>
           <p>Caretaker, Pet Owner</p>
           <h4>Area</h4>
@@ -121,15 +121,12 @@
                 <input type="text" class="form-control" id="newPetType" aria-describedby="emailHelp">
               </div>
               <div class="form-group">
-                <label for="newPetSpecialReq">Pet Name</label>
+                <label for="newPetSpecialReq">Special Requirements</label>
                 <input type="text" class="form-control" id="newPetSpecialReq" aria-describedby="emailHelp">
               </div>
               <button type="submit" class="btn btn-primary" onclick="location.href ='myProfile'">Add Pet</button>
             </form>
-
           </div>
-
-
         </div>
       </div>
 </body>
