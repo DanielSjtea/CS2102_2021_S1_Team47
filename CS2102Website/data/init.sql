@@ -1,3 +1,18 @@
+-- for ease of testing purposes
+DROP TABLE IF EXISTS bid;
+DROP TABLE IF EXISTS does_service;
+DROP TABLE IF EXISTS has_availability;
+DROP TABLE IF EXISTS specify;
+DROP TABLE IF EXISTS has_price_list;
+DROP TABLE IF EXISTS pay;
+DROP TABLE IF EXISTS specify_trf_pref;
+DROP TABLE IF EXISTS owns_pet;
+DROP TABLE IF EXISTS pcs_admin;
+DROP TABLE IF EXISTS care_taker;
+DROP TABLE IF EXISTS pet_owner;
+DROP TABLE IF EXISTS users;
+
+-- initialisation of database tables
 CREATE TABLE users (
   username VARCHAR(255) PRIMARY KEY,
   contact_num CHAR(8),
@@ -33,9 +48,8 @@ CREATE TABLE owns_pet (
 );
 
 CREATE TABLE specify_trf_pref (
-  care_taker_username VARCHAR(255) REFERENCES care_taker(username) ON DELETE cascade,
-  trf_mthd VARCHAR(255),
-  PRIMARY KEY(care_taker_username)
+  care_taker_username VARCHAR(255) PRIMARY KEY REFERENCES care_taker(username) ON DELETE cascade,
+  trf_mthd VARCHAR(255)
 );
 
 CREATE TABLE pay (
@@ -80,7 +94,6 @@ CREATE TABLE does_service(
   PRIMARY KEY(care_taker_username, svc_type)
 );
 
-
 CREATE TABLE bid(
   care_taker_username VARCHAR(255),
   s_date DATE,  
@@ -104,15 +117,15 @@ CREATE TABLE bid(
 CREATE OR REPLACE PROCEDURE 
 insert_caretaker_pricelist(cname VARCHAR(255), ctype VARCHAR(255), area VARCHAR(255), pettype VARCHAR(255)) AS
 $$ 
-  DECLARE ctx NUMERIC
+  DECLARE ctx NUMERIC;
   BEGIN
+  INSERT INTO care_taker VALUES (cname, ctype, area);
     SELECT COUNT(*) INTO ctx 
     FROM has_price_list P
     WHERE P.care_taker_username = cname;
   IF ctx = 0 THEN
     INSERT INTO has_price_list(care_taker_username, ptype) VALUES (cname, pettype);
   END IF;
-  INSERT INTO care_taker VALUES (cname, ctype, area);
   END; $$
 LANGUAGE plpgsql;
 

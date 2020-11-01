@@ -9,4 +9,23 @@ router.get("/", function(req, res, next) {
     res.render("registerNewCard");
 });
 
+router.post("/",function (req, res, next) {
+var user = req.user;
+    const errors = validationResult(req);
+    let username  = user.username;
+      let card_name = req.body.ccname;
+      let card_no = req.body.ccnumber;
+      let card_cvc = req.body.cccvv;
+          let params = [card_cvc, card_name, card_no, username];
+          database.query(sql.registerNewCard, params, (err, data) => {
+            if (err) {
+              console.log("Error: " + err);
+              const taken = "Error adding card!";
+              res.render("registerNewCard", { taken });
+            } else {
+              res.redirect("myProfile");
+            }
+          });
+  }
+);
 module.exports = router;
