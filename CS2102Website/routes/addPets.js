@@ -6,44 +6,26 @@ var router = express.Router();
 var sql = require("../data/queries");
 
 router.get("/", function(req, res, next) {
-    res.render("addPets");
+       res.render("addPets");
 });
 
 
-//router.post("/",[
-//    check("email", "Email is not valid!").isEmail().normalizeEmail(),
-//    check('username', 'Username must be at least 6 characters long').exists().isLength({min:6}),
-//    check('password', 'Password must be at least 6 characters long').exists().isLength({min:6})
-//],function (req, res, next) {
-//    const errors = validationResult(req);
-//    if (!errors.isEmpty()) {
-//      const alert = errors.array();
-//      res.render("addPets", { alert });
-//    } else {
-//      let petName = req.body.newPetName;
-//      let petType = req.body.newPetType;
-//      let password = req.body.newPetSpecialReq;
-//      let name = req.body.name;
-//      let email = req.body.email;
-//
-//      bcrypt.hash(password, 10, function(err, hash) {
-//        if (err) {
-//          console.log("Bcrypt Error: " + err);
-//          res.sendStatus(404);
-//        } else {
-//          let params = [pet_owner_username, name, ptype, sp_req];
-//          database.query(sql.signUp, params, (err, data) => {
-//            if (err) {
-//              console.log("Error: " + err);
-//              const taken = "Username is taken!";
-//              res.render("signUp", { taken });
-//            } else {
-//              res.redirect("addPets");
-//            }
-//          });
-//        }
-//      })
-//    }
-//  }
-//);
+router.post("/",function (req, res, next) {
+var user = req.user;
+    const errors = validationResult(req);
+      let petName = req.body.newPetName;
+      let ptype = req.body.newPetType;
+      let sp_req = req.body.newPetSpecialReq;
+          let params = [user.username, petName, ptype, sp_req];
+          database.query(sql.add_pet, params, (err, data) => {
+            if (err) {
+              console.log("Error: " + err);
+              const taken = "Error adding pet!";
+              res.render("addPets", { taken });
+            } else {
+              res.redirect("myProfile");
+            }
+          });
+  }
+);
 module.exports = router;

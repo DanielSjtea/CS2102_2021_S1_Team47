@@ -46,8 +46,8 @@
           </div>
           <div class="form-row">
             <div class="form-group col-md-6">
-              <label for="Area"><b>Area of Work</b></label>
-              <p>Area to retrieve from EJS</p>
+              <label for="area"><b>Area of Work</b></label>
+              <p><input type="text" class="form-control" id="area" name="area" placeholder="Area of Work"></p>
             </div>
             <div class="form-group col-md-6">
               <label for="Credit Cards"><b>Credit Cards registered</b></label>
@@ -56,26 +56,26 @@
             </div>
           </div>
           <div class="form-group">
-            <label for="petsWillingToTakeCare"><b>Pets you are willing to take care of</b></label>
+            <label for="petsWillingToTakeCare"><b>Pets you are willing to take care of (at least 2, separate by comma)</b></label>
             <input type="text" class="form-control" id="petsWillingToTakeCare" name="petsWillingToTakeCare" placeholder="Dogs, Cats, Parrots">
           </div>
           <div class="form-row">
             <div class="form-group col-md-6">
               <label for="petServices">Pet Services Provided</label>
               <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="petGrooming" name="petGrooming">
+                <input class="form-check-input" type="checkbox" id="petServices" name="petServices" value="Pet Grooming">
                 <label class="form-check-label" for="gridCheck1">
                   Pet Grooming
                 </label>
               </div>
               <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="fullDayPetCare" name="fullDayPetCare">
+                <input class="form-check-input" type="checkbox" id="petServices" name="petServices" value="Full Day Pet Care">
                 <label class="form-check-label" for="gridCheck1">
                   Full Day Pet Care
                 </label>
               </div>
               <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="multipleDaysPetCare" name="multipleDaysPetCare">
+                <input class="form-check-input" type="checkbox" id="petServices" name="petServices" value="Multiple Days Pet Care">
                 <label class="form-check-label" for="gridCheck1">
                   Multiple Days Pet Care
                 </label>
@@ -83,7 +83,7 @@
             </div>
             <div class="form-group col-md-4">
               <label for="petTransferMethod">Pet Transfer Method</label>
-              <select id="petTransferMethod" name="petTransferMethod" class="form-control">
+              <select id="petTransferMethod" name="petTransferMethod" class="form-control" required>
                 <option selected>Choose...</option>
                 <option value="Car">Car</option>
                 <option value="Bike">Bike</option>
@@ -93,10 +93,10 @@
             </div>
             <div class="form-group col-md-4">
               <label for="FullPartTime">Full/Part Time</label>
-              <select id="FullPartTime" name="FullPartTime" class="form-control">
+              <select id="FullPartTime" name="FullPartTime" class="form-control" required>
                 <option selected>Choose...</option>
-                <option value="Full Time">Full Time</option>
-                <option value="Part Time">Part Time</option>
+                <option id="FullPartTime" name="FullPartTime" value="Full Time">Full Time</option>
+                <option id="FullPartTime" name="FullPartTime" value="Part Time">Part Time</option>
               </select>
             </div>
           </div>

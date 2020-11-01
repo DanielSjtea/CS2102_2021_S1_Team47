@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<% if (typeof user != 'undefined') { %>
+  <%- include('headerSignedIn.ejs') %>
+<% } else { %>
+  <%- include('headerSignedOut.ejs') %>
+<% } %>
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+</head>
+
+<body>
+  <div class="parent">
+    <div class="leftSection">
+
+    </div>
+
+    <div class="rightSection">
+      <div class="mainTitle">
+        <img class="happypets" src="https://images.unsplash.com/photo-1450778869180-41d0601e046e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1150&q=80" alt="">
+      </div>
+
+      <div class="ourServices">
+        <div class="firstText">
+          <div class="first">
+            <h1>Thank you for visiting</h1>
+            <h1>Pet Caring Services Page!</h1>
+          </div>
+          <div class="second">
+            <p>
+              We pride ourselves on quality pet caring services with Pet Carers who are meticulous, affectionate and attentive.
+            </p>
+          </div>
+          <div class="third">
+            <p>No matter what your pets are, we have someone who is experienced in caring for it!</p>
+          </div>
+          <div class="fourth">
+            <p>So rest assured, leave your pet caring needs to us, and get along with your other commitments!</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</body>
+
+</html>

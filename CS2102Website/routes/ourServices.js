@@ -6,12 +6,7 @@ var router = express.Router();
 var sql = require("../data/queries");
 
 router.get("/", function(req, res, next) {
-    var user = req.user;
-    res.render("myProfile", {
-        name: user.name,
-        email: user.email,
-        username: user.username,
-        contact_num: user.contact_num
-    });
+    res.render("ourServices");
 });
+
 module.exports = router;
