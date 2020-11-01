@@ -23,7 +23,7 @@
       </div>
 
       <div class="sitterUpdateBox">
-        <form action="/editSitterProfile" method="POST">
+        <form action="/editSitterProfile" method="POST" id="UpdateSitterForm">
           <div class="form-group">
             <label for="petsWillingToTakeCare"><b>Pets you are willing to take care of</b></label>
             <input type="text" class="form-control" id="petsWillingToTakeCare" name="petsWillingToTakeCare" placeholder="Dogs, Cats, Parrots">
@@ -71,7 +71,6 @@
           </div>
 
           <div class="calendar">
-
             <!-- <header>
                 <button class="secondary" style="align-self: flex-start; flex: 0 0 1">Today</button>
                 <div class="calendar__title" style="display: flex; justify-content: center; align-items: center">
@@ -110,142 +109,24 @@
           <div class="wrap">
             <table class="offset">
             <tbody>
-              <tr>
-                <td class="headcol">6:00</td>
-                <td><input class="form-check-input" type="checkbox" id="Available"></td>
-                <td><input class="form-check-input" type="checkbox" id="Available"></td>
-                <td class="past"><input class="form-check-input" type="checkbox" id="Available"></td>
-                <td><input class="form-check-input" type="checkbox" id="Available"></td>
-                <td><input class="form-check-input" type="checkbox" id="Available"></td>
-                <td><input class="form-check-input" type="checkbox" id="Available"></td>
-                <td><input class="form-check-input" type="checkbox" id="Available"></td>
-              </tr>
-              <tr>
-                <td class="headcol">7:00</td>
-                <td><input class="form-check-input" type="checkbox" id="Available"></td>
-                <td><input class="form-check-input" type="checkbox" id="Available"></td>
-                <td class="past"><input class="form-check-input" type="checkbox" id="Available"></td>
-                <td><input class="form-check-input" type="checkbox" id="Available"></td>
-                <td><input class="form-check-input" type="checkbox" id="Available"></td>
-                <td><input class="form-check-input" type="checkbox" id="Available"></td>
-                <td><input class="form-check-input" type="checkbox" id="Available"></td>
-              </tr>
-              <tr>
-                <td class="headcol">8:00</td>
-                <td><input class="form-check-input" type="checkbox" id="Available"></td>
-                <td><input class="form-check-input" type="checkbox" id="Available"></td>
-                <td><input class="form-check-input" type="checkbox" id="Available"></td>
-                <td><input class="form-check-input" type="checkbox" id="Available"></td>
-                <td><input class="form-check-input" type="checkbox" id="Available"></td>
-                <td><input class="form-check-input" type="checkbox" id="Available"></td>
-                <td><input class="form-check-input" type="checkbox" id="Available"></td>
-              </tr>
-              <tr>
-                <td class="headcol">9:00</td>
-                <td><input class="form-check-input" type="checkbox" id="Available"></td>
-                <td><input class="form-check-input" type="checkbox" id="Available"></td>
-                <td><input class="form-check-input" type="checkbox" id="Available"></td>
-                <td><input class="form-check-input" type="checkbox" id="Available"></td>
-                <td><input class="form-check-input" type="checkbox" id="Available"></td>
-                <td><input class="form-check-input" type="checkbox" id="Available"></td>
-                <td><input class="form-check-input" type="checkbox" id="Available"></td>
-              </tr>
-              <tr>
-                <td class="headcol">10:00</td>
-                <td><input class="form-check-input" type="checkbox" id="Available"></td>
-                <td><input class="form-check-input" type="checkbox" id="Available"></td>
-                <td><input class="form-check-input" type="checkbox" id="Available"></td>
-                <td><input class="form-check-input" type="checkbox" id="Available"></td>
-                <td><input class="form-check-input" type="checkbox" id="Available"></td>
-                <td><input class="form-check-input" type="checkbox" id="Available"></td>
-                <td><input class="form-check-input" type="checkbox" id="Available"></td>
-              </tr>
-              <tr>
-                <td class="headcol">11:00</td>
-                <td><input class="form-check-input" type="checkbox" id="Available"></td>
-                <td><input class="form-check-input" type="checkbox" id="Available"></td>
-                <td><input class="form-check-input" type="checkbox" id="Available"></td>
-                <td><input class="form-check-input" type="checkbox" id="Available"></td>
-                <td><input class="form-check-input" type="checkbox" id="Available"></td>
-                <td><input class="form-check-input" type="checkbox" id="Available"></td>
-                <td><input class="form-check-input" type="checkbox" id="Available"></td>
-              </tr>
-              <tr>
-                <td class="headcol">12:00</td>
-                <td><input class="form-check-input" type="checkbox" id="Available"></td>
-                <td><input class="form-check-input" type="checkbox" id="Available"></td>
-                <td><input class="form-check-input" type="checkbox" id="Available"></td>
-                <td><input class="form-check-input" type="checkbox" id="Available"></td>
-                <td><input class="form-check-input" type="checkbox" id="Available"></td>
-                <td><input class="form-check-input" type="checkbox" id="Available"></td>
-                <td><input class="form-check-input" type="checkbox" id="Available"></td>
-              </tr>
-              <tr>
-                <td class="headcol">13:00</td>
-                <td><input class="form-check-input" type="checkbox" id="Available"></td>
-                <td><input class="form-check-input" type="checkbox" id="Available"></td>
-                <td><input class="form-check-input" type="checkbox" id="Available"></td>
-                <td><input class="form-check-input" type="checkbox" id="Available"></td>
-                <td><input class="form-check-input" type="checkbox" id="Available"></td>
-                <td><input class="form-check-input" type="checkbox" id="Available"></td>
-                <td><input class="form-check-input" type="checkbox" id="Available"></td>
-              </tr>
-              <tr>
-                <td class="headcol">14:00</td>
-                <td><input class="form-check-input" type="checkbox" id="Available"></td>
-                <td><input class="form-check-input" type="checkbox" id="Available"></td>
-                <td><input class="form-check-input" type="checkbox" id="Available"></td>
-                <td><input class="form-check-input" type="checkbox" id="Available"></td>
-                <td><input class="form-check-input" type="checkbox" id="Available"></td>
-                <td><input class="form-check-input" type="checkbox" id="Available"></td>
-                <td><input class="form-check-input" type="checkbox" id="Available"></td>
-              </tr>
-              <tr>
-                <td class="headcol">15:00</td>
-                <td><input class="form-check-input" type="checkbox" id="Available"></td>
-                <td><input class="form-check-input" type="checkbox" id="Available"></td>
-                <td><input class="form-check-input" type="checkbox" id="Available"></td>
-                <td><input class="form-check-input" type="checkbox" id="Available"></td>
-                <td><input class="form-check-input" type="checkbox" id="Available"></td>
-                <td><input class="form-check-input" type="checkbox" id="Available"></td>
-                <td><input class="form-check-input" type="checkbox" id="Available"></td>
-              </tr>
-              <tr>
-                <td class="headcol">16:00</td>
-                <td><input class="form-check-input" type="checkbox" id="Available"></td>
-                <td><input class="form-check-input" type="checkbox" id="Available"></td>
-                <td><input class="form-check-input" type="checkbox" id="Available"></td>
-                <td><input class="form-check-input" type="checkbox" id="Available"></td>
-                <td><input class="form-check-input" type="checkbox" id="Available"></td>
-                <td><input class="form-check-input" type="checkbox" id="Available"></td>
-                <td><input class="form-check-input" type="checkbox" id="Available"></td>
-              </tr>
-              <tr>
-                <td class="headcol">17:00</td>
-                <td><input class="form-check-input" type="checkbox" id="Available"></td>
-                <td><input class="form-check-input" type="checkbox" id="Available"></td>
-                <td><input class="form-check-input" type="checkbox" id="Available"></td>
-                <td><input class="form-check-input" type="checkbox" id="Available"></td>
-                <td><input class="form-check-input" type="checkbox" id="Available"></td>
-                <td><input class="form-check-input" type="checkbox" id="Available"></td>
-                <td><input class="form-check-input" type="checkbox" id="Available"></td>
-              </tr>
-              <tr>
-                <td class="headcol">18:00</td>
-                <td><input class="form-check-input" type="checkbox" id="Available"></td>
-                <td><input class="form-check-input" type="checkbox" id="Available"></td>
-                <td><input class="form-check-input" type="checkbox" id="Available"></td>
-                <td><input class="form-check-input" type="checkbox" id="Available"></td>
-                <td><input class="form-check-input" type="checkbox" id="Available"></td>
-                <td><input class="form-check-input" type="checkbox" id="Available"></td>
-                <td><input class="form-check-input" type="checkbox" id="Available"></td>
-              </tr>
+              <% for (var i = 6; i < 19; i++) {%>
+                <tr>
+                  <td class="headcol"><%=i%>:00</td>
+                  <td><input class="form-check-input" type="checkbox" id="Available" name="Available" value="<%=nextWeek.getDate() + "/" + nextWeek.getMonth() + " " + i%>:00"></td>
+                  <td><input class="form-check-input" type="checkbox" id="Available" name="Available" value="<%=nextWeek1.getDate() + "/" + nextWeek1.getMonth() + " " + i%>:00"></td>
+                  <td><input class="form-check-input" type="checkbox" id="Available" name="Available" value="<%=nextWeek2.getDate() + "/" + nextWeek2.getMonth() + " " + i%>:00"></td>
+                  <td><input class="form-check-input" type="checkbox" id="Available" name="Available" value="<%=nextWeek3.getDate() + "/" + nextWeek3.getMonth() + " " + i%>:00"></td>
+                  <td><input class="form-check-input" type="checkbox" id="Available" name="Available" value="<%=nextWeek4.getDate() + "/" + nextWeek4.getMonth() + " " + i%>:00"></td>
+                  <td><input class="form-check-input" type="checkbox" id="Available" name="Available" value="<%=nextWeek5.getDate() + "/" + nextWeek5.getMonth() + " " + i%>:00"></td>
+                  <td><input class="form-check-input" type="checkbox" id="Available" name="Available" value="<%=nextWeek6.getDate() + "/" + nextWeek6.getMonth() + " " + i%>:00"></td>
+                </tr>
+              <% } %>
             </tbody>
           </table>
           </div>
           </div>
           </div>
-          <button type="submit" class="updateSitter" name="button" onclick="location.href = '/mySitterProfile'">
+          <button type="submit" class="updateSitter" name="button">
             Update!
           </button>
         </form>
