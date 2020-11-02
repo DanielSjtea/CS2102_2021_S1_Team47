@@ -15,8 +15,6 @@ pool.db = function(sql, params) {
     pool.query(sql, params, (err, res) => {
         if (err) {
             console.log("SQL Error: " + err);
-        } else {
-            console.log(res);
         }
     })
 }
