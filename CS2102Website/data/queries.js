@@ -1,7 +1,7 @@
 // list of all queries
 var sql = {
 
-    // User related
+    // User related 
     signIn: 'SELECT * FROM users WHERE username = $1',
     signUp: 'INSERT INTO users(username, contact_num, password, name, email) VALUES($1, $2, $3, $4, $5)',
 
@@ -9,7 +9,7 @@ var sql = {
     edit_password: 'UPDATE users SET password = $2 WHERE username = $1', //[username, password]
 
     add_caretaker: 'CALL insert_caretaker_pricelist($1, $2, $3, $4)', //[username, ctype, area, pettype] 
-    add_owner: 'INSERT INTO pet_owner(username, area) VALUES ($1, $2)', //[username, area] 
+    add_owner: 'INSERT INTO pet_owner(username) VALUES ($1)', //[username] 
     add_admin: 'INSERT INTO pcs_admin(username) VALUES ($1)', //[username]
     registerNewCard: 'UPDATE pet_owner SET card_cvc = $1, card_name = $2, card_no = $3 WHERE username = $4', //[card_cvc, card_name, card_no, username]
 
@@ -65,7 +65,11 @@ var sql = {
     get_caretaker_nearby_area: 'SELECT * FROM care_taker WHERE area = $1', // [area]
 
     //Bids related
-    make_bid: '',
+    make_bid: 'INSERT INTO bid (care_taker_username, s_date, s_time, e_time, name, pet_owner_username, review, price, trf_mthd, pay_type, rating, successful, svc_type) VALUES ($1, $2, $3, $4, $5, $6, NULL, $7, $8, $9, NULL, NULL, $10)', //[care_taker_username, s_date, s_time, e_time, name, pet_owner_name, price, trf_mthd, pay_type, svc_type]
+    bids_pending_acceptance_as_petowner: 'SELECT care_taker_username, s_date, s_time, e_time, name, price, trf_mthd, pay_type, successful, svc_type FROM bid WHERE pet_owner_username = $1', //[pet_owner_username]
+    successful_bids_made_as_petowner: 'SELECT care_taker_username, s_date, s_time, e_time, name, review, price, trf_mthd, pay_type, rating, svc_type FROM bid WHERE pet_owner_username = $1 AND successful = TRUE', //[pet_owner_username]
+    get_current_bids_as_caretaker: 'SELECT s_date, s_time, e_time, name, pet_owner_username, price, trf_mthd, pay_type, svc_type FROM bid WHERE care_taker_username = $1 AND s_date > CURRENT_DATE ORDER BY s_date, s_time, price DESC', //[care_taker_username]
+
 
     //Reviews related
     view_caretaker_review: 'SELECT s_date, review, rating FROM bid WHERE care_taker_username = $1 AND review IS NOT NULL AND successful = TRUE ORDER BY s_date DESC', // [care_taker_username]

@@ -132,7 +132,7 @@ LANGUAGE plpgsql;
 CREATE OR REPLACE FUNCTION not_admin()
 RETURNS TRIGGER AS
 $$
-  DECLARE ctx NUMERIC
+  DECLARE ctx NUMERIC;
   BEGIN
   SELECT COUNT(*) INTO ctx FROM pcs_admin P
   WHERE NEW.username = P.username;

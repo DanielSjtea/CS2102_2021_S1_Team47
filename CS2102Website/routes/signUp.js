@@ -38,6 +38,7 @@ router.post("/",[
               const taken = "Username is taken!";
               res.render("signUp", { taken });
             } else {
+              database.db(sql.add_owner, [username]);
               res.redirect("signIn");
             }
           });
