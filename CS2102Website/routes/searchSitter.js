@@ -46,6 +46,7 @@ router.post("/", async function(req, res, next) {
     // 2) check for all caretakers available based on pet service, startdate, enddate
     // 3) if caretaker is chosen, filter that caretaker from step 2
 
+    var username = req.user.username;
     var serviceDesired = req.body.servicesDesired;
     var specialReq = "";
     if (typeof req.body.specialReq != 'undefined') {
@@ -54,35 +55,40 @@ router.post("/", async function(req, res, next) {
     var startDate = req.body.startDate;
     var endDate = req.body.endDate;
     var petsChosen = req.body.petsChosen;
+    if (typeof petsChosen == 'string') {
+        petsChosen = new Array();
+        petsChosen.push(req.body.petsChosen);
+    } else {
+        petsChosen = Object.values(req.body.petsChosen);
+    }
 
     // Pet Types of chosen pets
-    var petsChosenTypes = new Array();
+    /*var petsChosenTypes = new Array();
     for (var i = 0; i < petsChosen.length; i++) {
-        var type = await database.db_get_promise(sql.get_pet_type, [req.user.username, petsChosen[i]]);
-        if (!petsChosenTypes.includes(type)) {
-            petsChosenTypes.push(type);
-        }
-    }
-    console.log(serviceDesired);
-    console.log(petsChosenTypes);
-    console.log(specialReq);
-    console.log(startDate);
-    console.log(endDate);
+        console.log("-------------")
+        console.log(username);
+        console.log(petsChosen[i].ptype);
+        var params = [username, petsChosen[i]];
+        var type = await database.db_get_promise(sql.get_pet_type, params);
+        console.log("type: " + type);
+        //console.log(type.rows);
+        /*if (!petsChosenTypes.includes(type.rows[i])) {
+            petsChosenTypes.push(type.rows[i]);
+        }*/
+    //}
 
     if (startDate > endDate) {
         res.render("searchSitter", {message: "Start Date must not be before the End Date!"});
     } else {
-        var params = [startDate, endDate, 0, serviceDesired];
-        var data = await database.db_get_promise(sql.find_service_date, params);
-        console.log("data2: " + data);
-        // add logic so pet owner cant select him/herself
+        var serviceParams = [startDate, endDate, serviceDesired, username];
+        var data = await database.db_get_promise(sql.find_service_date_nobids, serviceParams);
 
-        // if caretaker is chosen
-        if (req.body.careTakerChosen != 'Choose') {
+        /* start of if caretaker is chosen */
+        /*if (req.body.careTakerChosen != 'Choose') {
             var careTakerChosen = req.body.careTakerChosen;
-            var petTypes = await database.db_get_promise(sql.get_ct_pet_types, [careTakerChosen]);
-            console.log("pettypes: " + petTypes);
-            /*petTypes = petTypes.split(",");
+            var petTypeRes = await database.db_get_promise(sql.get_ct_pet_types, [careTakerChosen]);
+            console.log("pettypes: " + petTypeRes.toString());
+            //var petTypes = petTypeRes.split(",");
             var cannotTakeCare = false;
 
             // check if caretakers pet type preference includes the actual pet types required
@@ -99,8 +105,9 @@ router.post("/", async function(req, res, next) {
             }
             if (cannotTakeCare) { // cannot take care
                 res.render("searchSitter", {message: "Care Taker chosen is unavailable on these dates!"})
-            } else { // caretaker able to take care*/
-                data = await database.db_get_promise(sql.find_ct_service_date, [careTakerChosen]);
+            } else { // caretaker able to take care
+                var ctServiceParams = [startDate, endDate, serviceDesired, username, careTakerChosen];
+                data = await database.db_get_promise(sql.find_ct_service_date, ctServiceParams);
                 console.log("data3: " + data);
                 res.render("searchSitterResults", {
                     careTakerChosen: careTakerChosen,
@@ -108,14 +115,16 @@ router.post("/", async function(req, res, next) {
                     specialReq: specialReq,
                     sitterResults: data
                 })
-            //}
-        } else { // no particular care taker chosen
-            res.render("searchSitterResults", {
-                petsChosen: petsChosen,
-                specialReq: specialReq,
-                sitterResults: data
-            })
-        }
+            }*/
+        /* end of if caretaker is chosen */
+        /* start of if no particular care taker chosen */
+        /*} else {*/
+            req.session.petsChosen = petsChosen;
+            req.session.specialReq = specialReq;
+            req.session.sitterResults = data;
+            res.redirect("searchSitterResults");
+        /*}*/
+        /* end of if no particular care taker chosen */
     }
 })
 
