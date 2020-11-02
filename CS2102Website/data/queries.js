@@ -24,10 +24,11 @@ var sql = {
     //get_caretaker_profile takes in [username]  and returns [username, contact_num, name, email, ctype, area, svc_type, trf_mthd]
     get_caretaker_profile: 'SELECT U.username as username, U.contact_num as contact_num, U.name as name, U.email as email, C.ctype as ctype, C.area as area, S.svc_type as svc_type, T.trf_mthd as trf_mthd FROM users U, care_taker C, does_service S, specify_trf_pref T WHERE U.username = $1 AND C.username = U.username AND S.care_taker_username = U.username AND T.care_taker_username = U.username',
     upsert_trf_pref: 'INSERT INTO specify_trf_pref(care_taker_username, trf_mthd) VALUES ($1, $2) ON CONFLICT (care_taker_username) DO UPDATE SET trf_mthd = $2', //[username, trf_mthd] Upsert will auto-update if username exists
-    
+
     // service related
     add_caretaker_service: 'INSERT INTO does_service(care_taker_username, svc_type) VALUES($1, $2)',
     get_ct_pet_types: 'SELECT ptype FROM has_price_list WHERE care_taker_username = $1',
+    add_caretaker_ptype: 'INSERT INTO has_price_list(care_taker_username, ptype) VALUES ($1, $2)', //[care_taker_username, ptype]
 
     // Pet related
     add_pet: 'INSERT INTO owns_pet(pet_owner_username, name, ptype, sp_req) VALUES ($1, $2, $3, $4)', //[pet_owner_username, name, ptype, sp_req] ptype, sp_req defaults are -1
@@ -42,56 +43,36 @@ var sql = {
     delete_specific_availability: 'DELETE FROM has_availability WHERE care_taker_username = $1 AND s_date::date = date $2 AND s_time <= time $3 AND e_time >= time $4', //[username, s_date, s_time, e_time] s_time & e_time in TIME format: HH:MM:SS
     get_self_availability: 'SELECT * FROM has_availability WHERE care_taker_username = $1 AND s_date >= CURRNT_DATE ORDER BY s_date ASC', //[s_date] in datetime format (?), returns all available caretakers for that day
 
-    // searchSitter queries (if caretakers have no bids for him/her)
-    find_service_date_nobids: 'SELECT HAvail.care_taker_username as care_taker_username, HAvail.s_date as s_date,' + 
-    'HAvail.s_time as s_time, HAvail.e_time as e_time ' +
-    'FROM has_availability HAvail ' + 
-    'WHERE HAvail.s_date >= $1 AND HAvail.s_date <= $2 AND HAvail.care_taker_username <> $4' +
-    'AND EXISTS (' +
-      'SELECT 1 ' +
-      'FROM does_service S ' +
-      'WHERE S.care_taker_username = HAvail.care_taker_username AND S.svc_type = $3' +
-    ') AND NOT EXISTS (' +
-        'SELECT 1 ' +
-        'FROM bid B ' +
-        'WHERE B.s_date = HAvail.s_date AND B.care_taker_username = HAvail.care_taker_username AND B.successful = TRUE ' +
-    ') ORDER BY HAvail.s_date ASC, HAvail.s_time ASC;',  // [beginning_date, end_date, svc_type, pet_owner_username]
-    find_ct_service_date:'SELECT * FROM (SELECT HAvail.care_taker_username as care_taker_username, HAvail.s_date as s_date,' + 
-    'HAvail.s_time as s_time, HAvail.e_time as e_time ' +
-    'FROM has_availability HAvail ' +
-    'WHERE HAvail.s_date >= $1 AND HAvail.s_date <= $2 AND HAvail.care_taker_username <> $4' +
-    'AND EXISTS (' +
-      'SELECT 1 ' +
-      'FROM does_service S ' +
-      'WHERE S.care_taker_username = HAvail.care_taker_username AND S.svc_type = $3' +
-    ') AND NOT EXISTS (' +
-        'SELECT 1 ' +
-        'FROM bid B ' +
-        'WHERE B.s_date = HAvail.s_date AND B.care_taker_username = HAvail.care_taker_username AND B.successful = TRUE ' +
-    ') ORDER BY HAvail.s_date ASC, HAvail.s_time ASC) all_service_date' +
-    'WHERE care_taker_username = $5', // [beginning_date, end_date, svc_type, pet_owner_username, care_taker_username]
+    apply_leave: 'CALL apply_leave_func($1, $2, $3)', //[care_taker_username, s_date, e_date] returns TRUE if can take leave/FALSE if cannot
 
-    // searchSitter queries (works only if caretaker has bids for him/her)
-    //complex query, look at bottom of init.sql for easier interpretation
-    //[beginning_date, end_date, min_avg_rating, svc_type]
-    find_service_date: 'SELECT HAvail.care_taker_username as care_taker_username,' + 
-    'ARate.average_rating as average_rating, HAvail.s_date as s_date, ' +
-    'HAvail.s_time as s_time, HAvail.e_time as e_time ' +
-    'FROM (' +
-        'SELECT care_taker_username, AVG(rating)::NUMERIC(10,1) as average_rating ' +
-        'FROM bid ' +
-        'GROUP BY care_taker_username ' +
-    ') ARate ' +
-    'JOIN has_availability HAvail ON ARate.care_taker_username = HAvail.care_taker_username ' +
-    'WHERE HAvail.s_date >= $1 AND HAvail.s_date <= $2 AND ARate.average_rating >= $3 AND EXISTS (' +
+    // searchSitter queries (if caretakers have no bids for him/her)
+    find_service_date_nobids: 'SELECT HAvail.care_taker_username as care_taker_username, HAvail.s_date as s_date,' +
+        'HAvail.s_time as s_time, HAvail.e_time as e_time ' +
+        'FROM has_availability HAvail ' +
+        'WHERE HAvail.s_date >= $1 AND HAvail.s_date <= $2 AND HAvail.care_taker_username <> $4' +
+        'AND EXISTS (' +
         'SELECT 1 ' +
         'FROM does_service S ' +
-        'WHERE S.care_taker_username = HAvail.care_taker_username AND S.svc_type = $4' +
-    ') AND NOT EXISTS (' +
+        'WHERE S.care_taker_username = HAvail.care_taker_username AND S.svc_type = $3' +
+        ') AND NOT EXISTS (' +
         'SELECT 1 ' +
         'FROM bid B ' +
         'WHERE B.s_date = HAvail.s_date AND B.care_taker_username = HAvail.care_taker_username AND B.successful = TRUE ' +
-    ') ORDER BY HAvail.s_date ASC, HAvail.s_time ASC, ARate.average_rating DESC',
+        ') ORDER BY HAvail.s_date ASC, HAvail.s_time ASC;',  // [beginning_date, end_date, svc_type, pet_owner_username]
+    find_ct_service_date: 'SELECT * FROM (SELECT HAvail.care_taker_username as care_taker_username, HAvail.s_date as s_date,' +
+        'HAvail.s_time as s_time, HAvail.e_time as e_time ' +
+        'FROM has_availability HAvail ' +
+        'WHERE HAvail.s_date >= $1 AND HAvail.s_date <= $2 AND HAvail.care_taker_username <> $4' +
+        'AND EXISTS (' +
+        'SELECT 1 ' +
+        'FROM does_service S ' +
+        'WHERE S.care_taker_username = HAvail.care_taker_username AND S.svc_type = $3' +
+        ') AND NOT EXISTS (' +
+        'SELECT 1 ' +
+        'FROM bid B ' +
+        'WHERE B.s_date = HAvail.s_date AND B.care_taker_username = HAvail.care_taker_username AND B.successful = TRUE ' +
+        ') ORDER BY HAvail.s_date ASC, HAvail.s_time ASC) all_service_date' +
+        'WHERE care_taker_username = $5', // [beginning_date, end_date, svc_type, pet_owner_username, care_taker_username]
 
     //PCS statistics
     get_total_salary_month: '',
