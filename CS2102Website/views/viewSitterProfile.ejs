@@ -31,15 +31,15 @@
         <div class="viewDetails">
           <div class="viewDetailsLeftColumn">
             <h4>Area</h4>
-            <p>Retrieve Area from EJS</p>
+            <p><%= area%></p>
             <h4>Contact Number</h4>
-            <p>Retrieve Contact Number from EJS</p>
+            <p><%= contact_num %></p>
             <h4>Email</h4>
-            <p>Retrieve email from EJS</p>
+            <p><%= email %></p>
           </div>
           <div class="viewDetailsRightColumn">
             <h4>Pet Transfer Preference</h4>
-            <p>Retrieve Pet Transfer Preference from EJS</p>
+            <p><%= trf_mthd %></p>
             <h4>Average Rating</h4>
             <div class="ratingStars">
               <span class="fa fa-star checked"></span>
@@ -49,7 +49,7 @@
               <span class="fa fa-star checked"></span>
             </div>
             <h4>Services Provided</h4>
-            <p>Retrieve services from EJS</p>
+            <p><%= svc_type %></p>
           </div>
         </div>
       </div>
@@ -116,7 +116,7 @@
         <form class="" action="/viewSitterProfile" method="post">
           <div class="BidAmount">
             <h4>Bid Amount</h4>
-            <input type="text" class="form-control" id="caretakerBid" placeholder="$50">
+            <input type="text" class="form-control" id="caretakerBid" name="caretakerBid" placeholder="$50">
           </div>
           <div class="BidButton">
             <button type="button" class="btn btn-outline-primary" onclick="location.href = '/bidSent'">Submit</button>
