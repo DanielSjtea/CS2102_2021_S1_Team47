@@ -16,7 +16,6 @@ router.get("/", function(req, res, next) {
                     var svcType = data.rows[0].svc_type;
                     var ctype = data.rows[0].ctype;
                     var trfMethod = data.rows[0].trf_mthd;
-                    console.log("this is the ter " + trfMethod);
                     res.render("mySitterProfile",{
                         svcType: svcType,
                         ctype:ctype,
@@ -25,9 +24,5 @@ router.get("/", function(req, res, next) {
                 }
             }
         });
-        console.log("data is");
 });
-//router.post("/", function(req, res, next) {
-//
-//});
 module.exports = router;

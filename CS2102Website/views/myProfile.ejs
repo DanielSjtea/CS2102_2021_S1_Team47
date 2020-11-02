@@ -75,12 +75,28 @@
               <h4>Credit Cards</h4>
             </div>
             <div class="mostrecent3reviews">
-              <h6>Retrieve Card Brand</h6>
+              <!--<h6>Retrieve Card Brand</h6>
               <p>Retrieve Card Number</p>
               <hr>
               <h6>Retrieve Card brand</h6>
               <p>Retrieve Card Number</p>
-              <hr>
+              <hr> -->
+              <% if (typeof cardDetails != 'undefined') { %>
+                <% for(var i=0; i<cardDetails.length; i++) { %>
+                <div class="form-check">
+                <h6>
+                  <label class="form-check-label" for="cardName">
+                    <%= cardDetails[i].card_no %>
+                  </label>
+                </h6>
+                  <label class="form-check-label" for="cardName">
+                    <%= cardDetails[i].card_name %>
+                  </label>
+                  <hr>
+                </div>
+                <% } %>
+              <% } %>
+
               <div class="BidButton">
                 <button type="button" class="btn btn-outline-primary" onclick="location.href = '/registerNewCard'">Add Card</button>
               </div>
@@ -107,7 +123,6 @@
           </div>
         </div>
       </div>
-
       <div class="myPets">
         <div class="myPetProfile">
           <div class="petProfilePhoto">
