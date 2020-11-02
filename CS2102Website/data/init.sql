@@ -108,7 +108,7 @@ CREATE TABLE bid(
   rating NUMERIC,
   successful BOOLEAN,
   svc_type VARCHAR(255),
-  PRIMARY KEY (name, pet_owner_username),
+  PRIMARY KEY (name, pet_owner_username, care_taker_username, s_date, s_time),
   FOREIGN KEY (s_date, s_time, e_time, care_taker_username) REFERENCES has_availability(s_date, s_time, e_time, care_taker_username),
   FOREIGN KEY (pet_owner_username, name) REFERENCES owns_pet(pet_owner_username, name)
 );
