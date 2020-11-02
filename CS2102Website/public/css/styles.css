@@ -646,36 +646,52 @@ button.secondary:focus {
 
 .searchResultBox {
   width: 800px;
-  height: 250px;
-  background-color: white;
-  margin-left: 290px;
+  height: 2000px;
+  background-color:white;
+  margin-left: 200px;
   margin-top: 150px;
   border-radius: 20px;
   position: absolute;
   padding: 25px;
   display: flex;
   justify-content: flex-start;
-  display: flex;
-  flex-direction: row;
+  z-index: 3;
 }
 
-.resultLeftBox {}
+.resultLeftBox {
+  margin-left: 250px;
+  margin-top: 5px;
+  margin-right: 220px;
+  z-index: 1;
+  margin-bottom: -10px;
+  border-radius: 10px;
+  padding-left: 25px;
+  padding-right: 25px;
+  padding-top: 5px;
+  padding-bottom: 2px;
+  background-color:white;
+}
 
 .resultRightBox {
+  margin-right: 300px;
+  margin-top: -30px;
   margin-left: 120px;
-  margin-top: 5px;
+  z-index: 1;
+  display: flex;
+  justify-content: flex-end;
 }
 
 .visitProfile {
   position: absolute;
   width: 200px;
   height: 66px;
-  left: 440px;
-  top: 125px;
+  left: 940px;
+  top: 225px;
   color: white;
   font-size: 28;
   background: #1B4965;
   border-radius: 10px;
+  z-index: 4;
 }
 
 /**************** View Caretaker Profile *************/

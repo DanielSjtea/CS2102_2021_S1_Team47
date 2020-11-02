@@ -6,7 +6,23 @@ var router = express.Router();
 var sql = require("../data/queries");
 
 router.get("/", function(req, res, next) {
-    res.render("mySitterProfile");
+        var user = req.user;
+        database.query(sql.get_caretaker_profile, [user.username], (err, data) => {
+            if(err) {
+                console.log("SQL error: " + err);
+            } else {
+                if(data.rowCount > 0) {
+//                    var username = JSON.stringify(data.rows[0].username);
+                    var svcType = data.rows[0].svc_type;
+                    var ctype = data.rows[0].ctype;
+                    var trfMethod = data.rows[0].trf_mthd;
+                    res.render("mySitterProfile",{
+                        svcType: svcType,
+                        ctype:ctype,
+                        trfMethod: trfMethod
+                     });
+                }
+            }
+        });
 });
-
 module.exports = router;

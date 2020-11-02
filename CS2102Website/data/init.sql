@@ -15,10 +15,10 @@ DROP TABLE IF EXISTS users;
 -- initialisation of database tables
 CREATE TABLE users (
   username VARCHAR(255) PRIMARY KEY,
-  contact_num CHAR(8),
-  password VARCHAR(255),
-  name VARCHAR(255),
-  email VARCHAR(255)
+  contact_num CHAR(8) NOT NULL,
+  password VARCHAR(255) NOT NULL,
+  name VARCHAR(255) NOT NULL,
+  email VARCHAR(255) NOT NULL UNIQUE
 );
 
 CREATE TABLE pet_owner (
@@ -108,7 +108,7 @@ CREATE TABLE bid(
   rating NUMERIC,
   successful BOOLEAN,
   svc_type VARCHAR(255),
-  PRIMARY KEY (name, pet_owner_username),
+  PRIMARY KEY (name, pet_owner_username, care_taker_username, s_date, s_time),
   FOREIGN KEY (s_date, s_time, e_time, care_taker_username) REFERENCES has_availability(s_date, s_time, e_time, care_taker_username),
   FOREIGN KEY (pet_owner_username, name) REFERENCES owns_pet(pet_owner_username, name)
 );
@@ -132,7 +132,7 @@ LANGUAGE plpgsql;
 CREATE OR REPLACE FUNCTION not_admin()
 RETURNS TRIGGER AS
 $$
-  DECLARE ctx NUMERIC
+  DECLARE ctx NUMERIC;
   BEGIN
   SELECT COUNT(*) INTO ctx FROM pcs_admin P
   WHERE NEW.username = P.username;
