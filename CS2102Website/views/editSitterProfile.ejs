@@ -89,19 +89,19 @@
                 <% var today = new Date(); %>
                 <% var nextWeek = new Date(today.getTime() + 7 * 24 * 60 * 60 * 1000); %>
                 <th class="headcol"></th>
-                <th><%= nextWeek.toString().substring(0, 3) + ", " + nextWeek.getDate() + "/" + nextWeek.getMonth() %></th>
+                <th><%= nextWeek.toString().substring(0, 3) + ", " + nextWeek.getDate() + "/" + (nextWeek.getMonth() + 1) %></th>
                 <% var nextWeek1 = new Date(today.getTime() + 8 * 24 * 60 * 60 * 1000); %>
-                <th><%= nextWeek1.toString().substring(0, 3) + ", " + nextWeek1.getDate() + "/" + nextWeek1.getMonth() %></th>
+                <th><%= nextWeek1.toString().substring(0, 3) + ", " + nextWeek1.getDate() + "/" + (nextWeek1.getMonth() + 1) %></th>
                 <% var nextWeek2 = new Date(today.getTime() + 9 * 24 * 60 * 60 * 1000); %>
-                <th class="today"><%= nextWeek2.toString().substring(0, 3) + ", " + nextWeek2.getDate() + "/" + nextWeek2.getMonth() %></th>
+                <th class="today"><%= nextWeek2.toString().substring(0, 3) + ", " + nextWeek2.getDate() + "/" + (nextWeek2.getMonth() + 1) %></th>
                 <% var nextWeek3 = new Date(today.getTime() + 10 * 24 * 60 * 60 * 1000); %>
-                <th><%= nextWeek3.toString().substring(0, 3) + ", " + nextWeek3.getDate() + "/" + nextWeek3.getMonth() %></th>
+                <th><%= nextWeek3.toString().substring(0, 3) + ", " + nextWeek3.getDate() + "/" + (nextWeek3.getMonth() + 1) %></th>
                 <% var nextWeek4 = new Date(today.getTime() + 11 * 24 * 60 * 60 * 1000); %>
-                <th><%= nextWeek4.toString().substring(0, 3) + ", " + nextWeek4.getDate() + "/" + nextWeek4.getMonth() %></th>
+                <th><%= nextWeek4.toString().substring(0, 3) + ", " + nextWeek4.getDate() + "/" + (nextWeek4.getMonth() + 1) %></th>
                 <% var nextWeek5 = new Date(today.getTime() + 12 * 24 * 60 * 60 * 1000); %>
-                <th class="secondary"><%= nextWeek5.toString().substring(0, 3) + ", " + nextWeek5.getDate() + "/" + nextWeek5.getMonth() %></th>
+                <th class="secondary"><%= nextWeek5.toString().substring(0, 3) + ", " + nextWeek5.getDate() + "/" + (nextWeek5.getMonth() + 1) %></th>
                 <% var nextWeek6 = new Date(today.getTime() + 13 * 24 * 60 * 60 * 1000); %>
-                <th class="secondary"><%= nextWeek6.toString().substring(0, 3) + ", " + nextWeek6.getDate() + "/" + nextWeek6.getMonth() %></th>
+                <th class="secondary"><%= nextWeek6.toString().substring(0, 3) + ", " + nextWeek6.getDate() + "/" + (nextWeek6.getMonth() + 1) %></th>
               </tr>
             </thead>
             </table>
@@ -112,13 +112,13 @@
               <% for (var i = 6; i < 19; i++) {%>
                 <tr>
                   <td class="headcol"><%=i%>:00</td>
-                  <td><input class="form-check-input" type="checkbox" id="Available" name="Available" value="<%=nextWeek.getDate() + "/" + nextWeek.getMonth() + " " + i + ":00 " + (i+1) + ":00" %>"></td>
-                  <td><input class="form-check-input" type="checkbox" id="Available" name="Available" value="<%=nextWeek1.getDate() + "/" + nextWeek1.getMonth() + " " + i + ":00 " + (i+1) + ":00" %>"></td>
-                  <td><input class="form-check-input" type="checkbox" id="Available" name="Available" value="<%=nextWeek2.getDate() + "/" + nextWeek2.getMonth() + " " + i+ ":00 " + (i+1) + ":00" %>"></td>
-                  <td><input class="form-check-input" type="checkbox" id="Available" name="Available" value="<%=nextWeek3.getDate() + "/" + nextWeek3.getMonth() + " " + i + ":00 " + (i+1) + ":00" %>"></td>
-                  <td><input class="form-check-input" type="checkbox" id="Available" name="Available" value="<%=nextWeek4.getDate() + "/" + nextWeek4.getMonth() + " " + i + ":00 " + (i+1) + ":00" %>"></td>
-                  <td><input class="form-check-input" type="checkbox" id="Available" name="Available" value="<%=nextWeek5.getDate() + "/" + nextWeek5.getMonth() + " " + i + ":00 " + (i+1) + ":00" %>"></td>
-                  <td><input class="form-check-input" type="checkbox" id="Available" name="Available" value="<%=nextWeek6.getDate() + "/" + nextWeek6.getMonth() + " " + i + ":00 " + (i+1) + ":00" %>"></td>
+                  <td><input class="form-check-input" type="checkbox" id="Available" name="Available" value="<%=nextWeek.getFullYear() + "-" + (nextWeek.getMonth() + 1) + "-" + nextWeek.toString().substring(8,10) + " " + i + ":00 " + (i+1) + ":00" %>"></td>
+                  <td><input class="form-check-input" type="checkbox" id="Available" name="Available" value="<%=nextWeek1.getFullYear() + "-" + (nextWeek1.getMonth() + 1) + "-" + nextWeek1.toString().substring(8,10) + " " + i + ":00 " + (i+1) + ":00" %>"></td>
+                  <td><input class="form-check-input" type="checkbox" id="Available" name="Available" value="<%=nextWeek2.getFullYear() + "-" + (nextWeek2.getMonth() + 1) + "-" + nextWeek2.toString().substring(8,10) + " " + i+ ":00 " + (i+1) + ":00" %>"></td>
+                  <td><input class="form-check-input" type="checkbox" id="Available" name="Available" value="<%=nextWeek3.getFullYear() + "-" + (nextWeek3.getMonth() + 1) + "-" + nextWeek3.toString().substring(8,10) + " " + i + ":00 " + (i+1) + ":00" %>"></td>
+                  <td><input class="form-check-input" type="checkbox" id="Available" name="Available" value="<%=nextWeek4.getFullYear() + "-" + (nextWeek4.getMonth() + 1) + "-" + nextWeek4.toString().substring(8,10) + " " + i + ":00 " + (i+1) + ":00" %>"></td>
+                  <td><input class="form-check-input" type="checkbox" id="Available" name="Available" value="<%=nextWeek5.getFullYear() + "-" + (nextWeek5.getMonth() + 1) + "-" + nextWeek5.toString().substring(8,10) + " " + i + ":00 " + (i+1) + ":00" %>"></td>
+                  <td><input class="form-check-input" type="checkbox" id="Available" name="Available" value="<%=nextWeek6.getFullYear() + "-" + (nextWeek6.getMonth() + 1) + "-" + nextWeek6.toString().substring(8,10) + " " + i + ":00 " + (i+1) + ":00" %>"></td>
                 </tr>
               <% } %>
             </tbody>

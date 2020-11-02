@@ -40,6 +40,7 @@ router.post("/", function(req, res, next) {
         for (var i = 0; i < available.length; i++) {
             var temp = available[i].split(" "); // will be split into s_date, s_time, e_time
             var params = [username, temp[0], temp[1], temp[2]];
+            //console.log("params: " + params);
             database.db(sql.add_availability, params);
         }
     }

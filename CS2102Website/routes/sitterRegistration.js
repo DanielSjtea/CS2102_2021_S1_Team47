@@ -54,20 +54,20 @@ router.post("/", function(req, res, next) {
                             console.log("SQL error: " + err);
                         } else {
                             if(data.rowCount == 0) {
-                                database.db(sql.insert_trf_pref, transferParams);
+                                database.db(sql.upsert_trf_pref, transferParams);
                             }
                         }
                     });
-                    res.render("mySitterProfile");
+                    res.redirect("mySitterProfile");
                 } catch(err) {
                     console.log("SQL error creating caretaker service or transfer method while signed in: " + err);
-                    res.render("home");
+                    res.redirect("home");
                 }
             }
         });
     } catch(err) {
         console.log("SQL error creating caretaker while signed in: " + err);
-        res.render("home");
+        res.redirect("home");
     }
 });
 
