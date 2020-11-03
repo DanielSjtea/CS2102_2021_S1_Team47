@@ -6,7 +6,7 @@ var router = express.Router();
 var sql = require("../data/queries");
 
 router.get("/", function(req, res, next) {
-    res.render("myBookings");
+    res.render("viewSubmittedBid");
 });
 
 module.exports = router;
