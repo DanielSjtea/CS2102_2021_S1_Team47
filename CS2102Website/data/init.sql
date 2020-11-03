@@ -26,6 +26,7 @@ CREATE TABLE pet_owner (
   card_cvc VARCHAR(10),
   card_name VARCHAR(255),
   card_no VARCHAR(255),
+  card_brand VARCHAR(255),
   area VARCHAR(255)
 );
 

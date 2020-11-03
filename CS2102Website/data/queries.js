@@ -11,7 +11,7 @@ var sql = {
     add_caretaker: 'CALL insert_caretaker_pricelist($1, $2, $3, $4)', //[username, ctype, area, pettype] 
     add_owner: 'INSERT INTO pet_owner(username) VALUES ($1)', //[username] 
     add_admin: 'INSERT INTO pcs_admin(username) VALUES ($1)', //[username]
-    registerNewCard: 'UPDATE pet_owner SET card_cvc = $1, card_name = $2, card_no = $3 WHERE username = $4', //[card_cvc, card_name, card_no, username]
+    registerNewCard: 'UPDATE pet_owner SET card_cvc = $1, card_name = $2, card_no = $3, card_brand = $4 WHERE username = $5', //[card_cvc, card_name, card_no, card_brand, username]
 
     is_caretaker: 'SELECT * FROM care_taker WHERE username = $1', //[username] Check if user is caretaker (returns empty if false)
     is_owner: 'SELECT * FROM pet_owner WHERE username = $1', //[username] Check if user is pet owner (returns empty if false)

@@ -16,17 +16,8 @@ var user = req.user;
       let card_name = req.body.ccname;
       let card_no = req.body.ccnumber;
       let card_cvc = req.body.cccvv;
-      let ccBrand = req.body.paymentMethod.value;
-//        for (var i = 0; i < ccBrand.length; i++) {
-//            if (ccBrand[i].checked)  {
-//                console.log("credit brand is " + ccBrand[i]);
-//            }else {
-//                console.log("credit brand[i] is " + ccBrand[i]);
-                console.log("credit brand is " + ccBrand);
-//            }
-//        }
-
-          let params = [card_cvc, card_name, card_no, username];
+      let card_brand = req.body.paymentMethod;
+          let params = [card_cvc, card_name, card_no, card_brand, username];
           database.query(sql.registerNewCard, params, (err, data) => {
             if (err) {
               console.log("Error: " + err);
