@@ -17,17 +17,34 @@
   <div class="parent">
       <div class="mainTitle">
         <h1>Search Results</h1>
+        </div>
       </div>
+      <div class="noResults">
+        <% if (caretaker.length == 0 || careTakerChosen.length == 0) { %>
+          <h3>No results found!</h3>
+        <% } %>
 
       <div class="searchResultBox">
         <% for (var i = 0; i < sitterResults.length; i++) { %>
           <div class="resultLeftBox">
-            <h3>Name: <%= caretaker[i][0].name%></h3>
+            <% if (typeof caretaker != 'undefined') { %>
+              <h3>Name: <%= caretaker[i][0].name%></h3>
+            <% } else { %>
+              <h3>Name: <%= careTakerChosen[0].name %></h3>
+            <% } %>
             <h5>Username: <%= sitterResults[i].care_taker_username%></h3>
-            <p>Area: <%= caretaker[i][0].area%></p>
+            <% if (typeof caretaker != 'undefined') { %>
+              <p>Area: <%= caretaker[i][0].area%></p>
+            <% } else { %>
+              <p>Area: <%= careTakerChosen[0].area%></p>
+            <% } %>
             <br>
             <h5>Pet Transfer Preference</h5>
-            <p><%= caretaker[i][0].trf_mthd%></p>
+            <% if (typeof caretaker != 'undefined') { %>
+              <p><%= caretaker[i][0].trf_mthd%></p>
+            <% } else { %>
+              <p><%= careTakerChosen[0].trf_mthd%></p>
+            <% } %>
           </div>
           <div class="resultRightBox">
             <h5>Ratings:</h5>

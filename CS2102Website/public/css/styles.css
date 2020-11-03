@@ -664,6 +664,13 @@ button.secondary:focus {
   z-index: 3;
 }
 
+.noResults {
+  display: flex;
+  justify-content: center;
+  background-color: #E5E5E5;
+  margin: 0;
+}
+
 .resultLeftBox {
   margin-left: 250px;
   margin-top: 5px;

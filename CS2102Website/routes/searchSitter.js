@@ -54,7 +54,7 @@ router.post("/", async function(req, res, next) {
     }
     var startDate = req.body.startDate;
     var endDate = req.body.endDate;
-    var petsChosen = req.body.petsChosen;
+    var petsChosen = req.body.petsChosen; // names of pet(s)
     if (typeof petsChosen == 'string') {
         petsChosen = new Array();
         petsChosen.push(req.body.petsChosen);
@@ -65,42 +65,38 @@ router.post("/", async function(req, res, next) {
     }
 
     // Pet Types of chosen pets
-    /*var petsChosenTypes = new Array();
+    var petsChosenTypes = new Array();
     for (var i = 0; i < petsChosen.length; i++) {
-        console.log("-------------")
-        console.log(username);
-        console.log(petsChosen[i].ptype);
         var params = [username, petsChosen[i]];
         var type = await database.db_get_promise(sql.get_pet_type, params);
-        console.log("type: " + type);
-        //console.log(type.rows);
-        /*if (!petsChosenTypes.includes(type.rows[i])) {
-            petsChosenTypes.push(type.rows[i]);
-        }*/
-    //}
+        if (!petsChosenTypes.includes(type[0].ptype)) {
+            petsChosenTypes.push(type[0].ptype);
+        }
+    }
 
     if (startDate > endDate) {
         res.render("searchSitter", {message: "Start Date must not be before the End Date!"});
     } else {
         var serviceParams = [startDate, endDate, serviceDesired, username];
         var data = await database.db_get_promise(sql.find_service_date_nobids, serviceParams);
-        console.log('DATA: ' + data);
 
         /* start of if caretaker is chosen */
-        /*if (req.body.careTakerChosen != 'Choose') {
+        if (req.body.careTakerChosen != 'Choose') {
             var careTakerChosen = req.body.careTakerChosen;
             var petTypeRes = await database.db_get_promise(sql.get_ct_pet_types, [careTakerChosen]);
-            console.log("pettypes: " + petTypeRes.toString());
-            //var petTypes = petTypeRes.split(",");
+            var arr = petTypeRes[0].ptype;
+            var petTypes = arr.split(",");
             var cannotTakeCare = false;
 
             // check if caretakers pet type preference includes the actual pet types required
             for (var i = 0; i < petsChosenTypes.length; i++) {
                 for (var j = 0; j < petTypes.length; j++) {
-                    if (petTypes[j].includes(petsChosenTypes[i])) {
+                    var ct_type = petTypes[j].toLowerCase();
+                    var pet_type = petsChosenTypes[i].toLowerCase();
+                    if (ct_type.includes(pet_type)) {
                         break;
                     }
-                    if (!petTypes[j].includes(petsChosenTypes[i]) && j == petTypes.length - 1) {
+                    if (!ct_type.includes(pet_type) && j == petTypes.length - 1) {
                         cannotTakeCare = true;
                         break;
                     }
@@ -111,22 +107,22 @@ router.post("/", async function(req, res, next) {
             } else { // caretaker able to take care
                 var ctServiceParams = [startDate, endDate, serviceDesired, username, careTakerChosen];
                 data = await database.db_get_promise(sql.find_ct_service_date, ctServiceParams);
-                console.log("data3: " + data);
+                var careTakerChose = await database.db_get_promise(sql.get_caretaker_profile_limit_one, [careTakerChosen]);
                 res.render("searchSitterResults", {
-                    careTakerChosen: careTakerChosen,
+                    careTakerChosen: careTakerChose,
                     petsChosen: petsChosen,
                     specialReq: specialReq,
                     sitterResults: data
                 })
-            }*/
+            }
         /* end of if caretaker is chosen */
         /* start of if no particular care taker chosen */
-        /*} else {*/
+        } else {
             req.session.petsChosen = petsChosen;
             req.session.specialReq = specialReq;
             req.session.sitterResults = data;
             res.redirect("searchSitterResults");
-        /*}*/
+        }
         /* end of if no particular care taker chosen */
     }
 })

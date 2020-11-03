@@ -26,7 +26,6 @@ router.post("/", function(req, res, next) {
             }
             if (typeof role != 'undefined') {
                 if (role == "Pet Owner" || role == "Care Taker") {
-                    req.session.role = role;
                     return res.redirect("signedIn");
                 } else if(role == "PCS Admin") {
                     var isAdmin = await database.db_get_promise_rows(sql.is_admin, [user.username]);

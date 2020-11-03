@@ -72,7 +72,7 @@ var sql = {
         'SELECT 1 ' +
         'FROM bid B ' +
         'WHERE B.s_date = HAvail.s_date AND B.care_taker_username = HAvail.care_taker_username AND B.successful = TRUE ' +
-        ') ORDER BY HAvail.s_date ASC, HAvail.s_time ASC) all_service_date' +
+        ') ORDER BY HAvail.s_date ASC, HAvail.s_time ASC) AS all_service_date ' +
         'WHERE care_taker_username = $5', // [beginning_date, end_date, svc_type, pet_owner_username, care_taker_username]
 
     //PCS statistics
