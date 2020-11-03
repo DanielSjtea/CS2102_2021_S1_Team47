@@ -9,7 +9,7 @@ const pool = new Pool({
     database: 'postgres',
     password: 'password',
     port: 5432,
-})
+});
 
 pool.db = function(sql, params) {
     pool.query(sql, params, (err, res) => {
@@ -17,7 +17,7 @@ pool.db = function(sql, params) {
             console.log("SQL Error: " + err);
         }
     })
-}
+};
 
 pool.db_get_promise = function(sql, params) {
     return new Promise((resolve, reject) => {
@@ -31,6 +31,19 @@ pool.db_get_promise = function(sql, params) {
             }
         })
     })
-}
+};
+
+pool.db_get_promise_rows = function(sql, params) {
+    return new Promise((resolve, reject) => {
+        pool.query(sql, params, (err, res) => {
+            if (err) {
+                console.log("SQL Error: " + err);
+                return reject(err);
+            } else {
+                resolve(res.rowCount);
+            }
+        })
+    })
+};
 
 module.exports = pool;

@@ -58,8 +58,10 @@ router.post("/", async function(req, res, next) {
     if (typeof petsChosen == 'string') {
         petsChosen = new Array();
         petsChosen.push(req.body.petsChosen);
-    } else {
+    } else if (typeof petsChosen == 'object'){
         petsChosen = Object.values(req.body.petsChosen);
+    } else {
+        res.render("searchSitter", {message: "Please fill in all required fields (*)!"})
     }
 
     // Pet Types of chosen pets
@@ -82,6 +84,7 @@ router.post("/", async function(req, res, next) {
     } else {
         var serviceParams = [startDate, endDate, serviceDesired, username];
         var data = await database.db_get_promise(sql.find_service_date_nobids, serviceParams);
+        console.log('DATA: ' + data);
 
         /* start of if caretaker is chosen */
         /*if (req.body.careTakerChosen != 'Choose') {

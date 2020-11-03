@@ -11,11 +11,11 @@ router.get("/", async function(req, res, next) {
     var sitterResults = req.session.sitterResults;
     var caretaker = new Array();
     for (var i = 0; i < sitterResults.length; i++) {
-        var data = await database.db_get_promise(sql.get_caretaker_profile, [sitterResults[i].care_taker_username]);
-        console.log(data);
+        var data = await database.db_get_promise(sql.get_caretaker_profile_limit_one, [sitterResults[i].care_taker_username]);
         caretaker.push(data);
-        console.log(caretaker)
     };
+    console.log("SITTER: " + sitterResults);
+    console.log("CARETAKER: " + caretaker)
     res.render("searchSitterResults", {
         caretaker: caretaker,
         petsChosen: petsChosen,
