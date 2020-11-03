@@ -119,11 +119,17 @@ CREATE OR REPLACE PROCEDURE
 insert_caretaker_pricelist(cname VARCHAR(255), ctype VARCHAR(255), area VARCHAR(255), pettype VARCHAR(255)) AS
 $$ 
   DECLARE ctx NUMERIC;
+  is_caretaker NUMERIC;
   BEGIN
-  INSERT INTO care_taker VALUES (cname, ctype, area);
+    SELECT COUNT(*) INTO is_caretaker
+    FROM care_taker 
+    WHERE username = $1;
+  IF is_caretaker = 0 THEN
+    INSERT INTO care_taker VALUES (cname, ctype, area);
+  END IF;
     SELECT COUNT(*) INTO ctx 
     FROM has_price_list P
-    WHERE P.care_taker_username = cname;
+    WHERE P.care_taker_username = cname AND P.ptype = pettype;
   IF ctx = 0 THEN
     INSERT INTO has_price_list(care_taker_username, ptype) VALUES (cname, pettype);
   END IF;

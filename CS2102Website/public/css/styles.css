@@ -191,7 +191,7 @@
   font-size: 28;
   background: #1B4965;
   border-radius: 10px;
-  z-index: 1;
+  z-index: 5;
 }
 
 .sitterErrorBox {
@@ -654,20 +654,18 @@ button.secondary:focus {
   width: 800px;
   height: 2000px;
   background-color:white;
-  margin-left: 200px;
+  margin-left: 0px;
   margin-top: 150px;
   border-radius: 20px;
   position: absolute;
   padding: 25px;
   display: flex;
   justify-content: flex-start;
-  z-index: 3;
 }
 
 .noResults {
   display: flex;
   justify-content: center;
-  background-color: #E5E5E5;
   margin: 0;
 }
 
@@ -675,26 +673,24 @@ button.secondary:focus {
   margin-left: 250px;
   margin-top: 5px;
   margin-right: 220px;
-  z-index: 1;
   margin-bottom: -10px;
   border-radius: 10px;
   padding-left: 25px;
-  padding-right: 25px;
+  padding-right: 650px;
   padding-top: 5px;
   padding-bottom: 2px;
   background-color:white;
 }
 
 .resultRightBox {
-  margin-right: 300px;
+  margin-right: 280px;
   margin-top: -30px;
-  margin-left: 120px;
-  z-index: 1;
+  margin-left: 20px;
   display: flex;
   justify-content: flex-end;
 }
-
-.visitProfile {
+/*
+.visitProfileButton {
   position: absolute;
   width: 200px;
   height: 66px;
@@ -704,7 +700,18 @@ button.secondary:focus {
   font-size: 28;
   background: #1B4965;
   border-radius: 10px;
-  z-index: 4;
+  z-index: 7;
+}*/
+
+.visitProfileButton {
+  position: absolute;
+  width: 200px;
+  background: #1B4965;
+  border-radius: 10px;
+  height: 66px;
+  color: white;
+  font-size: 28;
+  margin-top: -150px;
 }
 
 

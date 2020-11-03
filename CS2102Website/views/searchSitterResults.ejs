@@ -19,10 +19,15 @@
         <h1>Search Results</h1>
         </div>
       </div>
+
       <div class="noResults">
-        <% if (caretaker.length == 0 || careTakerChosen.length == 0) { %>
+        <% if (typeof caretaker != 'undefined' && caretaker.length == 0) { %>
           <h3>No results found!</h3>
         <% } %>
+        <% if (typeof careTakerChosen != 'undefined' && careTakerChosen.length == 0) { %>
+          <h3>No results found!</h3>
+        <% } %>
+      </div>
 
       <div class="searchResultBox">
         <% for (var i = 0; i < sitterResults.length; i++) { %>
@@ -47,6 +52,15 @@
             <% } %>
           </div>
           <div class="resultRightBox">
+            <div>
+              <form action="/searchSitterResults" method="POST">
+                <input id="caretakerUsername" name="caretakerUsername" value="<%= sitterResults[i].care_taker_username%>" type="hidden"/>
+                <button type="submit" class="visitProfileButton" name="button">
+                  <!-- REMEMBER TO EDIT THIS LINK ACCORDING TO USERNAME WITH EJS -->
+                  View Profile
+                </button>
+              </form>
+            </div>
             <h5>Ratings:</h5>
             <div class="ratingStars">
               <span class="fa fa-star checked"></span>
@@ -55,16 +69,10 @@
               <span class="fa fa-star checked"></span>
               <span class="fa fa-star checked"></span>
             </div>
-            <form action="/searchSitterResults" method="POST">
-              <input id="caretakerUsername" name="caretakerUsername" value="<%= sitterResults[i].care_taker_username%>" type="hidden"/>
-              <button type="submit" class="visitProfile" name="button">
-                <!-- REMEMBER TO EDIT THIS LINK ACCORDING TO USERNAME WITH EJS -->
-                View Profile
-              </button>
-            </form>
           </div>
         <% } %>
       </div>
+
       <div class="filler">
 
       </div>

@@ -84,8 +84,14 @@ router.post("/", async function(req, res, next) {
         if (req.body.careTakerChosen != 'Choose') {
             var careTakerChosen = req.body.careTakerChosen;
             var petTypeRes = await database.db_get_promise(sql.get_ct_pet_types, [careTakerChosen]);
-            var arr = petTypeRes[0].ptype;
-            var petTypes = arr.split(",");
+            var petTypes = new Array();
+            if (typeof petTypeRes == 'object') {
+                for (var j = 0; j < petTypeRes.length; j++) {
+                    petTypes.push(petTypeRes[j].ptype);
+                }
+            } else if (typeof petTypeRes == 'string') {
+                petTypes.push(petTypeRes.ptype);
+            }
             var cannotTakeCare = false;
 
             // check if caretakers pet type preference includes the actual pet types required
@@ -93,7 +99,7 @@ router.post("/", async function(req, res, next) {
                 for (var j = 0; j < petTypes.length; j++) {
                     var ct_type = petTypes[j].toLowerCase();
                     var pet_type = petsChosenTypes[i].toLowerCase();
-                    if (ct_type.includes(pet_type)) {
+                    if (ct_type.includes(pet_type) || ct_type == pet_type) {
                         break;
                     }
                     if (!ct_type.includes(pet_type) && j == petTypes.length - 1) {
