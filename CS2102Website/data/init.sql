@@ -199,11 +199,6 @@ $$
 $$
 LANGUAGE plpgsql;
 
-pcs_admin_username VARCHAR(255) REFERENCES pcs_admin(username),
-  care_taker_username VARCHAR(255),
-  ptype VARCHAR(255),
-  price
-
 -- Trigger
 CREATE TRIGGER check_pet_owner()
 BEFORE INSERT OR UPDATE ON pet_owner
