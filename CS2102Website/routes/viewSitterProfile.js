@@ -44,19 +44,32 @@ router.get('/', async function(req, res, next) {
 
 
 
-
-
 // POST
-router.post('/', function(req, res, next) {    
-    /*var price = req.body.caretakerBid;
-    let params = [care_taker_username, s_date, s_time, e_time, name, pet_owner_name, price, trf_mthd, pay_type, svc_type];
-    database.query(sql.make_bid, params, (err, data) => {
+router.post('/', async function(req, res, next) {    
+    var care_taker_username = req.session.caretakerUsername;
+    var caretaker = await database.db_get_promise(sql.get_caretaker_profile, [care_taker_username]);
+    var s_date = req.session.startDate; //from searchSitter
+    var s_time = '08:00'; //hardcode because users cannot input time
+    var e_time = '22:00';  
+    var pet_owner_name = req.user.username;
+    var price = req.body.caretakerBid.replace(/\$/g, ''); //removes the dollar sign
+    var trf_mthd = caretaker[0].trf_mthd;
+    var pay_type = ''; //Is pay_type necessary?
+    var svc_type = req.session.serviceDesired; //from searchSitter
+    petsChosen = req.session.petsChosen;    
+
+    for (var i = 0; i < petsChosen.length; i++) {
+      var name = petsChosen[i];
+      let params = [care_taker_username, s_date, s_time, e_time, name, pet_owner_name, price, trf_mthd, pay_type, svc_type];      
+      database.query(sql.make_bid, params, (err, data) => {
         if (err) {
           console.log("Error: " + err);
-        } else {
+        } /*else {
           res.redirect("myBids");
-        }
-      });*/
+        }*/
+      });
+    }    
+    
       res.redirect("myBids"); // just to make sure website still works while editing code
 });
 
