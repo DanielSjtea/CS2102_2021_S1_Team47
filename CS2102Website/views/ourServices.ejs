@@ -1,10 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-<% if (typeof user != 'undefined') { %>
-  <%- include('headerSignedIn.ejs') %>
-<% } else { %>
-  <%- include('headerSignedOut.ejs') %>
-<% } %>
+<%- include('headerSignedIn.ejs') %>
 <link rel="stylesheet" href="css/styles.css">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -17,37 +13,64 @@
 
 <body>
   <div class="parent">
-    <div class="leftSection">
-
-    </div>
-
-    <div class="rightSection">
       <div class="mainTitle">
         <img class="happypets" src="https://images.unsplash.com/photo-1450778869180-41d0601e046e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1150&q=80" alt="">
       </div>
 
-      <div class="ourServices">
-        <div class="firstText">
-          <div class="first">
-            <h1>Thank you for visiting</h1>
-            <h1>Pet Caring Services Page!</h1>
-          </div>
-          <div class="second">
-            <p>
-              We pride ourselves on quality pet caring services with Pet Carers who are meticulous, affectionate and attentive.
-            </p>
-          </div>
-          <div class="third">
-            <p>No matter what your pets are, we have someone who is experienced in caring for it!</p>
-          </div>
-          <div class="fourth">
-            <p>So rest assured, leave your pet caring needs to us, and get along with your other commitments!</p>
-          </div>
-        </div>
+<div class="servicesWrapper">
+  <div class="ourServices">
+    <div class="firstText">
+      <div class="first">
+        <h1>Thank you for visiting</h1>
+        <h1>Pet Caring Services Page!</h1>
+      </div>
+      <div class="second">
+        <p>
+          We pride ourselves on quality pet caring services with Pet Carers who are meticulous, affectionate and attentive.
+        </p>
+      </div>
+      <div class="third">
+        <p>No matter what your pets are, we have someone who is experienced in caring for it!</p>
+      </div>
+      <div class="fourth">
+        <p>So rest assured, leave your pet caring needs to us, and get along with your other commitments!</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="specificServices">
+    <div class="servicesProvided">
+      <h1>Services Provided</h1>
+    </div>
+    <div class="service1">
+      <br>
+      <div class="service1Logo">
+        <img class="dogGrooming" src="data:image/png;base64,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" alt="">
+        <br>
+        <p class="petGroomingText">Pet Grooming Services</p>
+      </div>
+      <br>
+      <div class="service2Logo">
+        <img class="dogWalking" src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSNJgHe_ZN9GMieVFbler68UCHX6iEyUEg2sw&usqp=CAU" alt="">
+        <br>
+        <p class="dogWalkingText">Full Day Pet Care</p>
       </div>
 
     </div>
+
   </div>
+
+</div>
+
+      <div class="filler">
+
+      </div>
+
+      <div class="filler">
+
+      </div>
+
+    </div>
 </body>
 
 </html>

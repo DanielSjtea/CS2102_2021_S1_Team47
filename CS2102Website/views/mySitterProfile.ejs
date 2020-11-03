@@ -13,191 +13,196 @@
 
 <body>
   <div class="parent">
-    <div class="leftSection">
+    <div class="mainTitle">
+      <h1>Caretaker Profile</h1>
+    </div>
+
+    <div class="RatingsBox">
+      <div class="ratingsLeftCol">
+        <div class="ratingsLeftColFirstText">
+          <div class="">
+            <p><b>Ratings</b></p>
+          </div>
+          <div class="ratingStars">
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star checked"></span>
+          </div>
+        </div>
+        <br>
+        <div class="ratingsLeftColSecondText">
+          <p> <b>Expected Salary (This Month)</b></p>
+        </div>
+        <div>
+          <p>Insert salary from EJS</p>
+        </div>
+      </div>
+
+      <div class="ratingsRightCol">
+        <div class="totalPetDays">
+          <p><b>Total Pet Days (This Month)</b></p>
+        </div>
+        <div>
+          <p>Insert Total Pet Days from EJS</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="DetailsBox">
+      <div class="DetailsLeftCol">
+        <div class="detailsLeftColFirstText">
+          <div class="">
+            <p><b>Transfer Methods</b></p>
+          </div>
+          <div class="transferMethods">
+            <p><%= trfMethod %></p>
+          </div>
+        </div>
+        <br>
+        <div class="detailsLeftColSecondText">
+          <p> <b>Service(s)</b></p>
+        </div>
+        <div class="services">
+          <p><%= svcType %></p>
+        </div>
+      </div>
+
+      <div class="detailsRightCol">
+        <div class="jobtype">
+          <p><b>Job Type</b></p>
+        </div>
+        <div>
+          <p><%= ctype %></p>
+        </div>
+        <br>
+        <div class="editButton">
+          <button type="button" class="btn btn-outline-primary" onclick="location.href = '/editSitterProfile'">Edit Details</button>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="pricingBox">
+      <div class="tableheading">
+        <h4>Daily Price</h4>
+      </div>
+      <div class="pricingtable">
+        <table class="table">
+          <tbody>
+            <tr>
+              <th scope="row">1</th>
+              <td>Cat</td>
+              <td class="noborderright">$20</td>
+            </tr>
+            <tr>
+              <th scope="row">2</th>
+              <td>Dog</td>
+              <td class="noborderright">$20</td>
+            </tr>
+            <tr>
+              <th scope="row">3</th>
+              <td>Bird</td>
+              <td class="noborderright">$20</td>
+            </tr>
+            <tr>
+              <th scope="row">4</th>
+              <td>Snake</td>
+              <td class="noborderright">$20</td>
+            </tr>
+            <tr>
+              <th scope="row">5</th>
+              <td>Hamster</td>
+              <td class="noborderright">$999</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+
+    <div class="availabilityBox">
+      <div class="tableheading">
+        <h4>Availability (Latest 7 Days)</h4>
+      </div>
+      <div class="availabilitytable">
+        <table class="table">
+          <tbody>
+            <tr>
+              <th scope="row">1</th>
+              <td>TO INPUT INFO INTO THIS TABLE FROM EJS</td>
+              <td>$20</td>
+              <td class="noborderright">$20</td>
+            </tr>
+            <tr>
+              <th scope="row">2</th>
+              <td>Dog</td>
+              <td>$20</td>
+              <td class="noborderright">$20</td>
+            </tr>
+            <tr>
+              <th scope="row">3</th>
+              <td>Bird</td>
+              <td>$20</td>
+              <td class="noborderright">$20</td>
+            </tr>
+            <tr>
+              <th scope="row">4</th>
+              <td>Snake</td>
+              <td>$20</td>
+              <td class="noborderright">$20</td>
+            </tr>
+            <tr>
+              <th scope="row">5</th>
+              <td>Hamster</td>
+              <td>$999</td>
+              <td class="noborderright">$20</td>
+            </tr>
+            <tr>
+              <th scope="row">5</th>
+              <td>Hamster</td>
+              <td>$999</td>
+              <td class="noborderright">$20</td>
+            </tr>
+            <tr>
+              <th scope="row">5</th>
+              <td>Hamster</td>
+              <td>$999</td>
+              <td class="noborderright">$20</td>
+            </tr>
+            <tr>
+              <th scope="row">5</th>
+              <td>Hamster</td>
+              <td>$999</td>
+              <td class="noborderright">$20</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="filler">
 
     </div>
 
-    <div class="rightSection">
-      <div class="mainTitle">
-        <h1>Caretaker Profile</h1>
-      </div>
-
-      <div class="RatingsBox">
-        <div class="ratingsLeftCol">
-          <div class="ratingsLeftColFirstText">
-            <div class="">
-              <p><b>Ratings</b></p>
-            </div>
-            <div class="ratingStars">
-              <span class="fa fa-star checked"></span>
-              <span class="fa fa-star checked"></span>
-              <span class="fa fa-star checked"></span>
-              <span class="fa fa-star checked"></span>
-              <span class="fa fa-star checked"></span>
-            </div>
-          </div>
-          <br>
-          <div class="ratingsLeftColSecondText">
-            <p> <b>Expected Salary (This Month)</b></p>
-          </div>
-          <div class="salary">
-            <p>Insert salary from EJS</p>
-          </div>
-        </div>
-
-        <div class="ratingsRightCol">
-          <div class="totalPetDays">
-            <p><b>Total Pet Days (This Month)</b></p>
-          </div>
-          <div>
-            <p>Insert Total Pet Days from EJS</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="DetailsBox">
-        <div class="DetailsLeftCol">
-          <div class="detailsLeftColFirstText">
-            <div class="">
-              <p><b>Transfer Methods</b></p>
-            </div>
-            <div class="transferMethods">
-              <p><%= trfMethod %></p>
-            </div>
-          </div>
-          <br>
-          <div class="detailsLeftColSecondText">
-            <p> <b>Service(s)</b></p>
-          </div>
-          <div class="services">
-            <p><%= svcType %></p>
-          </div>
-        </div>
-
-        <div class="detailsRightCol">
-          <div class="jobtype">
-            <p><b>Job Type</b></p>
-          </div>
-          <div>
-            <p><%= ctype %></p>
-          </div>
-          <br>
-          <div class="editButton">
-            <button type="button" class="btn btn-outline-primary" onclick="location.href = '/editSitterProfile'">Edit Details</button>
-          </div>
-        </div>
-      </div>
-
-
-      <div class="pricingBox">
-        <div class="tableheading">
-          <h4>Daily Price</h4>
-        </div>
-        <div class="pricingtable">
-          <table class="table">
-            <tbody>
-              <tr>
-                <th scope="row">1</th>
-                <td>Cat</td>
-                <td class="noborderright">$20</td>
-              </tr>
-              <tr>
-                <th scope="row">2</th>
-                <td>Dog</td>
-                <td class="noborderright">$20</td>
-              </tr>
-              <tr>
-                <th scope="row">3</th>
-                <td>Bird</td>
-                <td class="noborderright">$20</td>
-              </tr>
-              <tr>
-                <th scope="row">4</th>
-                <td>Snake</td>
-                <td class="noborderright">$20</td>
-              </tr>
-              <tr>
-                <th scope="row">5</th>
-                <td>Hamster</td>
-                <td class="noborderright">$999</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-
-      <div class="availabilityBox">
-        <div class="tableheading">
-          <h4>Availability (Latest 7 Days)</h4>
-        </div>
-        <div class="availabilitytable">
-          <table class="table">
-            <tbody>
-              <tr>
-                <th scope="row">1</th>
-                <td>TO INPUT INFO INTO THIS TABLE FROM EJS</td>
-                <td>$20</td>
-                <td class="noborderright">$20</td>
-              </tr>
-              <tr>
-                <th scope="row">2</th>
-                <td>Dog</td>
-                <td>$20</td>
-                <td class="noborderright">$20</td>
-              </tr>
-              <tr>
-                <th scope="row">3</th>
-                <td>Bird</td>
-                <td>$20</td>
-                <td class="noborderright">$20</td>
-              </tr>
-              <tr>
-                <th scope="row">4</th>
-                <td>Snake</td>
-                <td>$20</td>
-                <td class="noborderright"$20</td>
-              </tr>
-              <tr>
-                <th scope="row">5</th>
-                <td>Hamster</td>
-                <td>$999</td>
-                <td class="noborderright">$20</td>
-              </tr>
-              <tr>
-                <th scope="row">5</th>
-                <td>Hamster</td>
-                <td>$999</td>
-                <td class="noborderright">$20</td>
-              </tr>
-              <tr>
-                <th scope="row">5</th>
-                <td>Hamster</td>
-                <td>$999</td>
-                <td class="noborderright">$20</td>
-              </tr>
-              <tr>
-                <th scope="row">5</th>
-                <td>Hamster</td>
-                <td>$999</td>
-                <td class="noborderright">$20</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-<!--
-
-
-      <div class="PricingBox">
-
-      </div>
-
-      <div class="AvailabilityBox">
-
-      </div> -->
+    <div class="filler">
 
     </div>
+
+    <div class="filler">
+
+    </div>
+
+    <div class="filler">
+
+    </div>
+
+    <div class="filler">
+
+    </div>
+
+
   </div>
 </body>
 

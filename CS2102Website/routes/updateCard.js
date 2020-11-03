@@ -6,7 +6,7 @@ var router = express.Router();
 var sql = require("../data/queries");
 
 router.get("/", function(req, res, next) {
-    res.render("registerNewCard");
+    res.render("updateCard");
 });
 
 router.post("/",function (req, res, next) {
@@ -22,7 +22,7 @@ var user = req.user;
             if (err) {
               console.log("Error: " + err);
               const taken = "Error adding card!";
-              res.render("registerNewCard", { taken });
+              res.render("updateCard", { taken });
             } else {
               res.redirect("myProfile");
             }
