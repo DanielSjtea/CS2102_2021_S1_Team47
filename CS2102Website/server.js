@@ -38,6 +38,7 @@ var addPetsRouter = require('./routes/addPets');
 var pcsProfileRouter = require('./routes/pcsProfile');
 var pcsSalaryRouter = require('./routes/pcsSalary');
 var pcsStatisticsRouter = require('./routes/pcsStatistics');
+var editPcsProfileRouter = require('./routes/editPCSProfile');
 
 const app = express();
 
@@ -96,6 +97,7 @@ app.use('/addPets', addPetsRouter);
 app.use('/pcsProfile', pcsProfileRouter);
 app.use('/pcsSalary', pcsSalaryRouter);
 app.use('/pcsStatistics', pcsStatisticsRouter);
+app.use('/editPcsProfile', editPcsProfileRouter);
 
 app.listen(3030, function() {
   console.log("Server started on port 3030")
