@@ -31,8 +31,7 @@
         <div class="viewDetails">
           <div class="viewDetailsLeftColumn">
             <h4>Area</h4>
-            <p><%= caretaker[0].area%></p>
-            
+            <p><%= caretaker[0].area%></p>         
             <h4>Contact Number</h4>
             <p><%= caretaker[0].contact_num %></p>
             <h4>Email</h4>
@@ -59,21 +58,17 @@
         <div class="ReviewsHeading">
           <h3>Reviews</h3>
           <div class="ReviewList">
-            <div class="tableheading">
-              <h4>Daily Price</h4>
-            </div>
             <div class="mostrecent3reviews">
-              <h6>Retrieve name</h6>
-              <p>Retrieve date</p>
-              <p>Retrieve text</p>
-              <hr>
-              <h6>Retrieve next name</h6>
-              <p>Retrieve date</p>
-              <p>Retreive text</p>
-              <hr>
-              <h6>Retrieve next name</h6>
-              <p>Retrieve date</p>
-              <p>Retreive text</p>
+              <% if(review_count == 0){ %>
+                <p>No reviews yet</p>
+              <% } else{ %>  
+                <% for (var i = 0; i < review_count; i++) { %>
+                  <h6>Username: <%= past_reviews[i].pet_owner_username %></h6>
+                  <p>Date: <%= past_reviews[i].s_date.toLocaleDateString() %></p>
+                  <p>Review: <%= past_reviews[i].review %></p>
+                  <hr>
+                <% } %>
+              <% } %> 
             </div>
           </div>
         </div>

@@ -8,8 +8,12 @@ var sql = require("../data/queries");
 router.get('/', async function(req, res, next) {
     let username = req.session.caretakerUsername;
     var caretaker = await database.db_get_promise(sql.get_caretaker_profile, [username]);
+    var past_reviews = await database.db_get_promise(sql.view_caretaker_review, [username]); 
+    var review_count = Math.min(past_reviews.length, 3);
     res.render("viewSitterProfile", {
-        caretaker: caretaker
+        caretaker: caretaker,
+        past_reviews: past_reviews,
+        review_count: review_count
     });
 });
 
