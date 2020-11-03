@@ -73,7 +73,19 @@
         <div class="viewReviewPricingTable">
           <table class="table">
             <tbody>
-              <tr>
+              <% if(pricelist.length == 0){ %>
+                <p>No prices specified</p>
+              <% } else{ %>  
+                <% for (var i = 0; i < pricelist.length; i++) { %>
+                  <tr>
+                    <th scope="row"><%= i+1%></th>
+                    <td><%= pricelist[i].ptype %></td>
+                    <td class="noborderright">$<%= pricelist[i].price %></td>
+                  </tr>
+                <% } %>
+              <% } %>              
+              
+              <!--<tr>
                 <th scope="row">1</th>
                 <td>Cat</td>
                 <td class="noborderright">$20</td>
@@ -97,7 +109,7 @@
                 <th scope="row">5</th>
                 <td>Hamster</td>
                 <td class="noborderright">$999</td>
-              </tr>
+              </tr>-->
             </tbody>
           </table>
         </div>
