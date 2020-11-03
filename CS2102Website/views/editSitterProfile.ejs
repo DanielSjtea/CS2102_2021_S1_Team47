@@ -13,127 +13,105 @@
 
 <body>
   <div class="parent">
-    <div class="leftSection">
-
+    <div class="mainTitle">
+      <h1>Update your Caretaker Profile!</h1>
     </div>
 
-    <div class="rightSection">
-      <div class="mainTitle">
-        <h1>Update your Caretaker Profile!</h1>
-      </div>
-
-      <div class="sitterUpdateBox">
-        <form action="/editSitterProfile" method="POST" id="UpdateSitterForm">
-          <div class="form-group">
-            <label for="petsWillingToTakeCare"><b>Pets you are willing to take care of</b></label>
-            <input type="text" class="form-control" id="petsWillingToTakeCare" name="petsWillingToTakeCare" placeholder="Dogs, Cats, Parrots">
-          </div>
-          <div class="form-row">
-            <div class="form-group col-md-6">
-              <label for="petServices">Pet Services Provided</label>
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="petServices" name="petServices" value="Pet Grooming">
-                <label class="form-check-label" for="Pet Grooming">
-                  Pet Grooming
-                </label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="petServices" name="petServices" value="Full Day Pet Care">
-                <label class="form-check-label" for="Full Day Pet Care">
-                  Full Day Pet Care
-                </label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="petServices" name="petServices" value="Multiple Days Pet Care">
-                <label class="form-check-label" for="Multiple Days Pet Care">
-                  Multiple Days Pet Care
-                </label>
-              </div>
+    <div class="sitterUpdateBox">
+      <form action="/editSitterProfile" method="POST" id="UpdateSitterForm">
+        <div class="form-group">
+          <label for="petsWillingToTakeCare"><b>Pets you are willing to take care of</b></label>
+          <input type="text" class="form-control" id="petsWillingToTakeCare" name="petsWillingToTakeCare" placeholder="Dogs, Cats, Parrots">
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="petServices">Pet Services Provided</label>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="petServices" name="petServices" value="Pet Grooming">
+              <label class="form-check-label" for="Pet Grooming">
+                Pet Grooming
+              </label>
             </div>
-            <div class="form-group col-md-4">
-              <label for="petTransferMethod">Pet Transfer Method</label>
-              <select id="petTransferMethod" class="form-control">
-                <option selected>Choose</option>
-                <option value="Car">Car</option>
-                <option value="Bike">Bike</option>
-                <option value="Cycle">Cycle</option>
-                <option value="Walk">Walk</option>
-              </select>
-            </div>
-            <div class="form-group col-md-4">
-              <label for="FullPartTime">Full/Part Time</label>
-              <select id="FullPartTime" name="FullPartTime" class="form-control">
-                <option selected>Choose</option>
-                <option id="FullPartTime" name="FullPartTime" value="Full Time">Full Time</option>
-                <option id="FullPartTime" name="FullPartTime" value="Part Time">Part Time</option>
-              </select>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="petServices" name="petServices" value="Full Day Pet Care">
+              <label class="form-check-label" for="Full Day Pet Care">
+                Full Day Pet Care
+              </label>
             </div>
           </div>
-
+          <div class="form-group col-md-4">
+            <label for="petTransferMethod">Pet Transfer Method</label>
+            <select id="petTransferMethod" name="petTransferMethod" class="form-control">
+              <option id="petTransferMethod" name="petTransferMethod" selected>Choose</option>
+              <option id="petTransferMethod" name="petTransferMethod" value="Car">Car</option>
+              <option id="petTransferMethod" name="petTransferMethod" value="Bike">Bike</option>
+              <option id="petTransferMethod" name="petTransferMethod" value="Cycle">Cycle</option>
+              <option id="petTransferMethod" name="petTransferMethod" value="Walk">Walk</option>
+            </select>
+          </div>
+          <div class="form-group col-md-4">
+            <label for="FullPartTime">Full/Part Time</label>
+            <select id="FullPartTime" name="FullPartTime" class="form-control">
+              <option id="FullPartTime" name="FullPartTime" selected>Choose</option>
+              <option id="FullPartTime" name="FullPartTime" value="Full Time">Full Time</option>
+              <option id="FullPartTime" name="FullPartTime" value="Part Time">Part Time</option>
+            </select>
+          </div>
           <div class="calendar">
-            <!-- <header>
-                <button class="secondary" style="align-self: flex-start; flex: 0 0 1">Today</button>
-                <div class="calendar__title" style="display: flex; justify-content: center; align-items: center">
-                  <div class="icon secondary chevron_left">‹</div>
-                  <h1 class="" style="flex: 1;"><span></span><strong>18 JAN – 24 JAN</strong> 2016</h1>
-                  <div class="icon secondary chevron_left">›</div>
-                </div>
-                <div style="align-self: flex-start; flex: 0 0 1"></div>
-            </header> -->
-
-            <!-- <div class="outer"> -->
             <h6>Please check your available timings for the next week (Dates are in DD/MM).</h6>
             <table>
-            <thead>
-              <tr>
-                <% var today = new Date(); %>
-                <% var nextWeek = new Date(today.getTime() + 7 * 24 * 60 * 60 * 1000); %>
-                <th class="headcol"></th>
-                <th><%= nextWeek.toString().substring(0, 3) + ", " + nextWeek.getDate() + "/" + (nextWeek.getMonth() + 1) %></th>
-                <% var nextWeek1 = new Date(today.getTime() + 8 * 24 * 60 * 60 * 1000); %>
-                <th><%= nextWeek1.toString().substring(0, 3) + ", " + nextWeek1.getDate() + "/" + (nextWeek1.getMonth() + 1) %></th>
-                <% var nextWeek2 = new Date(today.getTime() + 9 * 24 * 60 * 60 * 1000); %>
-                <th class="today"><%= nextWeek2.toString().substring(0, 3) + ", " + nextWeek2.getDate() + "/" + (nextWeek2.getMonth() + 1) %></th>
-                <% var nextWeek3 = new Date(today.getTime() + 10 * 24 * 60 * 60 * 1000); %>
-                <th><%= nextWeek3.toString().substring(0, 3) + ", " + nextWeek3.getDate() + "/" + (nextWeek3.getMonth() + 1) %></th>
-                <% var nextWeek4 = new Date(today.getTime() + 11 * 24 * 60 * 60 * 1000); %>
-                <th><%= nextWeek4.toString().substring(0, 3) + ", " + nextWeek4.getDate() + "/" + (nextWeek4.getMonth() + 1) %></th>
-                <% var nextWeek5 = new Date(today.getTime() + 12 * 24 * 60 * 60 * 1000); %>
-                <th class="secondary"><%= nextWeek5.toString().substring(0, 3) + ", " + nextWeek5.getDate() + "/" + (nextWeek5.getMonth() + 1) %></th>
-                <% var nextWeek6 = new Date(today.getTime() + 13 * 24 * 60 * 60 * 1000); %>
-                <th class="secondary"><%= nextWeek6.toString().substring(0, 3) + ", " + nextWeek6.getDate() + "/" + (nextWeek6.getMonth() + 1) %></th>
-              </tr>
-            </thead>
-            </table>
-
-          <div class="wrap">
-            <table class="offset">
-            <tbody>
-              <% for (var i = 6; i < 19; i++) {%>
+              <thead>
                 <tr>
-                  <td class="headcol"><%=i%>:00</td>
-                  <td><input class="form-check-input" type="checkbox" id="Available" name="Available" value="<%=nextWeek.getFullYear() + "-" + (nextWeek.getMonth() + 1) + "-" + nextWeek.toString().substring(8,10) + " " + i + ":00 " + (i+1) + ":00" %>"></td>
-                  <td><input class="form-check-input" type="checkbox" id="Available" name="Available" value="<%=nextWeek1.getFullYear() + "-" + (nextWeek1.getMonth() + 1) + "-" + nextWeek1.toString().substring(8,10) + " " + i + ":00 " + (i+1) + ":00" %>"></td>
-                  <td><input class="form-check-input" type="checkbox" id="Available" name="Available" value="<%=nextWeek2.getFullYear() + "-" + (nextWeek2.getMonth() + 1) + "-" + nextWeek2.toString().substring(8,10) + " " + i+ ":00 " + (i+1) + ":00" %>"></td>
-                  <td><input class="form-check-input" type="checkbox" id="Available" name="Available" value="<%=nextWeek3.getFullYear() + "-" + (nextWeek3.getMonth() + 1) + "-" + nextWeek3.toString().substring(8,10) + " " + i + ":00 " + (i+1) + ":00" %>"></td>
-                  <td><input class="form-check-input" type="checkbox" id="Available" name="Available" value="<%=nextWeek4.getFullYear() + "-" + (nextWeek4.getMonth() + 1) + "-" + nextWeek4.toString().substring(8,10) + " " + i + ":00 " + (i+1) + ":00" %>"></td>
-                  <td><input class="form-check-input" type="checkbox" id="Available" name="Available" value="<%=nextWeek5.getFullYear() + "-" + (nextWeek5.getMonth() + 1) + "-" + nextWeek5.toString().substring(8,10) + " " + i + ":00 " + (i+1) + ":00" %>"></td>
-                  <td><input class="form-check-input" type="checkbox" id="Available" name="Available" value="<%=nextWeek6.getFullYear() + "-" + (nextWeek6.getMonth() + 1) + "-" + nextWeek6.toString().substring(8,10) + " " + i + ":00 " + (i+1) + ":00" %>"></td>
+                  <% var today = new Date(); %>
+                  <% var nextWeek = new Date(today.getTime() + 7 * 24 * 60 * 60 * 1000); %>
+                  <th class="headcol"></th>
+                  <th><%= nextWeek.toString().substring(0, 3) + ", " + nextWeek.getDate() + "/" + (nextWeek.getMonth() + 1) %></th>
+                  <% var nextWeek1 = new Date(today.getTime() + 8 * 24 * 60 * 60 * 1000); %>
+                  <th><%= nextWeek1.toString().substring(0, 3) + ", " + nextWeek1.getDate() + "/" + (nextWeek1.getMonth() + 1) %></th>
+                  <% var nextWeek2 = new Date(today.getTime() + 9 * 24 * 60 * 60 * 1000); %>
+                  <th class="today"><%= nextWeek2.toString().substring(0, 3) + ", " + nextWeek2.getDate() + "/" + (nextWeek2.getMonth() + 1) %></th>
+                  <% var nextWeek3 = new Date(today.getTime() + 10 * 24 * 60 * 60 * 1000); %>
+                  <th><%= nextWeek3.toString().substring(0, 3) + ", " + nextWeek3.getDate() + "/" + (nextWeek3.getMonth() + 1) %></th>
+                  <% var nextWeek4 = new Date(today.getTime() + 11 * 24 * 60 * 60 * 1000); %>
+                  <th><%= nextWeek4.toString().substring(0, 3) + ", " + nextWeek4.getDate() + "/" + (nextWeek4.getMonth() + 1) %></th>
+                  <% var nextWeek5 = new Date(today.getTime() + 12 * 24 * 60 * 60 * 1000); %>
+                  <th class="secondary"><%= nextWeek5.toString().substring(0, 3) + ", " + nextWeek5.getDate() + "/" + (nextWeek5.getMonth() + 1) %></th>
+                  <% var nextWeek6 = new Date(today.getTime() + 13 * 24 * 60 * 60 * 1000); %>
+                  <th class="secondary"><%= nextWeek6.toString().substring(0, 3) + ", " + nextWeek6.getDate() + "/" + (nextWeek6.getMonth() + 1) %></th>
                 </tr>
-              <% } %>
-            </tbody>
-          </table>
+              </thead>
+            </table>
+            <div class="wrap">
+              <table class="offset">
+                <tbody>
+                  <% for (var i = 6; i < 19; i++) {%>
+                    <tr>
+                      <td class="headcol"><%=i%>:00</td>
+                      <td><input class="form-check-input" type="checkbox" id="Available" name="Available" value="<%=nextWeek.getFullYear() + "-" + (nextWeek.getMonth() + 1) + "-" + nextWeek.toString().substring(8,10) + " " + i + ":00 " + (i+1) + ":00" %>"></td>
+                      <td><input class="form-check-input" type="checkbox" id="Available" name="Available" value="<%=nextWeek1.getFullYear() + "-" + (nextWeek1.getMonth() + 1) + "-" + nextWeek1.toString().substring(8,10) + " " + i + ":00 " + (i+1) + ":00" %>"></td>
+                      <td><input class="form-check-input" type="checkbox" id="Available" name="Available" value="<%=nextWeek2.getFullYear() + "-" + (nextWeek2.getMonth() + 1) + "-" + nextWeek2.toString().substring(8,10) + " " + i+ ":00 " + (i+1) + ":00" %>"></td>
+                      <td><input class="form-check-input" type="checkbox" id="Available" name="Available" value="<%=nextWeek3.getFullYear() + "-" + (nextWeek3.getMonth() + 1) + "-" + nextWeek3.toString().substring(8,10) + " " + i + ":00 " + (i+1) + ":00" %>"></td>
+                      <td><input class="form-check-input" type="checkbox" id="Available" name="Available" value="<%=nextWeek4.getFullYear() + "-" + (nextWeek4.getMonth() + 1) + "-" + nextWeek4.toString().substring(8,10) + " " + i + ":00 " + (i+1) + ":00" %>"></td>
+                      <td><input class="form-check-input" type="checkbox" id="Available" name="Available" value="<%=nextWeek5.getFullYear() + "-" + (nextWeek5.getMonth() + 1) + "-" + nextWeek5.toString().substring(8,10) + " " + i + ":00 " + (i+1) + ":00" %>"></td>
+                      <td><input class="form-check-input" type="checkbox" id="Available" name="Available" value="<%=nextWeek6.getFullYear() + "-" + (nextWeek6.getMonth() + 1) + "-" + nextWeek6.toString().substring(8,10) + " " + i + ":00 " + (i+1) + ":00" %>"></td>
+                    </tr>
+                  <% } %>
+                </tbody>
+              </table>
+            </div>
           </div>
-          </div>
-          </div>
-          <button type="submit" class="updateSitter" name="button">
-            Update!
-          </button>
-        </form>
-      </div>
+        </div>
+
+        <button type="submit" class="updateSitter" name="button">
+          Update!
+        </button>
+      </form>
+    </div>
+    <div class="filler">
 
     </div>
-    <div>
+    <div class="filler">
+
     </div>
   </div>
 </body>

@@ -45,8 +45,13 @@ router.post("/", [
                         const taken = "Username is taken!";
                         res.render("sitterRegistrationSignedOut", { taken });
                     } else {
+                        var takeCareArr = new Array();
+                        if (petsWillingToTakeCare.includes(",")) {
+                            takeCareArr = petsWillingToTakeCare.split(",");
+                        } else {
+                            takeCareArr.push(petsWillingToTakeCare);
+                        }
                         try {
-                            var signUpCaretakerParams = [username, fullPartTime, area, petsWillingToTakeCare];
                             var transferParams = [username, petTransferMethod];
                 
                             var caretakerExist = database.query(sql.is_caretaker, [username], (err, data) => {
@@ -54,7 +59,10 @@ router.post("/", [
                                     console.log("SQL error: " + err);
                                 } else {
                                     if(data.rowCount == 0) {
-                                        database.db(sql.add_caretaker, signUpCaretakerParams);
+                                        for (var i = 0; i < takeCareArr.length; i++) {
+                                            var signUpCaretakerParams = [username, fullPartTime, area, takeCareArr[i]];
+                                            database.db(sql.add_caretaker, signUpCaretakerParams);
+                                        }
                                     }
                                     try {
                                         var serviceExist = database.query(sql.has_service, [username], (err, data) => {

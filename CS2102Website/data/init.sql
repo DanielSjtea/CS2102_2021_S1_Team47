@@ -26,6 +26,7 @@ CREATE TABLE pet_owner (
   card_cvc VARCHAR(10),
   card_name VARCHAR(255),
   card_no VARCHAR(255),
+  card_brand VARCHAR(255),
   area VARCHAR(255)
 );
 
@@ -63,7 +64,7 @@ CREATE TABLE pay (
 CREATE TABLE has_price_list (
   care_taker_username VARCHAR(255) REFERENCES care_taker(username) ON DELETE cascade,
   ptype VARCHAR(255),
-  price NUMERIC,
+  price NUMERIC DEFAULT 20,
   PRIMARY KEY (care_taker_username, ptype)
 );
 
@@ -118,15 +119,56 @@ CREATE OR REPLACE PROCEDURE
 insert_caretaker_pricelist(cname VARCHAR(255), ctype VARCHAR(255), area VARCHAR(255), pettype VARCHAR(255)) AS
 $$ 
   DECLARE ctx NUMERIC;
+  is_caretaker NUMERIC;
   BEGIN
-  INSERT INTO care_taker VALUES (cname, ctype, area);
+    SELECT COUNT(*) INTO is_caretaker
+    FROM care_taker 
+    WHERE username = $1;
+  IF is_caretaker = 0 THEN
+    INSERT INTO care_taker VALUES (cname, ctype, area);
+  END IF;
     SELECT COUNT(*) INTO ctx 
     FROM has_price_list P
-    WHERE P.care_taker_username = cname;
+    WHERE P.care_taker_username = cname AND P.ptype = pettype;
   IF ctx = 0 THEN
     INSERT INTO has_price_list(care_taker_username, ptype) VALUES (cname, pettype);
   END IF;
   END; $$
+LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION 
+apply_leave(ct_username VARCHAR(255), s_date_req DATE, e_date_req DATE)
+RETURNS BOOLEAN AS
+$$
+  DECLARE ctx NUMERIC, checker NUMERIC;
+  BEGIN 
+  SELECT S1.worked_dates INTO ctx, S2.checkfree INTO checker
+  FROM (
+    SELECT COUNT(DISTINCT H.s_date) as worked_dates
+    FROM has_availability H
+    WHERE H.care_taker_username = ct_username
+    AND H.s_date < s_date_req
+    AND H.s_date >= (s_date_req - INTERVAL '150 DAY')
+  ) S1,
+  (
+    SELECT COUNT(*) as check_free
+    FROM bid B
+    WHERE B.care_taker_username = ct_username
+    AND B.s_date >= s_date_req
+    AND B.s_date <= e_date_req
+    AND B.successful = TRUE
+  ) S2;
+  IF ctx >= 150 AND checker = 0 THEN
+    DELETE FROM has_availability 
+    WHERE care_taker_username = ct_username 
+    AND s_date >= s_date_req
+    AND s_date <= e_date_req
+    RETURN TRUE;
+  ELSE
+    RETURN FALSE;
+  END IF;
+  END;
+$$
 LANGUAGE plpgsql;
 
 CREATE OR REPLACE FUNCTION not_admin()
@@ -144,6 +186,24 @@ $$
   END; $$
 LANGUAGE plpgsql;
 
+CREATE OR REPLACE FUNCTION specify_update_has_price_list()
+RETURNS TRIGGER AS
+$$
+  BEGIN
+  INSERT INTO has_price_list VALUES (NEW.care_taker_username, NEW.ptype, NEW.price) 
+  ON CONFLICT(care_taker_username, ptype)
+  DO UPDATE price = NEW.price
+  WHERE care_taker_username = NEW.care_taker_username
+  AND ptype = NEW.ptype
+  END;
+$$
+LANGUAGE plpgsql;
+
+pcs_admin_username VARCHAR(255) REFERENCES pcs_admin(username),
+  care_taker_username VARCHAR(255),
+  ptype VARCHAR(255),
+  price
+
 -- Trigger
 CREATE TRIGGER check_pet_owner()
 BEFORE INSERT OR UPDATE ON pet_owner
@@ -153,29 +213,6 @@ CREATE TRIGGER check_care_taker()
 BEFORE INSERT OR UPDATE ON care_taker
 FOR EACH ROW EXECUTE PROCEDURE not_admin();
 
-
--- Complex Queries
--- find_service_date
--- SELECT HAvail.care_taker_username as care_taker_username, ARate.average_rating as average_rating, HAvail.s_date as s_date, HAvail.s_time as s_time, HAvail.e_time as e_time
--- FROM (
---   SELECT care_taker_username, AVG(rating)::NUMERIC(10,1) as average_rating
---   FROM bid 
---   GROUP BY care_taker_username
--- ) ARate JOIN has_availability HAvail ON ARate.care_taker_username = HAvail.care_taker_username
--- WHERE HAvail.s_date >= $1 
--- AND HAvail.s_date <= $2
--- AND ARate.average_rating >= $3
--- AND EXISTS (
---   SELECT 1
---   FROM does_service S
---   WHERE S.care_taker_username = HAvail.care_taker_username
---   AND S.svc_type = $4
--- )
--- AND NOT EXISTS (
---   SELECT 1 
---   FROM bid B
---   WHERE B.s_date = HAvail.s_date
---   AND B.care_taker_username = HAvail.care_taker_username
---   AND B.successful = TRUE
--- ) 
--- ORDER BY HAvail.s_date ASC, HAvail.s_time ASC, ARate.average_rating DESC
+CREATE TRIGGER specify_update_price_list()
+AFTER INSERT OR UPDATE ON specify
+FOR EACH ROW EXECUTE PROCEDURE specify_update_has_price_list();
