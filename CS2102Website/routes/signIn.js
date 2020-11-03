@@ -24,7 +24,7 @@ router.post("/", function(req, res, next) {
             if (err) { 
                 return next(err); 
             }
-            if (typeof role != 'undefined') {
+            if (role != 'Role') {
                 if (role == "Pet Owner" || role == "Care Taker") {
                     return res.redirect("signedIn");
                 } else if(role == "PCS Admin") {

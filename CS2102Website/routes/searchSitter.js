@@ -114,12 +114,12 @@ router.post("/", async function(req, res, next) {
                 var ctServiceParams = [startDate, endDate, serviceDesired, username, careTakerChosen];
                 data = await database.db_get_promise(sql.find_ct_service_date, ctServiceParams);
                 var careTakerChose = await database.db_get_promise(sql.get_caretaker_profile_limit_one, [careTakerChosen]);
-                res.render("searchSitterResults", {
-                    careTakerChosen: careTakerChose,
-                    petsChosen: petsChosen,
-                    specialReq: specialReq,
-                    sitterResults: data
-                })
+                req.session.careTakerChosen = careTakerChose;
+                req.session.petsChosen = petsChosen;
+                req.session.specialReq = specialReq;
+                req.session.sitterResults = data;
+                
+                res.redirect("searchSitterResults");
             }
         /* end of if caretaker is chosen */
         /* start of if no particular care taker chosen */
