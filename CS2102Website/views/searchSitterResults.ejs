@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <%- include('headerSignedIn.ejs') %>
@@ -14,49 +15,111 @@
 
 <body>
   <div class="parent">
-    <div class="leftSection">
-
-    </div>
-
-    <div class="rightSection">
       <div class="mainTitle">
         <h1>Search Results</h1>
+        </div>
+      </div>
+
+      <div class="noResults">
+        <% if (typeof caretaker != 'undefined' && caretaker.length == 0) { %>
+          <h3>No results found!</h3>
+        <% } %>
+        <% if (typeof careTakerChosen != 'undefined' && careTakerChosen.length == 0) { %>
+          <h3>No results found!</h3>
+        <% } %>
       </div>
 
       <div class="searchResultBox">
         <% for (var i = 0; i < sitterResults.length; i++) { %>
           <div class="resultLeftBox">
-            <h3>Name: <%= caretaker[i][0].name%></h3>
+            <% if (typeof caretaker != 'undefined') { %>
+              <h3>Name: <%= caretaker[i][0].name%></h3>
+            <% } else { %>
+              <h3>Name: <%= careTakerChosen[0].name %></h3>
+            <% } %>
             <h5>Username: <%= sitterResults[i].care_taker_username%></h3>
-            <p>Area: <%= caretaker[i][0].area%></p>
+            <% if (typeof caretaker != 'undefined') { %>
+              <p>Area: <%= caretaker[i][0].area%></p>
+            <% } else { %>
+              <p>Area: <%= careTakerChosen[0].area%></p>
+            <% } %>
             <br>
             <h5>Pet Transfer Preference</h5>
-            <p><%= caretaker[i][0].trf_mthd%></p>
+            <% if (typeof caretaker != 'undefined') { %>
+              <p><%= caretaker[i][0].trf_mthd%></p>
+            <% } else { %>
+              <p><%= careTakerChosen[0].trf_mthd%></p>
+            <% } %>
           </div>
           <div class="resultRightBox">
+            <div>
+              <form action="/searchSitterResults" method="POST">
+                <input id="caretakerUsername" name="caretakerUsername" value="<%= sitterResults[i].care_taker_username%>" type="hidden"/>
+                <button type="submit" class="visitProfileButton" name="button">
+                  <!-- REMEMBER TO EDIT THIS LINK ACCORDING TO USERNAME WITH EJS -->
+                  View Profile
+                </button>
+              </form>
+            </div>
             <h5>Ratings:</h5>
             <div class="ratingStars">
-              <span class="fa fa-star checked"></span>
-              <span class="fa fa-star checked"></span>
-              <span class="fa fa-star checked"></span>
-              <span class="fa fa-star checked"></span>
-              <span class="fa fa-star checked"></span>
+            <% if (ratings.length == 0) {%>
+              <span class="fa fa-star"></span>
+              <span class="fa fa-star"></span>
+              <span class="fa fa-star"></span>
+              <span class="fa fa-star"></span>
+              <span class="fa fa-star"></span>
+            <% } else { %>
+              <% if (ratings[i] == 1) { %>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star"></span>
+                <span class="fa fa-star"></span>
+                <span class="fa fa-star"></span>
+                <span class="fa fa-star"></span>
+              <% } else if (ratings[i] == 2) { %>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star"></span>
+                <span class="fa fa-star"></span>
+                <span class="fa fa-star"></span>
+              <% } else if (ratings[i] == 3) { %>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star"></span>
+                <span class="fa fa-star"></span>
+              <% } else if (ratings[i] == 4) { %>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star"></span>
+              <% } else if (ratings[i] == 5) { %>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+              <% } else { %>
+                <span class="fa fa-star"></span>
+                <span class="fa fa-star"></span>
+                <span class="fa fa-star"></span>
+                <span class="fa fa-star"></span>
+                <span class="fa fa-star"></span>
+              <% } %>
+            
+              
+            <% } %>
             </div>
-            <form action="/searchSitterResults" method="POST">
-              <input id="caretakerUsername" name="caretakerUsername" value="<%= sitterResults[i].care_taker_username%>" type="hidden"/>
-              <button type="submit" class="visitProfile" name="button">
-                <!-- REMEMBER TO EDIT THIS LINK ACCORDING TO USERNAME WITH EJS -->
-                View Profile
-              </button>
-            </form>
           </div>
         <% } %>
       </div>
-      <div>
+
+      <div class="filler">
 
       </div>
+
     </div>
-  </div>
 </body>
 
 </html>

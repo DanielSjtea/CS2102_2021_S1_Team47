@@ -22,19 +22,23 @@ var searchSitterRouter = require('./routes/searchSitter');
 var searchSitterResultsRouter = require('./routes/searchSitterResults');
 var viewSitterProfileRouter = require('./routes/viewSitterProfile');
 var bidSentRouter = require('./routes/bidSent');
-var myBookingsRouter = require('./routes/myBookings');
+var PetOwnerBookingsRouter = require('./routes/PetOwnerBookings');
+var CareTakerBookingsRouter = require('./routes/CareTakerBookings')
 var myProfileRouter = require('./routes/myProfile');
 var editProfileRouter = require('./routes/editProfile');
 var mySitterProfileRouter = require('./routes/mySitterProfile');
 var editSitterProfileRouter = require('./routes/editSitterProfile');
+var editFullTimeSitterProfileRouter = require('./routes/editFullTimeSitterProfile')
 var myBidsRouter = require('./routes/myBids');
 var viewReceivedBidRouter = require('./routes/viewReceivedBids');
+var viewSubmittedBidRouter = require('./routes/viewSubmittedBid');
 var bidsSubmittedRouter = require('./routes/bidsSubmitted');
-var registerNewCardRouter = require('./routes/registerNewCard');
+var updateCardRouter = require('./routes/updateCard');
 var addPetsRouter = require('./routes/addPets');
 var pcsProfileRouter = require('./routes/pcsProfile');
 var pcsSalaryRouter = require('./routes/pcsSalary');
 var pcsStatisticsRouter = require('./routes/pcsStatistics');
+var editPcsProfileRouter = require('./routes/editPCSProfile');
 
 const app = express();
 
@@ -77,19 +81,23 @@ app.use('/searchSitter', searchSitterRouter);
 app.use('/searchSitterResults', searchSitterResultsRouter);
 app.use('/viewSitterProfile', viewSitterProfileRouter);
 app.use('/bidSent', bidSentRouter);
-app.use('/myBookings', myBookingsRouter);
+app.use('/PetOwnerBookings', PetOwnerBookingsRouter);
+app.use('/CareTakerBookings', CareTakerBookingsRouter);
 app.use('/myProfile', myProfileRouter);
 app.use('/editProfile', editProfileRouter);
 app.use('/mySitterProfile', mySitterProfileRouter);
 app.use('/editSitterProfile', editSitterProfileRouter);
+app.use('/editFullTimeSitterProfile', editFullTimeSitterProfileRouter);
 app.use('/myBids', myBidsRouter);
 app.use('/viewReceivedBid', viewReceivedBidRouter);
+app.use('/viewSubmittedBid', viewSubmittedBidRouter);
 app.use('/bidsSubmitted', bidsSubmittedRouter);
-app.use('/registerNewCard', registerNewCardRouter);
+app.use('/updateCard', updateCardRouter);
 app.use('/addPets', addPetsRouter);
 app.use('/pcsProfile', pcsProfileRouter);
 app.use('/pcsSalary', pcsSalaryRouter);
 app.use('/pcsStatistics', pcsStatisticsRouter);
+app.use('/editPcsProfile', editPcsProfileRouter);
 
 app.listen(3030, function() {
   console.log("Server started on port 3030")

@@ -7,13 +7,33 @@ var sql = require("../data/queries");
 
 router.get('/', async function(req, res, next) {
     let username = req.session.caretakerUsername;
-    var caretaker = await database.db_get_promise(sql.get_caretaker_profile, [username]);
+
+    /*var caretaker = await database.db_get_promise(sql.get_caretaker_profile, [username]);
     var past_reviews = await database.db_get_promise(sql.view_caretaker_review, [username]); 
     var review_count = Math.min(past_reviews.length, 3);
     res.render("viewSitterProfile", {
         caretaker: caretaker,
         past_reviews: past_reviews,
-        review_count: review_count
+        review_count: review_count*/
+
+    database.query(sql.get_caretaker_profile, [username], (err, data) => {
+      if (err) {
+        console.log("SQL Error: " + err);
+      } else {
+        var caretaker;
+        var past_reviews = await database.db_get_promise(sql.view_caretaker_review, [username]); 
+        var review_count = Math.min(past_reviews.length, 3);
+        if (data.rowCount > 1) {
+          caretaker = data.rows[0];
+        } else {
+          caretaker = data.rows;
+        }
+        res.render("viewSitterProfile", {
+          caretaker: caretaker
+          past_reviews: past_reviews,
+          review_count: review_count
+        });
+      }
     });
 });
 

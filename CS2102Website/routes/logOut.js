@@ -5,9 +5,13 @@ var router = express.Router();
 var sql = require("../data/queries");
 
 router.get("/", function(req, res, next) {
-    req.logout();
-    console.log("DONE");
-    res.render("home");
+    req.logOut();
+    /*req.session.destroy(function (err) {
+        res.redirect("/");
+    });*/
+    res.redirect("/");
+    //console.log("DONE");
+    //res.render("home");
 });
 
 module.exports = router;

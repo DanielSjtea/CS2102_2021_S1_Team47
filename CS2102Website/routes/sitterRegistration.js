@@ -19,7 +19,12 @@ router.post("/", function(req, res, next) {
     var fullPartTime = req.body.FullPartTime;
 
     try {
-        var signUpCaretakerParams = [username, fullPartTime, area, petsWillingToTakeCare];
+        var takeCareArr = new Array();
+        if (petsWillingToTakeCare.includes(",")) {
+            takeCareArr = petsWillingToTakeCare.split(",");
+        } else {
+            takeCareArr.push(petsWillingToTakeCare);
+        }
         var transferParams = [username, petTransferMethod];
 
         var caretakerExist = database.query(sql.is_caretaker, [username], (err, data) => {
@@ -27,7 +32,10 @@ router.post("/", function(req, res, next) {
                 console.log("SQL error: " + err);
             } else {
                 if(data.rowCount == 0) {
-                    database.db(sql.add_caretaker, signUpCaretakerParams);
+                    for (var i = 0; i < takeCareArr.length; i++) {
+                        var signUpCaretakerParams = [username, fullPartTime, area, takeCareArr[i]];
+                        database.db(sql.add_caretaker, signUpCaretakerParams);
+                    }
                 }
                 try {
                     var serviceExist = database.query(sql.has_service, [username], (err, data) => {
