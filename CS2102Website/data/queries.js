@@ -11,7 +11,7 @@ var sql = {
     add_caretaker: 'CALL insert_caretaker_pricelist($1, $2, $3, $4)', //[username, ctype, area, pettype] 
     add_owner: 'INSERT INTO pet_owner(username) VALUES ($1)', //[username] 
     add_admin: 'INSERT INTO pcs_admin(username) VALUES ($1)', //[username]
-    registerNewCard: 'UPDATE pet_owner SET card_cvc = $1, card_name = $2, card_no = $3 WHERE username = $4', //[card_cvc, card_name, card_no, username]
+    registerNewCard: 'UPDATE pet_owner SET card_cvc = $1, card_name = $2, card_no = $3, card_brand = $4 WHERE username = $5', //[card_cvc, card_name, card_no, card_brand, username]
 
     is_caretaker: 'SELECT * FROM care_taker WHERE username = $1', //[username] Check if user is caretaker (returns empty if false)
     is_owner: 'SELECT * FROM pet_owner WHERE username = $1', //[username] Check if user is pet owner (returns empty if false)
@@ -23,6 +23,7 @@ var sql = {
     get_profile: 'SELECT * FROM users WHERE username = $1', //[username] returns [username, contact_num, password, name, email]
     //get_caretaker_profile takes in [username]  and returns [username, contact_num, name, email, ctype, area, svc_type, trf_mthd]
     get_caretaker_profile: 'SELECT U.username as username, U.contact_num as contact_num, U.name as name, U.email as email, C.ctype as ctype, C.area as area, S.svc_type as svc_type, T.trf_mthd as trf_mthd FROM users U, care_taker C, does_service S, specify_trf_pref T WHERE U.username = $1 AND C.username = U.username AND S.care_taker_username = U.username AND T.care_taker_username = U.username',
+    get_caretaker_profile_limit_one: 'SELECT U.username as username, U.contact_num as contact_num, U.name as name, U.email as email, C.ctype as ctype, C.area as area, S.svc_type as svc_type, T.trf_mthd as trf_mthd FROM users U, care_taker C, does_service S, specify_trf_pref T WHERE U.username = $1 AND C.username = U.username AND S.care_taker_username = U.username AND T.care_taker_username = U.username LIMIT 1',
     upsert_trf_pref: 'INSERT INTO specify_trf_pref(care_taker_username, trf_mthd) VALUES ($1, $2) ON CONFLICT (care_taker_username) DO UPDATE SET trf_mthd = $2', //[username, trf_mthd] Upsert will auto-update if username exists
 
     // service related
@@ -71,7 +72,7 @@ var sql = {
         'SELECT 1 ' +
         'FROM bid B ' +
         'WHERE B.s_date = HAvail.s_date AND B.care_taker_username = HAvail.care_taker_username AND B.successful = TRUE ' +
-        ') ORDER BY HAvail.s_date ASC, HAvail.s_time ASC) all_service_date' +
+        ') ORDER BY HAvail.s_date ASC, HAvail.s_time ASC) AS all_service_date ' +
         'WHERE care_taker_username = $5', // [beginning_date, end_date, svc_type, pet_owner_username, care_taker_username]
 
     //PCS statistics

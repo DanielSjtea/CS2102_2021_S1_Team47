@@ -26,6 +26,7 @@ CREATE TABLE pet_owner (
   card_cvc VARCHAR(10),
   card_name VARCHAR(255),
   card_no VARCHAR(255),
+  card_brand VARCHAR(255),
   area VARCHAR(255)
 );
 
@@ -151,7 +152,7 @@ $$
     AND B.s_date <= e_date_req
     AND B.successful = TRUE
   ) S2;
-  IF ctx >= 150 AND checker <> 0 THEN
+  IF ctx >= 150 AND checker = 0 THEN
     DELETE FROM has_availability 
     WHERE care_taker_username = ct_username 
     AND s_date >= s_date_req
