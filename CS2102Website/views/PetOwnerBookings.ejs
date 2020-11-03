@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<%- include('headerSignedIn.ejs') %>
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+</head>
+
+<body>
+  <div class="parent">
+      <div class="mainTitle">
+        <h1>My Bookings</h1>
+      </div>
+      <div class="subTitle">
+        <p>Input month here through ejs</p>
+      </div>
+
+      <div class="myBookingsBox">
+        <div class="myBookingsTable">
+          <table class="table">
+            <tbody>
+              <tr>
+                <th scope="row">Care Taker Name</th>
+                <th>Care Taker Username</th>
+                <th>Care Taker Contact Number</th>
+                <th>Pick Up Date</th>
+                <th>Return Date</th>
+                <th>Pets Taken Care Of</th>
+                <th class="noborderright">
+                    View Sitter Profiles
+                </th>
+
+              </tr>
+              <tr>
+                <td>Bob</td>
+                <td>bobby</td>
+                <td>12345678</td>
+                <td>27 Oct 2020</td>
+                <td>31 Oct 2020</td>
+                <td>Cat Dog Monkey</td>
+                <td class="noborderright">
+                  <button type="button" class="btn btn-outline-primary" onclick="location.href = '/viewSitterProfile'">View Profile</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="filler">
+
+      </div>
+      <div class="filler">
+
+      </div>
+    </div>
+</body>
+
+</html>
