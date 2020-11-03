@@ -63,6 +63,8 @@ router.post("/", async function(req, res, next) {
     } else {
         res.render("searchSitter", {message: "Please fill in all required fields (*)!"})
     }
+    req.session.startDate = startDate; //so can be referred to when making bid in viewSitterProfile
+    req.session.serviceDesired = serviceDesired; //so can be referred to when making bid in viewSitterProfile
 
     // Pet Types of chosen pets
     var petsChosenTypes = new Array();

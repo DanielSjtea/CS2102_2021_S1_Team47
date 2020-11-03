@@ -32,6 +32,7 @@ var sql = {
     get_caretaker_service: 'SELECT * FROM does_service WHERE care_taker_username = $1 AND svc_type = $2',
     get_ct_pet_types: 'SELECT ptype FROM has_price_list WHERE care_taker_username = $1',
     add_caretaker_ptype: 'INSERT INTO has_price_list(care_taker_username, ptype) VALUES ($1, $2)', //[care_taker_username, ptype]
+    get_caretaker_pricelist: 'SELECT ptype, price FROM has_price_list WHERE care_taker_username = $1 ORDER BY price ASC', //[care_taker_username]
 
     // Pet related
     add_pet: 'INSERT INTO owns_pet(pet_owner_username, name, ptype, sp_req) VALUES ($1, $2, $3, $4)', //[pet_owner_username, name, ptype, sp_req] ptype, sp_req defaults are -1
@@ -100,7 +101,7 @@ var sql = {
 
 
     //Reviews related
-    view_caretaker_review: 'SELECT s_date, review, rating FROM bid WHERE care_taker_username = $1 AND review IS NOT NULL AND successful = TRUE ORDER BY s_date DESC', // [care_taker_username]
+    view_caretaker_review: 'SELECT pet_owner_username, s_date, review, rating FROM bid WHERE care_taker_username = $1 AND review IS NOT NULL AND successful = TRUE ORDER BY s_date DESC', // [care_taker_username]
     get_avg_rating_caretaker: 'SELECT AVG(rating)::NUMERIC(10,1) FROM bid WHERE care_taker_username = $1', //[care_taker_username]
     add_review: 'UPDATE bid SET review = $1, rating = $2 WHERE pet_owner_username=$3 AND name=$4 AND care_taker_username=$5 AND s_date::date=date $6 AND s_time= time $7', //[review, rating, pet_owner_username, pet_name, care_taker_username, s_date, s_time]
 
