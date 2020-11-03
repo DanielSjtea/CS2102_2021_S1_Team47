@@ -19,7 +19,6 @@ router.post("/", function(req, res, next) {
 
     console.log("pets: " + petsWillingToTakeCare);
     console.log("avail: " + available);
-
     if (typeof petsWillingToTakeCare != 'undefined') {
         
     }
@@ -50,7 +49,24 @@ router.post("/", function(req, res, next) {
         database.db(sql.add_availability, params);
     }
 
-    res.render("mySitterProfile");
+    database.query(sql.get_caretaker_profile, [username], (err, data) => {
+                if(err) {
+                    console.log("SQL error: " + err);
+                } else {
+                    if(data.rowCount > 0) {
+                        var svcType = data.rows[0].svc_type;
+                        var ctype = data.rows[0].ctype;
+                        var trfMethod = data.rows[0].trf_mthd;
+                        res.render("mySitterProfile",{
+                            svcType: svcType,
+                            ctype:ctype,
+                            trfMethod: trfMethod
+                         });
+                    }
+                }
+            });
+
+//    res.render("mySitterProfile");
 })
 
 module.exports = router;
