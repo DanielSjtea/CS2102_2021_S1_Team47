@@ -39,11 +39,14 @@
             <% } %>
             <h5>Username: <%= sitterResults[i].care_taker_username%></h3>
             <% if (typeof caretaker != 'undefined') { %>
-              <p>Area: <%= caretaker[i][0].area%></p>
+              <p>Type: <%= caretaker[i][0].ctype%> | Area: <%= caretaker[i][0].area%></p>
             <% } else { %>
-              <p>Area: <%= careTakerChosen[0].area%></p>
+              <p>Type: <%= careTakerChosen[0].ctype%> | Area: <%= careTakerChosen[0].area%></p>
             <% } %>
             <br>
+            <h5>Availability</h5>
+              <p>Date: <%= sitterResults[i].s_date.substring(0, 10) %> | Time: <%= sitterResults[i].s_time.substring(0,5) + " to " + sitterResults[i].e_time.substring(0,5) %></p>
+  
             <h5>Pet Transfer Preference</h5>
             <% if (typeof caretaker != 'undefined') { %>
               <p><%= caretaker[i][0].trf_mthd%></p>
@@ -107,11 +110,10 @@
                 <span class="fa fa-star"></span>
                 <span class="fa fa-star"></span>
               <% } %>
-            
-              
             <% } %>
             </div>
           </div>
+          <hr></hr>
         <% } %>
       </div>
 
