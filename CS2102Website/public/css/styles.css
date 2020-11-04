@@ -206,11 +206,30 @@
 }
 
 /************** Edit sitter profile ***********/
+.instructionTitle {
+  position: absolute;
+  align-self: center;
+  margin-top: 100px;
+  margin-left: 00px;
+  z-index:1;
+}
+
 .sitterUpdateBox {
   width: 800px;
-  height: 1040px;
+  height: 1070px;
   background-color: white;
   margin-left: 360px;
+  margin-top: 150px;
+  border-radius: 20px;
+  position: absolute;
+  padding: 50px;
+}
+
+.sitterFTUpdateBox {
+  width: 800px;
+  height: 370px;
+  background-color: white;
+  margin-left: 330px;
   margin-top: 150px;
   border-radius: 20px;
   position: absolute;
@@ -222,12 +241,37 @@
   width: 409px;
   height: 66px;
   left: 200px;
-  top: 950px;
+  top: 980px;
   color: white;
   font-size: 28;
   background: #1B4965;
   border-radius: 10px;
 }
+
+.updateFTSitter {
+  position: absolute;
+  width: 409px;
+  height: 66px;
+  left: 180px;
+  top: 470px;
+  color: white;
+  font-size: 28;
+  background: #1B4965;
+  border-radius: 10px;
+  z-index: 10;
+}
+
+.noLeaveErrorBox {
+  width: 850px;
+  height: 480px;
+  margin-left: 320px;
+  margin-top: 500px;
+  border-radius: 20px;
+  position: absolute;
+  padding: 50px;
+  z-index: 5;
+};
+
 
 /*************************************************************************************************** Calender CSS ***********************************************************************************************************/
 /* * {
@@ -648,6 +692,7 @@ button.secondary:focus {
   border-radius: 20px;
   position: absolute;
   padding: 50px;
+  z-index: 5;
 };
 
 .searchResultBox {

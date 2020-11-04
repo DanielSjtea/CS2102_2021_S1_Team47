@@ -17,7 +17,11 @@
       <h1>Update your Caretaker Profile!</h1>
     </div>
 
-    <div class="sitterUpdateBox">
+    <div class="instructionTitle">
+      <h6>Please fill in only the fields you need to update!</h6>
+    </div>
+
+    <div class="sitterFTUpdateBox">
       <form action="/editFullTimeSitterProfile" method="POST" id="UpdateFullTimeSitterForm">
         <div class="form-group">
           <label for="petsWillingToTakeCare"><b>Pets you are willing to take care of</b></label>
@@ -41,12 +45,12 @@
           </div>
           <div class="form-group col-md-4">
             <label for="petTransferMethod">Pet Transfer Method</label>
-            <select id="petTransferMethod" class="form-control">
-              <option selected>Choose</option>
-              <option value="Car">Car</option>
-              <option value="Bike">Bike</option>
-              <option value="Cycle">Cycle</option>
-              <option value="Walk">Walk</option>
+            <select id="petTransferMethod" name="petTransferMethod" class="form-control">
+              <option id="petTransferMethod" name="petTransferMethod" selected>Choose</option>
+              <option id="petTransferMethod" name="petTransferMethod" value="Car">Car</option>
+              <option id="petTransferMethod" name="petTransferMethod" value="Bike">Bike</option>
+              <option id="petTransferMethod" name="petTransferMethod" value="Cycle">Cycle</option>
+              <option id="petTransferMethod" name="petTransferMethod" value="Walk">Walk</option>
             </select>
           </div>
           <div class="form-group col-md-4">
@@ -60,26 +64,36 @@
           <div class="form-row">
             <div class="form-group col-md-6">
               <label for="startLeaveDate"><b>Start Leave Date</b></label>
-              <input type="date" class="form-control" id="startLeaveDate">
+              <input type="date" class="form-control" id="startLeaveDate" name="startLeaveDate">
             </div>
             <br>
             <div class="form-group col-md-6">
               <label for="endLeaveDate"><b>End Leave Date</b></label>
-              <input type="date" class="form-control" id="endLeaveDate">
+              <input type="date" class="form-control" id="endLeaveDate" name="endLeaveDate">
             </div>
           </div>
         </div>
 
-        <button type="submit" class="updateSitter" name="button">
+        <button type="submit" class="updateFTSitter" name="button">
           Update!
         </button>
       </form>
     </div>
+    <div class="noLeaveErrorBox">
+      <% if(message.length > 0) { %>
+          <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <%= message %>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+    <% } %>
+  </div>
     <div class="filler">
-
     </div>
     <div class="filler">
-
+    </div>
+    <div class="filler">
     </div>
   </div>
 </body>
