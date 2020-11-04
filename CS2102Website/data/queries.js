@@ -28,11 +28,13 @@ var sql = {
     upsert_caretaker_type: 'INSERT INTO care_taker(username, ctype, area) VALUES($1, $2, $3) ON CONFLICT (username) DO UPDATE SET ctype = $2',
 
     // service related
-    add_caretaker_service: 'INSERT INTO does_service(care_taker_username, svc_type) VALUES($1, $2)',
-    get_caretaker_service: 'SELECT * FROM does_service WHERE care_taker_username = $1 AND svc_type = $2',
-    get_ct_pet_types: 'SELECT ptype FROM has_price_list WHERE care_taker_username = $1',
+    add_caretaker_service: 'INSERT INTO does_service(care_taker_username, svc_type) VALUES($1, $2)', // [care_taker_username, svc_type]
+    get_caretaker_service: 'SELECT * FROM does_service WHERE care_taker_username = $1 AND svc_type = $2', // [care_taker_username, svc_type]
+    delete_caretaker_service: 'DELETE FROM does_service WHERE care_taker_username = $1', // [care_taker_username]
+    get_ct_pet_types: 'SELECT ptype FROM has_price_list WHERE care_taker_username = $1', // [care_taker_username]
     add_caretaker_ptype: 'INSERT INTO has_price_list(care_taker_username, ptype) VALUES ($1, $2)', //[care_taker_username, ptype]
     get_caretaker_pricelist: 'SELECT ptype, price FROM has_price_list WHERE care_taker_username = $1 ORDER BY price ASC', //[care_taker_username]
+    delete_caretaker_ptype: 'DELETE FROM has_price_list WHERE care_taker_username = $1', //[care_taker_username]
 
     // Pet related
     add_pet: 'INSERT INTO owns_pet(pet_owner_username, name, ptype, sp_req) VALUES ($1, $2, $3, $4)', //[pet_owner_username, name, ptype, sp_req] ptype, sp_req defaults are -1
@@ -47,7 +49,7 @@ var sql = {
     delete_specific_availability: 'DELETE FROM has_availability WHERE care_taker_username = $1 AND s_date::date = date $2 AND s_time <= time $3 AND e_time >= time $4', //[username, s_date, s_time, e_time] s_time & e_time in TIME format: HH:MM:SS
     get_self_availability: 'SELECT * FROM has_availability WHERE care_taker_username = $1 AND s_date >= CURRNT_DATE ORDER BY s_date ASC', //[s_date] in datetime format (?), returns all available caretakers for that day
 
-    apply_leave: 'CALL apply_leave_func($1, $2, $3)', //[care_taker_username, s_date, e_date] returns TRUE if can take leave/FALSE if cannot
+    apply_leave: 'SELECT apply_leave($1, $2, $3)', //[care_taker_username, s_date, e_date] returns TRUE if can take leave/FALSE if cannot
 
     // searchSitter queries (if caretakers have no bids for him/her)
     find_service_date_nobids: 'SELECT HAvail.care_taker_username as care_taker_username, HAvail.s_date as s_date,' +

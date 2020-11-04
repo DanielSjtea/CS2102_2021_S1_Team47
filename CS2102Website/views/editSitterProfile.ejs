@@ -16,6 +16,9 @@
     <div class="mainTitle">
       <h1>Update your Caretaker Profile!</h1>
     </div>
+    <div class="instructionTitle">
+      <h6>Please fill in only the fields you need to update!</h6>
+    </div>
 
     <div class="sitterUpdateBox">
       <form action="/editSitterProfile" method="POST" id="UpdateSitterForm">
@@ -59,6 +62,7 @@
           </div>
           <div class="calendar">
             <h6>Please check your available timings for the next week (Dates are in DD/MM).</h6>
+            <h7>Availability are indicated in 2 hours intervals.</h7>
             <table>
               <thead>
                 <tr>
@@ -84,7 +88,7 @@
             <div class="wrap">
               <table class="offset">
                 <tbody>
-                  <% for (var i = 6; i < 19; i+=2) {%>
+                  <% for (var i = 8; i < 21; i+=2) {%>
                     <tr>
                       <td class="headcol"><%=i%>:00</td>
                       <td><input class="form-check-input" type="checkbox" id="Available" name="Available" value="<%=nextWeek.getFullYear() + "-" + (nextWeek.getMonth() + 1) + "-" + nextWeek.toString().substring(8,10) + " " + i + ":00 " + (i+2) + ":00" %>"></td>
@@ -108,10 +112,12 @@
       </form>
     </div>
     <div class="filler">
-
     </div>
     <div class="filler">
-
+    </div>
+    <div class="filler">
+    </div>
+    <div class="filler">
     </div>
   </div>
 </body>

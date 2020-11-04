@@ -77,9 +77,12 @@
           <p><%= ctype %></p>
         </div>
         <br>
+        <form action="/mySitterProfile" method="POST">
         <div class="editButton">
-          <button type="button" class="btn btn-outline-primary" onclick="location.href = '/editSitterProfile'">Edit Details</button>
+          <input id="ctype" name="ctype" value="<%=ctype%>" hidden/>
+          <button type="submit" class="btn btn-outline-primary">Edit Details</button>
         </div>
+      </form>
       </div>
     </div>
 

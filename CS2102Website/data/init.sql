@@ -140,29 +140,31 @@ CREATE OR REPLACE FUNCTION
 apply_leave(ct_username VARCHAR(255), s_date_req DATE, e_date_req DATE)
 RETURNS BOOLEAN AS
 $$
-  DECLARE ctx NUMERIC, checker NUMERIC;
+  DECLARE ctx NUMERIC; 
+  checker NUMERIC;
   BEGIN 
-  SELECT S1.worked_dates INTO ctx, S2.checkfree INTO checker
+  SELECT S1.worked_dates INTO ctx
   FROM (
     SELECT COUNT(DISTINCT H.s_date) as worked_dates
     FROM has_availability H
     WHERE H.care_taker_username = ct_username
     AND H.s_date < s_date_req
     AND H.s_date >= (s_date_req - INTERVAL '150 DAY')
-  ) S1,
-  (
-    SELECT COUNT(*) as check_free
+  ) AS S1;
+  SELECT S2.checkFree INTO checker
+  FROM (
+    SELECT COUNT(*) as checkFree
     FROM bid B
     WHERE B.care_taker_username = ct_username
     AND B.s_date >= s_date_req
     AND B.s_date <= e_date_req
     AND B.successful = TRUE
-  ) S2;
+  ) AS S2;
   IF ctx >= 150 AND checker = 0 THEN
     DELETE FROM has_availability 
     WHERE care_taker_username = ct_username 
     AND s_date >= s_date_req
-    AND s_date <= e_date_req
+    AND s_date <= e_date_req;
     RETURN TRUE;
   ELSE
     RETURN FALSE;
