@@ -64,7 +64,7 @@ CREATE TABLE pay (
 CREATE TABLE has_price_list (
   care_taker_username VARCHAR(255) REFERENCES care_taker(username) ON DELETE cascade,
   ptype VARCHAR(255),
-  price NUMERIC DEFAULT 20,
+  price NUMERIC DEFAULT 5,
   PRIMARY KEY (care_taker_username, ptype)
 );
 
@@ -213,3 +213,73 @@ FOR EACH ROW EXECUTE PROCEDURE not_admin();
 CREATE TRIGGER specify_update_price_list()
 AFTER INSERT OR UPDATE ON specify
 FOR EACH ROW EXECUTE PROCEDURE specify_update_has_price_list();
+
+-- Complex Query
+-- Show all salary for all caretakers
+-- SELECT P.ct_username as ct_username,
+--   CASE 
+--     WHEN P.pet_days <= 60 THEN P.pet_days * 50
+--     WHEN P.pet_days > 60 THEN 3000 + P2.bonus * 0.8
+--   END as pay
+-- FROM (
+--   SELECT COUNT(*) as pet_days, C.username as ct_username
+--   FROM bid B JOIN care_taker C ON B.care_taker_username = C.username
+--   WHERE C.ctype = 'Full Time'
+--   AND B.successful = TRUE
+--   AND date_trunc('month', B.s_date) = date_trunc('month', CURRENT_DATE)
+--   GROUP BY C.username
+-- ) P,
+-- (
+--   SELECT SUM(B2.price) as bonus, C2.username as ct_username
+--   FROM bid B2 JOIN care_taker C2 ON B2.care_taker_username = C2.username
+--   WHERE C2.ctype = 'Full Time'
+--   AND B2.successful = TRUE
+--   AND date_trunc('month', B2.s_date) = date_trunc('month', CURRENT_DATE)
+--   GROUP BY C2.username
+--   ORDER BY B2.s_date ASC
+--   OFFSET 61 ROWS 
+-- ) P2
+-- WHERE P.ct_username = P2.ct_username
+-- UNION 
+-- SELECT C.username as ct_username, SUM(B.price) * 0.75 as pay
+-- FROM bid B JOIN care_taker C ON B.care_taker_username = C.username
+-- WHERE C.ctype = 'Part Time'
+-- AND B.successful = TRUE
+-- AND date_trunc('month', B.s_date) = date_trunc('month', CURRENT_DATE)
+-- GROUP BY C.username;
+
+-- -- Show sum of all salary
+-- SELECT SUM(F.price)
+-- FROM
+-- (SELECT P.ct_username as ct_username,
+--   CASE 
+--     WHEN P.pet_days <= 60 THEN P.pet_days * 50
+--     WHEN P.pet_days > 60 THEN 3000 + P2.bonus * 0.8
+--   END as pay
+-- FROM (
+--   SELECT COUNT(*) as pet_days, C.username as ct_username
+--   FROM bid B JOIN care_taker C ON B.care_taker_username = C.username
+--   WHERE C.ctype = 'Full Time'
+--   AND B.successful = TRUE
+--   AND date_trunc('month', B.s_date) = date_trunc('month', CURRENT_DATE)
+--   GROUP BY C.username
+-- ) P,
+-- (
+--   SELECT SUM(B2.price) as bonus, C2.username as ct_username
+--   FROM bid B2 JOIN care_taker C2 ON B2.care_taker_username = C2.username
+--   WHERE C2.ctype = 'Full Time'
+--   AND B2.successful = TRUE
+--   AND date_trunc('month', B2.s_date) = date_trunc('month', CURRENT_DATE)
+--   GROUP BY C2.username
+--   ORDER BY B2.s_date ASC
+--   OFFSET 61 ROWS 
+-- ) P2
+-- WHERE P.ct_username = P2.ct_username
+-- UNION 
+-- SELECT C.username as ct_username, SUM(B.price) * 0.75 as pay
+-- FROM bid B JOIN care_taker C ON B.care_taker_username = C.username
+-- WHERE C.ctype = 'Part Time'
+-- AND B.successful = TRUE
+-- AND date_trunc('month', B.s_date) = date_trunc('month', CURRENT_DATE)
+-- GROUP BY C.username) F;
+
