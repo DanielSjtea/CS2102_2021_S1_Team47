@@ -50,7 +50,12 @@ router.get("/", function(req, res, next) {
                     username: data.rows[0].username,
                     svcType: svcType,
                     ctype:ctype,
-                    trfMethod: trfMethod
+                    trfMethod: trfMethod, 
+                    ratings: ratings,
+                    salary: salary,
+                    petCareMonth: petCareMonth,
+                    ct_price_list: ct_price_list,
+                    availability: availability
                 })
             }
             else {

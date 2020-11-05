@@ -162,7 +162,7 @@ var sql = {
         "FROM bid B JOIN care_taker C ON B.care_taker_username = C.username " +
         "WHERE C.ctype = 'Full Time' " +
         "AND B.successful = TRUE " +
-        "AND B.s_date = $2 " +
+        "AND date_trunc('month', B.s_date) = date_trunc('month', $2::timestamp) " +
         "AND C.username = $1 " +
         "GROUP BY C.username " +
         ") P," +
@@ -171,9 +171,9 @@ var sql = {
         "FROM bid B2 JOIN care_taker C2 ON B2.care_taker_username = C2.username " +
         "WHERE C2.ctype = 'Full Time' " +
         "AND B2.successful = TRUE " +
-        "AND date_trunc('month', B2.s_date) = date_trunc('month', $2) " +
+        "AND date_trunc('month', B2.s_date) = date_trunc('month', $2::timestamp) " +
         "AND C2.username = $1 " +
-        "GROUP BY C2.username " +
+        "GROUP BY C2.username, B2.s_date " +
         "ORDER BY B2.s_date ASC " +
         "OFFSET 61 ROWS " +
         ") P2", //[care_taker_username, date] // date in YYYY-MM-DD
@@ -182,7 +182,7 @@ var sql = {
         "FROM bid B JOIN care_taker C ON B.care_taker_username = C.username " +
         "WHERE C.ctype = 'Part Time' " +
         "AND B.successful = TRUE " +
-        "AND B.s_date =  $2 " +
+        "AND date_trunc('month', B.s_date) = date_trunc('month', $2::timestamp) " +
         "AND C.username = $1 " +
         "GROUP BY C.username", //[care_taker_username, date] // date in YYYY-MM-DD
     get_petdays_month: '',
