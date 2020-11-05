@@ -32,6 +32,7 @@ var sql = {
     get_caretaker_service: 'SELECT * FROM does_service WHERE care_taker_username = $1 AND svc_type = $2', // [care_taker_username, svc_type]
     delete_caretaker_service: 'DELETE FROM does_service WHERE care_taker_username = $1', // [care_taker_username]
     get_ct_pet_types: 'SELECT ptype FROM has_price_list WHERE care_taker_username = $1', // [care_taker_username]
+    get_ct_price_list: 'SELECT * FROM has_price_list WHERE care_taker_username = $1',
     add_caretaker_ptype: 'INSERT INTO has_price_list(care_taker_username, ptype) VALUES ($1, $2)', //[care_taker_username, ptype]
     get_caretaker_pricelist: 'SELECT ptype, price FROM has_price_list WHERE care_taker_username = $1 ORDER BY price ASC', //[care_taker_username]
     delete_caretaker_ptype: 'DELETE FROM has_price_list WHERE care_taker_username = $1', //[care_taker_username]
@@ -47,7 +48,7 @@ var sql = {
     add_availability: 'INSERT INTO has_availability(care_taker_username, s_date, s_time, e_time) VALUES ($1, $2, $3, $4)', //[username, s_date, s_time, e_time]
     delete_availability: 'DELETE FROM has_availability WHERE care_taker_username = $1 AND s_date::date = date $2', //[username, s_date] in datetime format (?)
     delete_specific_availability: 'DELETE FROM has_availability WHERE care_taker_username = $1 AND s_date::date = date $2 AND s_time <= time $3 AND e_time >= time $4', //[username, s_date, s_time, e_time] s_time & e_time in TIME format: HH:MM:SS
-    get_self_availability: 'SELECT * FROM has_availability WHERE care_taker_username = $1 AND s_date >= CURRNT_DATE ORDER BY s_date ASC', //[s_date] in datetime format (?), returns all available caretakers for that day
+    get_self_availability: 'SELECT * FROM has_availability WHERE care_taker_username = $1 AND s_date >= CURRENT_DATE ORDER BY s_date ASC', //[s_date] in datetime format (?), returns all available caretakers for that day
 
     apply_leave: 'SELECT apply_leave($1, $2, $3)', //[care_taker_username, s_date, e_date] returns TRUE if can take leave/FALSE if cannot
 
@@ -94,7 +95,7 @@ var sql = {
         "FROM bid B JOIN care_taker C ON B.care_taker_username = C.username" +
         "WHERE C.ctype = 'Full Time'" +
         "AND B.successful = TRUE" +
-        "AND date_trunc('month', B.s_date) = date_trunc('month', CURRENT_DATE)" +
+        "AND date_trunc('month', B.s_date) = date_trunc('month', $1)" +
         "GROUP BY C.username" +
         ") P," +
         "(" +
@@ -102,7 +103,7 @@ var sql = {
         "FROM bid B2 JOIN care_taker C2 ON B2.care_taker_username = C2.username" +
         "WHERE C2.ctype = 'Full Time'" +
         "AND B2.successful = TRUE" +
-        "AND date_trunc('month', B2.s_date) = date_trunc('month', CURRENT_DATE)" +
+        "AND date_trunc('month', B2.s_date) = date_trunc('month', $1)" +
         "GROUP BY C2.username" +
         "ORDER BY B2.s_date ASC" +
         "OFFSET 61 ROWS" +
@@ -113,8 +114,8 @@ var sql = {
         "FROM bid B JOIN care_taker C ON B.care_taker_username = C.username" +
         "WHERE C.ctype = 'Part Time'" +
         "AND B.successful = TRUE" +
-        "AND date_trunc('month', B.s_date) = date_trunc('month', CURRENT_DATE)" +
-        "GROUP BY C.username) F",
+        "AND date_trunc('month', B.s_date) = date_trunc('month', $1)" +
+        "GROUP BY C.username) F",//[month_datetime]
     get_all_caretaker_salary:
         "SELECT P.ct_username as ct_username," +
         "CASE " +
@@ -126,7 +127,7 @@ var sql = {
         "FROM bid B JOIN care_taker C ON B.care_taker_username = C.username" +
         "WHERE C.ctype = 'Full Time'" +
         "AND B.successful = TRUE" +
-        "AND date_trunc('month', B.s_date) = date_trunc('month', CURRENT_DATE)" +
+        "AND date_trunc('month', B.s_date) = date_trunc('month', $1)" +
         "GROUP BY C.username" +
         ") P," +
         "(" +
@@ -134,7 +135,7 @@ var sql = {
         "FROM bid B2 JOIN care_taker C2 ON B2.care_taker_username = C2.username" +
         "WHERE C2.ctype = 'Full Time'" +
         "AND B2.successful = TRUE" +
-        "AND date_trunc('month', B2.s_date) = date_trunc('month', CURRENT_DATE)" +
+        "AND date_trunc('month', B2.s_date) = date_trunc('month', $1)" +
         "GROUP BY C2.username" +
         "ORDER BY B2.s_date ASC" +
         "OFFSET 61 ROWS" +
@@ -145,12 +146,45 @@ var sql = {
         "FROM bid B JOIN care_taker C ON B.care_taker_username = C.username" +
         "WHERE C.ctype = 'Part Time'" +
         "AND B.successful = TRUE" +
-        "AND date_trunc('month', B.s_date) = date_trunc('month', CURRENT_DATE)" +
-        "GROUP BY C.username",
-    get_total_pet_cared_month: 'SELECT COUNT(*) FROM bids WHERE successful = TRUE AND EXTRACT(MONTH FROM s_date) = $1', //[month] in numeric, where 1 = January
+        "AND date_trunc('month', B.s_date) = date_trunc('month', $1)" +
+        "GROUP BY C.username", //[month_datetime]
+    get_total_pet_cared_month: 'SELECT COUNT(*) FROM bid WHERE successful = TRUE AND EXTRACT(MONTH FROM s_date) = $1', //[month] in numeric, where 1 = January
 
     //Caretaker statistics
-    get_self_salary: '',
+    get_fulltime_self_salary_month:
+        "SELECT " +
+        "CASE " +
+        "WHEN P.pet_days <= 60 THEN P.pet_days * 50 " +
+        "WHEN P.pet_days > 60 THEN 3000 + P2.bonus * 0.8 " +
+        "END as pay " +
+        "FROM (" +
+        "SELECT COUNT(*) as pet_days, C.username as ct_username " +
+        "FROM bid B JOIN care_taker C ON B.care_taker_username = C.username " +
+        "WHERE C.ctype = 'Full Time' " +
+        "AND B.successful = TRUE " +
+        "AND B.s_date = $2 " +
+        "AND C.username = $1 " +
+        "GROUP BY C.username " +
+        ") P," +
+        "(" +
+        "SELECT SUM(B2.price) as bonus, C2.username as ct_username " +
+        "FROM bid B2 JOIN care_taker C2 ON B2.care_taker_username = C2.username " +
+        "WHERE C2.ctype = 'Full Time' " +
+        "AND B2.successful = TRUE " +
+        "AND date_trunc('month', B2.s_date) = date_trunc('month', $2) " +
+        "AND C2.username = $1 " +
+        "GROUP BY C2.username " +
+        "ORDER BY B2.s_date ASC " +
+        "OFFSET 61 ROWS " +
+        ") P2", //[care_taker_username, date] // date in YYYY-MM-DD
+    get_parttime_self_salary_month:
+        "SELECT SUM(B.price) * 0.75 as pay " +
+        "FROM bid B JOIN care_taker C ON B.care_taker_username = C.username " +
+        "WHERE C.ctype = 'Part Time' " +
+        "AND B.successful = TRUE " +
+        "AND B.s_date =  $2 " +
+        "AND C.username = $1 " +
+        "GROUP BY C.username", //[care_taker_username, date] // date in YYYY-MM-DD
     get_petdays_month: '',
     get_past_work: 'SELECT s_date, s_time, e_time, name, pet_owner_username, review, price, rating, svc_type FROM bids WHERE care_taker_username = $1 AND successful = TRUE AND s_date < CURRENT_DATE ORDER BY s_date DESC',//[care_taker_username]
     get_work_schedule: 'SELECT * FROM bids WHERE care_taker_username = $1 AND successful = TRUE AND s_date >= CURRENT_DATE ORDER BY s_date ASC', //[care_taker_username]
