@@ -21,6 +21,7 @@ var sql = {
 
     get_all_caretaker: 'SELECT * FROM care_taker NATURAL JOIN users ORDER BY username ASC',
     get_profile: 'SELECT * FROM users WHERE username = $1', //[username] returns [username, contact_num, password, name, email]
+    get_petowner_profile: 'SELECT * FROM users NATURAL JOIN pet_owner WHERE username = $1',
     //get_caretaker_profile takes in [username]  and returns [username, contact_num, name, email, ctype, area, svc_type, trf_mthd]
     get_caretaker_profile: 'SELECT U.username as username, U.contact_num as contact_num, U.name as name, U.email as email, C.ctype as ctype, C.area as area, S.svc_type as svc_type, T.trf_mthd as trf_mthd FROM users U, care_taker C, does_service S, specify_trf_pref T WHERE U.username = $1 AND C.username = U.username AND S.care_taker_username = U.username AND T.care_taker_username = U.username',
     get_caretaker_profile_limit_one: 'SELECT U.username as username, U.contact_num as contact_num, U.name as name, U.email as email, C.ctype as ctype, C.area as area, S.svc_type as svc_type, T.trf_mthd as trf_mthd FROM users U, care_taker C, does_service S, specify_trf_pref T WHERE U.username = $1 AND C.username = U.username AND S.care_taker_username = U.username AND T.care_taker_username = U.username LIMIT 1',
@@ -43,6 +44,7 @@ var sql = {
     delete_pet: 'DELETE FROM owns_pet WHERE pet_owner_username = $1 AND name = $2', //[pet_owner_username, name]
     get_all_owned_pets: 'SELECT * FROM owns_pet WHERE pet_owner_username = $1', //[pet_owner_username]
     get_pet_type: 'SELECT ptype FROM owns_pet WHERE pet_owner_username = $1 AND name = $2',
+    get_pet: 'SELECT * FROM owns_pet WHERE pet_owner_username = $1 AND name = $2',
 
     //Availability related
     add_availability: 'INSERT INTO has_availability(care_taker_username, s_date, s_time, e_time) VALUES ($1, $2, $3, $4)', //[username, s_date, s_time, e_time]
