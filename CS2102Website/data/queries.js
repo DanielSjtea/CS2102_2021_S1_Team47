@@ -197,8 +197,8 @@ var sql = {
     get_ct_bids: 'SELECT * FROM bid WHERE care_taker_username = $1', // [care_taker_username] check if care taker have any bids
     make_bid: 'INSERT INTO bid (care_taker_username, s_date, s_time, e_time, name, pet_owner_username, review, price, trf_mthd, pay_type, rating, successful, svc_type) VALUES ($1, $2, $3, $4, $5, $6, NULL, $7, $8, $9, NULL, NULL, $10)', //[care_taker_username, s_date, s_time, e_time, name, pet_owner_name, price, trf_mthd, pay_type, svc_type]
     bids_pending_acceptance_as_petowner: 'SELECT care_taker_username, s_date, s_time, e_time, name, price, trf_mthd, pay_type, successful, svc_type FROM bid WHERE pet_owner_username = $1', //[pet_owner_username]
-    successful_bids_made_as_petowner: 'SELECT care_taker_username, s_date, s_time, e_time, name, review, price, trf_mthd, pay_type, rating, svc_type FROM bid WHERE pet_owner_username = $1 AND successful = TRUE', //[pet_owner_username]
-    get_current_bids_as_caretaker: 'SELECT s_date, s_time, e_time, name, pet_owner_username, price, trf_mthd, pay_type, svc_type FROM bid WHERE care_taker_username = $1 AND s_date > CURRENT_DATE ORDER BY s_date, s_time, price DESC', //[care_taker_username]
+    successful_bids_made_as_petowner: 'SELECT care_taker_username, s_date, s_time, e_time, name, review, price, trf_mthd, pay_type, rating, svc_type, successful FROM bid WHERE pet_owner_username = $1 AND successful = TRUE', //[pet_owner_username]
+    get_current_bids_as_caretaker: 'SELECT s_date, s_time, e_time, name, pet_owner_username, price, trf_mthd, pay_type, svc_type, successful FROM bid WHERE care_taker_username = $1 AND s_date > CURRENT_DATE ORDER BY s_date, s_time, price DESC', //[care_taker_username]
 
 
     //Reviews related
