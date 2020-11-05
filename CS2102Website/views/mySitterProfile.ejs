@@ -77,8 +77,7 @@
         </div>
         <div>
           <% if (salary != null) { %>
-            <% console.log("hi: " + salary) %>
-            <p><%= "$" + salary.pay %></p>
+            <p><%= "$" + salary %></p>
           <% } else { %>
             <p>Expected salary not available yet.</p>
           <% } %>
@@ -188,10 +187,12 @@
       <% } %>
     </div>
 <% } else { %>
-    <div class="registerSitterMessage" >
-    <h3>Please register as a sitter first!</h3>
-    <button type="submit" onclick="location.href = '/sitterRegistration'" >Register</button>
+  <div class="registerSitterMessage" >
+    <h3 class="registerSitterMessageText" >Please register as a sitter first!</h3>
+    <div class="registerSitterMessageButton">
+      <button type="submit" class="btn btn-outline-primary" onclick="location.href = '/sitterRegistration'" >Register</button>
     </div>
+  </div>
 <% } %>
     <div class="filler">
 

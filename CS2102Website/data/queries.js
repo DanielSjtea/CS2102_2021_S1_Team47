@@ -21,6 +21,7 @@ var sql = {
 
     get_all_caretaker: 'SELECT * FROM care_taker NATURAL JOIN users ORDER BY username ASC',
     get_profile: 'SELECT * FROM users WHERE username = $1', //[username] returns [username, contact_num, password, name, email]
+    get_petowner_profile: 'SELECT * FROM users NATURAL JOIN pet_owner WHERE username = $1',
     //get_caretaker_profile takes in [username]  and returns [username, contact_num, name, email, ctype, area, svc_type, trf_mthd]
     get_caretaker_profile: 'SELECT U.username as username, U.contact_num as contact_num, U.name as name, U.email as email, C.ctype as ctype, C.area as area, S.svc_type as svc_type, T.trf_mthd as trf_mthd FROM users U, care_taker C, does_service S, specify_trf_pref T WHERE U.username = $1 AND C.username = U.username AND S.care_taker_username = U.username AND T.care_taker_username = U.username',
     get_caretaker_profile_limit_one: 'SELECT U.username as username, U.contact_num as contact_num, U.name as name, U.email as email, C.ctype as ctype, C.area as area, S.svc_type as svc_type, T.trf_mthd as trf_mthd FROM users U, care_taker C, does_service S, specify_trf_pref T WHERE U.username = $1 AND C.username = U.username AND S.care_taker_username = U.username AND T.care_taker_username = U.username LIMIT 1',
@@ -43,6 +44,7 @@ var sql = {
     delete_pet: 'DELETE FROM owns_pet WHERE pet_owner_username = $1 AND name = $2', //[pet_owner_username, name]
     get_all_owned_pets: 'SELECT * FROM owns_pet WHERE pet_owner_username = $1', //[pet_owner_username]
     get_pet_type: 'SELECT ptype FROM owns_pet WHERE pet_owner_username = $1 AND name = $2',
+    get_pet: 'SELECT * FROM owns_pet WHERE pet_owner_username = $1 AND name = $2',
 
     //Availability related
     add_availability: 'INSERT INTO has_availability(care_taker_username, s_date, s_time, e_time) VALUES ($1, $2, $3, $4)', //[username, s_date, s_time, e_time]
@@ -95,26 +97,25 @@ var sql = {
         "FROM bid B JOIN care_taker C ON B.care_taker_username = C.username" +
         "WHERE C.ctype = 'Full Time'" +
         "AND B.successful = TRUE" +
-        "AND date_trunc('month', B.s_date) = date_trunc('month', $1)" +
+        "AND date_trunc('month', B.s_date) = date_trunc('month', $1::timestamp)" +
         "GROUP BY C.username" +
-        ") P," +
+        ") P LEFT JOIN" +
         "(" +
         "SELECT SUM(B2.price) as bonus, C2.username as ct_username" +
         "FROM bid B2 JOIN care_taker C2 ON B2.care_taker_username = C2.username" +
         "WHERE C2.ctype = 'Full Time'" +
         "AND B2.successful = TRUE" +
-        "AND date_trunc('month', B2.s_date) = date_trunc('month', $1)" +
+        "AND date_trunc('month', B2.s_date) = date_trunc('month', $1::timestamp)" +
         "GROUP BY C2.username" +
-        "ORDER BY B2.s_date ASC" +
+        "ORDER BY MAX(B2.s_date) ASC" +
         "OFFSET 61 ROWS" +
-        ") P2" +
-        "WHERE P.ct_username = P2.ct_username" +
+        ") P2 ON P.ct_username = P2.ct_username" +
         "UNION " +
         "SELECT C.username as ct_username, SUM(B.price) * 0.75 as pay" +
         "FROM bid B JOIN care_taker C ON B.care_taker_username = C.username" +
         "WHERE C.ctype = 'Part Time'" +
         "AND B.successful = TRUE" +
-        "AND date_trunc('month', B.s_date) = date_trunc('month', $1)" +
+        "AND date_trunc('month', B.s_date) = date_trunc('month', $1::timestamp)" +
         "GROUP BY C.username) F",//[month_datetime]
     get_all_caretaker_salary:
         "SELECT P.ct_username as ct_username," +
@@ -127,26 +128,25 @@ var sql = {
         "FROM bid B JOIN care_taker C ON B.care_taker_username = C.username" +
         "WHERE C.ctype = 'Full Time'" +
         "AND B.successful = TRUE" +
-        "AND date_trunc('month', B.s_date) = date_trunc('month', $1)" +
+        "AND date_trunc('month', B.s_date) = date_trunc('month', $1::timestamp)" +
         "GROUP BY C.username" +
-        ") P," +
+        ") P LEFT JOIN " +
         "(" +
         "SELECT SUM(B2.price) as bonus, C2.username as ct_username" +
         "FROM bid B2 JOIN care_taker C2 ON B2.care_taker_username = C2.username" +
         "WHERE C2.ctype = 'Full Time'" +
         "AND B2.successful = TRUE" +
-        "AND date_trunc('month', B2.s_date) = date_trunc('month', $1)" +
+        "AND date_trunc('month', B2.s_date) = date_trunc('month', $1::timestamp)" +
         "GROUP BY C2.username" +
-        "ORDER BY B2.s_date ASC" +
+        "ORDER BY MAX(B2.s_date) ASC" +
         "OFFSET 61 ROWS" +
-        ") P2" +
-        "WHERE P.ct_username = P2.ct_username" +
+        ") P2 ON P.ct_username = P2.ct_username" +
         "UNION " +
         "SELECT C.username as ct_username, SUM(B.price) * 0.75 as pay" +
         "FROM bid B JOIN care_taker C ON B.care_taker_username = C.username" +
         "WHERE C.ctype = 'Part Time'" +
         "AND B.successful = TRUE" +
-        "AND date_trunc('month', B.s_date) = date_trunc('month', $1)" +
+        "AND date_trunc('month', B.s_date) = date_trunc('month', $1::timestamp)" +
         "GROUP BY C.username", //[month_datetime]
     get_total_pet_cared_month: 'SELECT COUNT(*) FROM bid WHERE successful = TRUE AND EXTRACT(MONTH FROM s_date) = $1', //[month] in numeric, where 1 = January
 
@@ -162,32 +162,32 @@ var sql = {
         "FROM bid B JOIN care_taker C ON B.care_taker_username = C.username " +
         "WHERE C.ctype = 'Full Time' " +
         "AND B.successful = TRUE " +
-        "AND B.s_date = $2 " +
+        "AND date_trunc('month', B.s_date) = date_trunc('month', $2::timestamp) " +
         "AND C.username = $1 " +
         "GROUP BY C.username " +
-        ") P," +
+        ") P LEFT JOIN" +
         "(" +
         "SELECT SUM(B2.price) as bonus, C2.username as ct_username " +
         "FROM bid B2 JOIN care_taker C2 ON B2.care_taker_username = C2.username " +
         "WHERE C2.ctype = 'Full Time' " +
         "AND B2.successful = TRUE " +
-        "AND date_trunc('month', B2.s_date) = date_trunc('month', $2) " +
+        "AND date_trunc('month', B2.s_date) = date_trunc('month', $2::timestamp) " +
         "AND C2.username = $1 " +
         "GROUP BY C2.username " +
-        "ORDER BY B2.s_date ASC " +
+        "ORDER BY MAX(B2.s_date) ASC " +
         "OFFSET 61 ROWS " +
-        ") P2", //[care_taker_username, date] // date in YYYY-MM-DD
+        ") P2 ON P.ct_username = P2.ct_username", //[care_taker_username, date] // date in YYYY-MM-DD
     get_parttime_self_salary_month:
         "SELECT SUM(B.price) * 0.75 as pay " +
         "FROM bid B JOIN care_taker C ON B.care_taker_username = C.username " +
         "WHERE C.ctype = 'Part Time' " +
         "AND B.successful = TRUE " +
-        "AND B.s_date =  $2 " +
+        "AND date_trunc('month', B.s_date) = date_trunc('month', $2::timestamp) " +
         "AND C.username = $1 " +
         "GROUP BY C.username", //[care_taker_username, date] // date in YYYY-MM-DD
     get_petdays_month: '',
-    get_past_work: 'SELECT s_date, s_time, e_time, name, pet_owner_username, review, price, rating, svc_type FROM bids WHERE care_taker_username = $1 AND successful = TRUE AND s_date < CURRENT_DATE ORDER BY s_date DESC',//[care_taker_username]
-    get_work_schedule: 'SELECT * FROM bids WHERE care_taker_username = $1 AND successful = TRUE AND s_date >= CURRENT_DATE ORDER BY s_date ASC', //[care_taker_username]
+    get_past_work: 'SELECT s_date, s_time, e_time, name, pet_owner_username, review, price, rating, svc_type FROM bid WHERE care_taker_username = $1 AND successful = TRUE AND s_date < CURRENT_DATE ORDER BY s_date DESC',//[care_taker_username]
+    get_work_schedule: 'SELECT * FROM bid WHERE care_taker_username = $1 AND successful = TRUE AND s_date >= CURRENT_DATE ORDER BY s_date ASC', //[care_taker_username]
 
     //Pet Owner statistics
     get_past_orders: 'SELECT care_taker_username, s_date, s_time, e_time, name, review, price, rating, svc_type FROM bid WHERE pet_owner_username = $1 AND successful = TRUE AND s_date < CURRENT_DATE ORDER BY s_date DESC', // [pet_owner_username]
@@ -197,8 +197,8 @@ var sql = {
     get_ct_bids: 'SELECT * FROM bid WHERE care_taker_username = $1', // [care_taker_username] check if care taker have any bids
     make_bid: 'INSERT INTO bid (care_taker_username, s_date, s_time, e_time, name, pet_owner_username, review, price, trf_mthd, pay_type, rating, successful, svc_type) VALUES ($1, $2, $3, $4, $5, $6, NULL, $7, $8, $9, NULL, NULL, $10)', //[care_taker_username, s_date, s_time, e_time, name, pet_owner_name, price, trf_mthd, pay_type, svc_type]
     bids_pending_acceptance_as_petowner: 'SELECT care_taker_username, s_date, s_time, e_time, name, price, trf_mthd, pay_type, successful, svc_type FROM bid WHERE pet_owner_username = $1', //[pet_owner_username]
-    successful_bids_made_as_petowner: 'SELECT care_taker_username, s_date, s_time, e_time, name, review, price, trf_mthd, pay_type, rating, svc_type FROM bid WHERE pet_owner_username = $1 AND successful = TRUE', //[pet_owner_username]
-    get_current_bids_as_caretaker: 'SELECT s_date, s_time, e_time, name, pet_owner_username, price, trf_mthd, pay_type, svc_type FROM bid WHERE care_taker_username = $1 AND s_date > CURRENT_DATE ORDER BY s_date, s_time, price DESC', //[care_taker_username]
+    successful_bids_made_as_petowner: 'SELECT care_taker_username, s_date, s_time, e_time, name, review, price, trf_mthd, pay_type, rating, svc_type, successful FROM bid WHERE pet_owner_username = $1 AND successful = TRUE', //[pet_owner_username]
+    get_current_bids_as_caretaker: 'SELECT s_date, s_time, e_time, name, pet_owner_username, price, trf_mthd, pay_type, svc_type, successful FROM bid WHERE care_taker_username = $1 AND s_date > CURRENT_DATE ORDER BY s_date, s_time, price DESC', //[care_taker_username]
 
 
     //Reviews related

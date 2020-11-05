@@ -26,42 +26,51 @@
       <h4>Bids Received</h4>
     </div>
     <table class="table">
+      <% if (username == null )     { %>
       <thead>
         <tr>
           <th scope="col">Name</th>
           <th scope="col">Username</th>
           <th scope="col">Date</th>
           <th scope="col">Bid Amount</th>
-          <th scope="col"></th>
-
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td>Mark</td>
-          <td>Otto</td>
-          <td>1 Jan 2020</td>
-          <td>$55</td>
-          <td class="noborderright"><button type="button" class="btn btn-outline-primary" onclick="location.href = '/viewReceivedBid'">View Bid</button>
-          </td>
-        </tr>
-        <tr>
-          <td>Jacob</td>
-          <td>Thornton</td>
-          <td>1 Jan 2020</td>
-          <td>$55</td>
-          <td class="noborderright"><button type="button" class="btn btn-outline-primary" onclick="location.href = '/viewReceivedBid'">View Bid</button>
-          </td>
-        </tr>
-        <tr>
-          <td>Larry</td>
-          <td>the Bird</td>
-          <td>1 Jan 2020</td>
-          <td>$55</td>
-          <td class="noborderright"><button type="button" class="btn btn-outline-primary" onclick="location.href = '/viewReceivedBid'">View Bid</button>
+          <td> - </td>
+          <td> - </td>
+          <td> - </td>
+          <td> - </td>
           </td>
         </tr>
       </tbody>
+      <% }  else { %>
+            <thead>
+              <tr>
+                <th scope="col">Username</th>
+                <th scope="col">Date</th>
+                <th scope="col">Bid Amount</th>
+                <th scope="col">Successful</th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+        <% for (var i = 0; i < bidArr.length; i++) { %>
+          <tbody>
+            <tr>
+              <td><%= bidArr[i].pet_owner_username %></td>
+              <td><%= bidArr[i].s_date.toString().substring(0,15) %></td>
+              <td>$ <%= bidArr[i].price %></td>
+              <% if (bidArr[i].successful) { %>
+              <td>Successful</td>
+              <% } else { %>
+              <td>Pending</td>
+              <% } %>
+              <td class="noborderright"><button type="button" class="btn btn-outline-primary" onclick="location.href = '/viewReceivedBid'">View Bid</button>
+              </td>
+            </tr>
+          </tbody>
+        <% } %>
+       <% } %>
     </table>
   </div>
   <div class="filler">
