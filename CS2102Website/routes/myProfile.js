@@ -17,11 +17,7 @@ router.get("/", async function(req, res, next) {
                 database.query(sql.get_all_owned_pets, [user.username], (err, data) => {
                     if (data.rowCount > 0){
                     console.log("data length" + data.rows.length);
-                        var pname = data.rows[0].name;
-                        var ptype = data.rows[0].ptype;
-                        var spReq = data.rows[0].sp_req;
                         var area = data.rows[0].area;
-                        
                         res.render("myProfile", {
                             name: user.name,
                             email: user.email,

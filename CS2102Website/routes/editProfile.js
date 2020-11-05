@@ -7,7 +7,29 @@ var sql = require("../data/queries");
 
 router.get("/", function(req, res, next) {
     console.log("in get");
-    res.render("editProfile");
+    // check if this user is a pet owner
+    database.query(sql.is_owner, [user.username], (err, data) => {
+        if(err) {
+            console.log("SQL error: " + err);
+        } else {
+            if(data.rowCount > 0) {
+                cardDetails = data.rows;
+                database.query(sql.get_all_owned_pets, [user.username], (err, data) => {
+                    if (data.rowCount > 0){
+                        res.render("editProfile", {
+                            cardDetails:cardDetails,
+                            petArr: data.rows //this returns arr
+                        });
+                    } else {
+                        res.render("editProfile", {
+                            cardDetails:cardDetails,
+                            petArr: null
+                        });
+                    }
+                });
+            }
+        }
+    });
 });
 
 
@@ -20,7 +42,6 @@ res.redirect("myProfile");
        console.log("not in else");
        res.render("editProfile", { alert });
      } else {
-       //let username = req.body.updateUsername;
        let contact_num = req.body.updateContactNumber;
        let name = req.body.updateName;
        let email = req.body.updateEmail;
