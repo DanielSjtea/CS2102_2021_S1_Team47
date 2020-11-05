@@ -5,8 +5,23 @@ var database = require("../data/index");
 var router = express.Router();
 var sql = require("../data/queries");
 
+
 router.get("/", function(req, res, next) {
-    res.render("pcsProfile");
+    var user = req.user;
+            database.query(sql.is_admin, [user.username], (err, data) => {
+                if(err) {
+                    console.log("SQL error: " + err);
+                } else {
+                    if(data.rowCount > 0) {
+                        res.render("pcsProfile", {
+                            name: user.name,
+                            email: user.email,
+                            username: user.username,
+                            contact_num: user.contactNum,
+                        });
+                    }
+                }
+            });
 });
 
 module.exports = router;
