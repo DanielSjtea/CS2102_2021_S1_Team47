@@ -173,7 +173,7 @@ var sql = {
         "AND B2.successful = TRUE " +
         "AND date_trunc('month', B2.s_date) = date_trunc('month', $2::timestamp) " +
         "AND C2.username = $1 " +
-        "GROUP BY C2.username" +
+        "GROUP BY C2.username " +
         "ORDER BY MAX(B2.s_date) ASC " +
         "OFFSET 61 ROWS " +
         ") P2 ON P.ct_username = P2.ct_username", //[care_taker_username, date] // date in YYYY-MM-DD
