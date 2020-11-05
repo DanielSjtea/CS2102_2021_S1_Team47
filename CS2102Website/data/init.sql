@@ -215,6 +215,7 @@ AFTER INSERT OR UPDATE ON specify
 FOR EACH ROW EXECUTE PROCEDURE specify_update_has_price_list();
 
 -- Complex Query
+
 -- Show all salary for all caretakers
 -- SELECT P.ct_username as ct_username,
 --   CASE 
