@@ -13,24 +13,33 @@ router.get("/", function(req, res, next) {
                 console.log("SQL error: " + err);
             } else {
                 if(data.rowCount > 0) {
-//                    var contact = null;
-//                    var name = null;
-//                    var pType = null;
                     var ctUsername = data.rows[0].care_taker_username;
-//                    database.query(sql.get_caretaker_profile, [ctUsername], (err, ctData) => {
-//                        contact = ctData.rows[0].contact_num;
-//                        name = ctData.rows[0].name;
-//                    });
-//                    database.query(sql.get_ct_pet_types, [ctUsername], (err, pListData) => {
-//                        pType = pListData.rows[0].ptype;
-//                    });
                     var sDate = data.rows[0].s_date;
-                    var returnDate = data.rows[0].care_taker_username;
-
-                    console.log("pType is " + sDate);
-
-                    res.render("PetOwnerBookings");
+                    database.query(sql.get_ct_pet_types, [user.username], (err, data) => {
+                        var pType = data.rows[0].ptype;
+                        //get the CT profile.
+                        database.query(sql.get_profile, [ctUsername], (err, data) => {
+                            var ctName = data.rows[0].name;
+                            var contact = data.rows[0].contact_num;
+                            res.render("PetOwnerBookings", {
+                                ctUsername: ctUsername,
+                                contact: contact,
+                                sDate: sDate,
+                                pType: pType,
+                                ctName: ctName
+                            });
+                        });
+                    });
+                    //pets taken care of
+                    // name
+//                    console.log("pType is " + sDate);
+                    //remove return date
+//                    res.render("PetOwnerBookings");
                 }
+//                else {
+//                    res.render("PetOwnerBookings");
+//
+//                }
             }
         });
 //        res.render("PetOwnerBookings");

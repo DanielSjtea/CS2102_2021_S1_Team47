@@ -586,6 +586,20 @@ button.secondary:focus {
   justify-content: flex-start;
 }
 
+.registerSitterMessage {
+  width: 800px;
+  height: 200px;
+  background-color: white;
+  margin-left: 360px;
+  margin-top: 150px;
+  border-radius: 20px;
+  position: absolute;
+  padding: 25px;
+  display: flex;
+  justify-content: flex-start;
+  text-align: center;
+}
+
 .ratingsLeftCol {
   width: 375px;
   background-color: white;
