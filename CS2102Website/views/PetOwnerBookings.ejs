@@ -16,8 +16,11 @@
       <div class="mainTitle">
         <h1>My Bookings</h1>
       </div>
+      <% if (ctUsername != null ) {%>
       <div class="subTitle">
-        <p>Input month here through ejs</p>
+        <% const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];%>
+        <% const d = new Date(); %>
+        <p><%= monthNames[d.getMonth()] %></p>
       </div>
 
       <div class="myBookingsBox">
@@ -49,13 +52,21 @@
           </table>
         </div>
       </div>
+      <% } else { %>
+        <div class="registerSitterMessage" >
+          <h3 class="registerSitterMessageText" >Place your first booking now!</h3>
+          <div class="registerSitterMessageButton">
+            <button type="submit" class="btn btn-outline-primary" onclick="location.href = '/searchSitter'">Book a sitter!</button>
+          </div>
+        </div>
+      <% } %>
       <div class="filler">
 
       </div>
       <div class="filler">
 
       </div>
-    </div>
+  </div>
 </body>
 
 </html>

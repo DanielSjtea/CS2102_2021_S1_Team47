@@ -587,11 +587,37 @@ button.secondary:focus {
 }
 
 .registerSitterMessage {
-  width: 800px;
+  width: 750px;
   height: 200px;
   background-color: white;
   margin-left: 360px;
   margin-top: 150px;
+  border-radius: 20px;
+  position: absolute;
+  padding: 25px;
+  display: flex;
+  justify-content: flex-start;
+  text-align: center;
+}
+
+.registerSitterMessageText {
+  width: 800px;
+  height: 200px;
+  margin-left: 130px;
+  margin-top: 0px;
+  border-radius: 20px;
+  position: absolute;
+  padding: 25px;
+  display: flex;
+  justify-content: flex-start;
+  text-align: center;
+}
+
+.registerSitterMessageButton {
+  width: 1000px;
+  height: 100px;
+  margin-left: 260px;
+  margin-top: 50px;
   border-radius: 20px;
   position: absolute;
   padding: 25px;
@@ -706,7 +732,7 @@ button.secondary:focus {
   border-radius: 20px;
   position: absolute;
   padding: 50px;
-  z-index: 5;
+  z-index: 20;
 };
 
 .searchResultBox {

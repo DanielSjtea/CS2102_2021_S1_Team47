@@ -84,16 +84,20 @@
         <h4>Contact Number</h4>
         <p><%= user.contactNum %></p>
         <h4>Role(s)</h4>
-        <p>Caretaker, Pet Owner</p>
+        <% if (isCaretaker == 0) {%>
+          <p>Pet Owner</p>
+        <% } else { %>
+          <p>Caretaker, Pet Owner</p>
+        <% } %>
         <h4>Area</h4>
-        <p>Marina Bay</p>
+        <p><%= area %></p>
         <div class="editProfile">
           <button type="button" class="btn btn-outline-primary" onclick="location.href = '/editProfile'">Edit Details</button>
         </div>
       </div>
     </div>
     <div class="myPets">
-    <% if (petArr.length > 0 ) { %>
+    <% if (petArr != null && petArr.length > 0 ) { %>
         <% for (var i = 0; i < petArr.length; i++) { %>
           <div class="myPetProfile">
             <div class="petProfilePhoto">
@@ -111,7 +115,9 @@
           </div>
         <% } %>
     <% } else { %>
+      <div>
         <h6>No Pets Added<h6>
+      </div>
     <% } %>
       <div class="addPets">
         <div class="addPetButton">
