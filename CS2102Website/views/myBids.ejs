@@ -47,10 +47,10 @@
       <% }  else { %>
             <thead>
               <tr>
-                <th scope="col">Name</th>
                 <th scope="col">Username</th>
                 <th scope="col">Date</th>
                 <th scope="col">Bid Amount</th>
+                <th scope="col">Successful</th>
                 <th scope="col"></th>
               </tr>
             </thead>
@@ -58,9 +58,13 @@
           <tbody>
             <tr>
               <td><%= bidArr[i].pet_owner_username %></td>
-              <td><%= bidArr[i].pet_owner_username %></td>
               <td><%= bidArr[i].s_date.toString().substring(0,15) %></td>
               <td>$ <%= bidArr[i].price %></td>
+              <% if (bidArr[i].successful) { %>
+              <td>Successful</td>
+              <% } else { %>
+              <td>Pending</td>
+              <% } %>
               <td class="noborderright"><button type="button" class="btn btn-outline-primary" onclick="location.href = '/viewReceivedBid'">View Bid</button>
               </td>
             </tr>
