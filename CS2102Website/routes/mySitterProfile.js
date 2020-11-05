@@ -51,11 +51,17 @@ router.get("/", function(req, res, next) {
                     svcType: svcType,
                     ctype:ctype,
                     trfMethod: trfMethod
-                })
+                });
             }
             else {
                 res.render("mySitterProfile",{
-                    username: null
+                    username: null,
+                    trfMethod: trfMethod,
+                    ratings: ratings,
+                    salary: salary,
+                    petCareMonth: petCareMonth,
+                    ct_price_list: ct_price_list,
+                    availability: availability
                 });
             }
         }
