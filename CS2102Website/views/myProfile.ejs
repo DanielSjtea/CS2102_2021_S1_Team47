@@ -65,9 +65,8 @@
             </div>
             <% } %>
             <% } %>
-
             <div class="BidButton">
-              <button type="button" class="btn btn-outline-primary" onclick="location.href = '/updateCard'">Add Card</button>
+                <button type="button" class="btn btn-outline-primary" onclick="location.href = '/updateCard'">Add Card</button>
             </div>
 
           </div>
@@ -84,31 +83,41 @@
         <h4>Contact Number</h4>
         <p><%= user.contactNum %></p>
         <h4>Role(s)</h4>
-        <p>Caretaker, Pet Owner</p>
+        <% if (isCaretaker == 0) {%>
+          <p>Pet Owner</p>
+        <% } else { %>
+          <p>Caretaker, Pet Owner</p>
+        <% } %>
         <h4>Area</h4>
-        <p>Marina Bay</p>
+        <p><%= area %></p>
         <div class="editProfile">
           <button type="button" class="btn btn-outline-primary" onclick="location.href = '/editProfile'">Edit Details</button>
         </div>
       </div>
     </div>
     <div class="myPets">
-      <div class="myPetProfile">
-        <div class="petProfilePhoto">
-          <img class="petphoto" src="images\photo-1548858565-461b87144b6a.jpg" alt="">
-          <!-- REMEMBER TO CHANGE TO EJS PET PROFILE PHOTO -->
-        </div>
-        <div class="petDescription">
-          <h6>Pet Name</h6>
-          <p>Retrieve from EJS</p>
-          <h6>Type</h6>
-          <p>Retrieve from EJS</p>
-          <h6>Special Requirements</h6>
-          <p>Retrieve from EJS</p>
-
-        </div>
+    <% if (petArr != null && petArr.length > 0 ) { %>
+        <% for (var i = 0; i < petArr.length; i++) { %>
+          <div class="myPetProfile">
+            <div class="petProfilePhoto">
+              <img class="petphoto" src="images\photo-1548858565-461b87144b6a.jpg" alt="">
+              <!-- REMEMBER TO CHANGE TO EJS PET PROFILE PHOTO -->
+            </div>
+            <div class="petDescription">
+              <h6>Pet Name</h6>
+              <p><%= petArr[i].name %></p>
+              <h6>Type</h6>
+              <p><%= petArr[i].ptype %></p>
+              <h6>Special Requirements</h6>
+              <p><%= petArr[i].sp_req %></p>
+            </div>
+          </div>
+        <% } %>
+    <% } else { %>
+      <div>
+        <h6>No Pets Added<h6>
       </div>
-
+    <% } %>
       <div class="addPets">
         <div class="addPetButton">
           <button type="button" class="btn btn-outline-primary" onclick="location.href = '/addPets'">Add a Pet!</button>

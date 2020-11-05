@@ -5,13 +5,12 @@ var router = express.Router();
 var sql = require("../data/queries");
 
 router.get("/", function(req, res, next) {
-    req.logOut();
-    /*req.session.destroy(function (err) {
-        res.redirect("/");
-    });*/
-    res.redirect("/");
-    //console.log("DONE");
-    //res.render("home");
+    req.logout();
+    req.session.destroy((err) => {
+        res.clearCookie('connect.sid');
+        // Don't redirect, just print text
+        res.send('Logged out');
+    });
 });
 
 module.exports = router;
