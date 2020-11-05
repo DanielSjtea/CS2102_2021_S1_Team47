@@ -16,41 +16,54 @@
       <div class="mainTitle">
         <h1>My Bookings</h1>
       </div>
+      <% if (caretakerUsername != null) { %>
       <div class="subTitle">
-        <p>Input month here through ejs</p>
+        <% const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];%>
+        <% const d = new Date(); %>
+        <p><%= monthNames[d.getMonth()] %></p>
       </div>
-
       <div class="myBookingsBox">
         <div class="myBookingsTable">
           <table class="table">
             <tbody>
-              <tr>
-                <th scope="row">Pet Owner Name</th>
-                <th>Per Owner Username</th>
-                <th>Pet Owner Contact Number</th>
-                <th>Pick Up Date</th>
-                <th>Return Date</th>
-                <th>Pets Taken Care Of</th>
+              <th scope="row">Pet Owner Name</th>
+                <th>Pet Owner Username</th>
+                <th>Pet Owner Number</th>
+                <th>Date</th>
+                <th>Start Time</th>
+                <th>End Time</th>
+                <th>Pet Name</th>
                 <th class="noborderright">
                     View Owner Profiles
                 </th>
-
-              </tr>
-              <tr>
-                <td>Bob</td>
-                <td>bobby</td>
-                <td>12345678</td>
-                <td>27 Oct 2020</td>
-                <td>31 Oct 2020</td>
-                <td>Cat Dog Monkey</td>
-                <td class="noborderright">
-                  <button type="button" class="btn btn-outline-primary" onclick="location.href = '/myProfile'">View Profile</button>
-                </td>
-              </tr>
+              <%  for(var i = 0; i < bookings.length; i++) { %>
+                <tr>
+                  <td scope="row"><%= petOwnerInfo[i].name%></td>
+                  <td><%= petOwnerInfo[i].username%></td>
+                  <td><%= petOwnerInfo[i].contact_num%></td>
+                  <td><%= bookings[i].s_date.toString().substring(0, 15) %></td>
+                  <td><%= bookings[i].s_time.toString().substring(0, 5) %></td>
+                  <td><%= bookings[i].e_time.toString().substring(0, 15) %></td>
+                  <td><%= bookings[i].name %></td>
+                  <form action="/CareTakerBookings" method="POST">
+                    <td class="noborderright">
+                      <input id="petOwnerUsername" name="petOwnerUsername" value="<%= petOwnerInfo[i].username%>" hidden/>
+                      <input id="petName" name="petName" value="<%= bookings[i].name %>" hidden/>
+                      <button type="submit" class="btn btn-outline-primary">View Profile</button>
+                    </td> 
+                  </form>
+                </tr>
+              <% } %>
             </tbody>
           </table>
         </div>
       </div>
+      <% } else { %>
+        <div class="registerSitterMessage" >
+        <h3>Please register as a sitter first!</h3>
+        <button type="submit" onclick="location.href = '/sitterRegistration'" >Register</button>
+        </div>
+      <% } %>
       <div class="filler">
 
       </div>

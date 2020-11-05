@@ -1094,6 +1094,20 @@ label.btn input[type=checkbox].filled-in:checked+label:after {
   flex-direction: column;
 }
 
+.petOwnerProfileUserDetails {
+  width: 500px;
+  height: 500px;
+  background-color: white;
+  margin-left: 750px;
+  margin-top: 140px;
+  border-radius: 20px;
+  position: absolute;
+  padding: 30px;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+}
+
 .editProfile {
   padding: 0px;
 }
@@ -1102,6 +1116,14 @@ label.btn input[type=checkbox].filled-in:checked+label:after {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+}
+
+.petOwnerPets {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: -100px;
+  margin-left: 520px;
 }
 
 .myPetProfile {
