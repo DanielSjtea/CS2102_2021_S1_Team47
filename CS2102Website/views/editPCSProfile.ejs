@@ -13,11 +13,6 @@
 
 <body>
   <div class="parent">
-    <div class="leftSection">
-
-    </div>
-
-    <div class="rightSection">
       <div class="mainTitle">
         <h1>Your Profile</h1>
       </div>
@@ -49,29 +44,53 @@
           <form method="post" action="/editPCSProfile">
             <div class="form-group">
               <label for="updateName">Name</label>
-              <input type="text" class="form-control" id="updateName" aria-describedby="emailHelp">
+              <input type="text" class="form-control" id="updateName" name="updateName" aria-describedby="emailHelp">
             </div>
             <div class="form-group">
               <label for="updateEmail">Email</label>
-              <input type="email" class="form-control" id="updateEmail" aria-describedby="emailHelp">
-            </div>
-            <div class="form-group">
-              <label for="updateUsername">Username</label>
-              <input type="text" class="form-control" id="updateUsername" aria-describedby="emailHelp">
+              <input type="email" class="form-control" id="updateEmail" name="updateEmail" aria-describedby="emailHelp">
             </div>
             <div class="form-group">
               <label for="updateContactNumber">Contact Number</label>
-              <input type="text" class="form-control" id="updateContactNumber" aria-describedby="emailHelp">
+              <input type="text" class="form-control" id="updateContactNumber" name="updateContactNumber" aria-describedby="emailHelp">
             </div>
-            <div class="form-group">
+            <!--<div class="form-group">
               <label for="updateRoles">Role(s)</label>
               <input type="text" class="form-control" id="updateRoles" aria-describedby="emailHelp">
-            </div>
+            </div>-->
 
             <button type="submit" class="btn btn-primary" onclick="location.href = 'pcsProfile'">Submit</button>
           </form>
         </div>
+        
+        
       </div>
+      <div class="errorBox">
+        <% if(typeof alert != 'undefined') { %>
+        <% alert.forEach(function(error) { %>
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+          <%= error.msg %>
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <% }) %>
+        <% } %>
+      </div>
+      <div class="errorBox">
+        <% if(typeof taken != 'undefined') { %>
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+          <%= taken %>
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <% } %>
+      </div>
+      <div class="filler">
+      
+      </div>
+
 
   </div>
 </body>
