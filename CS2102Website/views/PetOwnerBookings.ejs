@@ -29,7 +29,6 @@
                 <th>Care Taker Username</th>
                 <th>Care Taker Contact Number</th>
                 <th>Pick Up Date</th>
-                <th>Return Date</th>
                 <th>Pets Taken Care Of</th>
                 <th class="noborderright">
                     View Sitter Profiles
@@ -37,12 +36,11 @@
 
               </tr>
               <tr>
-                <td>Bob</td>
-                <td>bobby</td>
-                <td>12345678</td>
-                <td>27 Oct 2020</td>
-                <td>31 Oct 2020</td>
-                <td>Cat Dog Monkey</td>
+                <td><%= ctName %> </td>
+                <td><%= ctUsername %> </td>
+                <td><%= contact %> </td>
+                <td><%= sDate %></td>
+                <td><%= pType %></td>
                 <td class="noborderright">
                   <button type="button" class="btn btn-outline-primary" onclick="location.href = '/viewSitterProfile'">View Profile</button>
                 </td>
