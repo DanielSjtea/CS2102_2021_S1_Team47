@@ -13,6 +13,7 @@ router.get("/", function(req, res, next) {
             console.log("SQL error: " + err);
         } else {
             if(data.rowCount > 0) {
+                username = data.rows[0].username;
                 var svcType = data.rows[0].svc_type;
                 var ctype = data.rows[0].ctype;
                 var trfMethod = data.rows[0].trf_mthd;
@@ -47,22 +48,21 @@ router.get("/", function(req, res, next) {
                 var availability = await database.db_get_promise(sql.get_self_availability, [username]);
 
                 res.render("mySitterProfile",{
-                    username: data.rows[0].username,
+                    username: username,
                     svcType: svcType,
                     ctype:ctype,
-                    trfMethod: trfMethod
-                });
-            }
-            else {
-                res.render("mySitterProfile",{
-                    username: null,
-                    trfMethod: trfMethod,
+                    trfMethod: trfMethod, 
                     ratings: ratings,
                     salary: salary,
                     petCareMonth: petCareMonth,
                     ct_price_list: ct_price_list,
                     availability: availability
+                })
+            } else {
+                res.render("mySitterProfile",{
+                    username: null
                 });
+
             }
         }
     });
