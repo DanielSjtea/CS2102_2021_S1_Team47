@@ -16,7 +16,7 @@
     <div class="mainTitle">
       <h1>Caretaker Profile</h1>
     </div>
-
+<% if (username != null) { %>
     <div class="RatingsBox">
       <div class="ratingsLeftCol">
         <div class="ratingsLeftColFirstText">
@@ -184,7 +184,12 @@
         </table>
       </div>
     </div>
-
+<% } else { %>
+    <div class="registerSitterMessage" >
+    <h3>Please register as a sitter first!</h3>
+    <button type="submit" onclick="location.href = '/sitterRegistration'" >Register</button>
+    </div>
+<% } %>
     <div class="filler">
 
     </div>
