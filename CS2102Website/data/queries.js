@@ -95,26 +95,25 @@ var sql = {
         "FROM bid B JOIN care_taker C ON B.care_taker_username = C.username" +
         "WHERE C.ctype = 'Full Time'" +
         "AND B.successful = TRUE" +
-        "AND date_trunc('month', B.s_date) = date_trunc('month', $1)" +
+        "AND date_trunc('month', B.s_date) = date_trunc('month', $1::timestamp)" +
         "GROUP BY C.username" +
-        ") P," +
+        ") P LEFT JOIN" +
         "(" +
         "SELECT SUM(B2.price) as bonus, C2.username as ct_username" +
         "FROM bid B2 JOIN care_taker C2 ON B2.care_taker_username = C2.username" +
         "WHERE C2.ctype = 'Full Time'" +
         "AND B2.successful = TRUE" +
-        "AND date_trunc('month', B2.s_date) = date_trunc('month', $1)" +
+        "AND date_trunc('month', B2.s_date) = date_trunc('month', $1::timestamp)" +
         "GROUP BY C2.username" +
-        "ORDER BY B2.s_date ASC" +
+        "ORDER BY MAX(B2.s_date) ASC" +
         "OFFSET 61 ROWS" +
-        ") P2" +
-        "WHERE P.ct_username = P2.ct_username" +
+        ") P2 ON P.ct_username = P2.ct_username" +
         "UNION " +
         "SELECT C.username as ct_username, SUM(B.price) * 0.75 as pay" +
         "FROM bid B JOIN care_taker C ON B.care_taker_username = C.username" +
         "WHERE C.ctype = 'Part Time'" +
         "AND B.successful = TRUE" +
-        "AND date_trunc('month', B.s_date) = date_trunc('month', $1)" +
+        "AND date_trunc('month', B.s_date) = date_trunc('month', $1::timestamp)" +
         "GROUP BY C.username) F",//[month_datetime]
     get_all_caretaker_salary:
         "SELECT P.ct_username as ct_username," +
@@ -127,26 +126,25 @@ var sql = {
         "FROM bid B JOIN care_taker C ON B.care_taker_username = C.username" +
         "WHERE C.ctype = 'Full Time'" +
         "AND B.successful = TRUE" +
-        "AND date_trunc('month', B.s_date) = date_trunc('month', $1)" +
+        "AND date_trunc('month', B.s_date) = date_trunc('month', $1::timestamp)" +
         "GROUP BY C.username" +
-        ") P," +
+        ") P LEFT JOIN " +
         "(" +
         "SELECT SUM(B2.price) as bonus, C2.username as ct_username" +
         "FROM bid B2 JOIN care_taker C2 ON B2.care_taker_username = C2.username" +
         "WHERE C2.ctype = 'Full Time'" +
         "AND B2.successful = TRUE" +
-        "AND date_trunc('month', B2.s_date) = date_trunc('month', $1)" +
+        "AND date_trunc('month', B2.s_date) = date_trunc('month', $1::timestamp)" +
         "GROUP BY C2.username" +
-        "ORDER BY B2.s_date ASC" +
+        "ORDER BY MAX(B2.s_date) ASC" +
         "OFFSET 61 ROWS" +
-        ") P2" +
-        "WHERE P.ct_username = P2.ct_username" +
+        ") P2 ON P.ct_username = P2.ct_username" +
         "UNION " +
         "SELECT C.username as ct_username, SUM(B.price) * 0.75 as pay" +
         "FROM bid B JOIN care_taker C ON B.care_taker_username = C.username" +
         "WHERE C.ctype = 'Part Time'" +
         "AND B.successful = TRUE" +
-        "AND date_trunc('month', B.s_date) = date_trunc('month', $1)" +
+        "AND date_trunc('month', B.s_date) = date_trunc('month', $1::timestamp)" +
         "GROUP BY C.username", //[month_datetime]
     get_total_pet_cared_month: 'SELECT COUNT(*) FROM bid WHERE successful = TRUE AND EXTRACT(MONTH FROM s_date) = $1', //[month] in numeric, where 1 = January
 
@@ -165,7 +163,7 @@ var sql = {
         "AND date_trunc('month', B.s_date) = date_trunc('month', $2::timestamp) " +
         "AND C.username = $1 " +
         "GROUP BY C.username " +
-        ") P," +
+        ") P LEFT JOIN" +
         "(" +
         "SELECT SUM(B2.price) as bonus, C2.username as ct_username " +
         "FROM bid B2 JOIN care_taker C2 ON B2.care_taker_username = C2.username " +
@@ -173,10 +171,10 @@ var sql = {
         "AND B2.successful = TRUE " +
         "AND date_trunc('month', B2.s_date) = date_trunc('month', $2::timestamp) " +
         "AND C2.username = $1 " +
-        "GROUP BY C2.username, B2.s_date " +
-        "ORDER BY B2.s_date ASC " +
+        "GROUP BY C2.username" +
+        "ORDER BY MAX(B2.s_date) ASC " +
         "OFFSET 61 ROWS " +
-        ") P2", //[care_taker_username, date] // date in YYYY-MM-DD
+        ") P2 ON P.ct_username = P2.ct_username", //[care_taker_username, date] // date in YYYY-MM-DD
     get_parttime_self_salary_month:
         "SELECT SUM(B.price) * 0.75 as pay " +
         "FROM bid B JOIN care_taker C ON B.care_taker_username = C.username " +
