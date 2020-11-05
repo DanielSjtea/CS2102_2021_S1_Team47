@@ -43,12 +43,21 @@
             <h4>Credit Cards</h4>
           </div>
           <div class="mostrecent3reviews">
-            <h6>Retrieve Card Brand</h6>
-            <p>Retrieve Card Number</p>
-            <hr>
-            <h6>Retrieve Card brand</h6>
-            <p>Retrieve Card Number</p>
-            <hr>
+            <% if (typeof cardDetails != 'undefined') { %>
+            <% for(var i=0; i<cardDetails.length; i++) { %>
+            <div class="form-check">
+              <h6>
+                <label class="form-check-label" for="cardName">
+                  <%= cardDetails[i].card_no %>
+                </label>
+              </h6>
+              <label class="form-check-label" for="cardName">
+                <%= cardDetails[i].card_name %>
+              </label>
+              <hr>
+            </div>
+            <% } %>
+            <% } %>
             <div class="BidButton">
               <button type="button" class="btn btn-outline-primary" onclick="location.href = '/updateCard'">Add Card</button>
             </div>
@@ -89,21 +98,28 @@
     </div>
 
     <div class="myPets">
-      <div class="myPetProfile">
-        <div class="petProfilePhoto">
-          <img class="petphoto" src="images\photo-1548858565-461b87144b6a.jpg" alt="">
-          <!-- REMEMBER TO CHANGE TO EJS PET PROFILE PHOTO -->
-        </div>
-        <div class="petDescription">
-          <h6>Pet Name</h6>
-          <p>Retrieve from EJS</p>
-          <h6>Type</h6>
-          <p>Retrieve from EJS</p>
-          <h6>Special Requirements</h6>
-          <p>Retrieve from EJS</p>
-
-        </div>
+    <% if (petArr != null && petArr.length > 0 ) { %>
+        <% for (var i = 0; i < petArr.length; i++) { %>
+          <div class="myPetProfile">
+            <div class="petProfilePhoto">
+              <img class="petphoto" src="images\photo-1548858565-461b87144b6a.jpg" alt="">
+              <!-- REMEMBER TO CHANGE TO EJS PET PROFILE PHOTO -->
+            </div>
+            <div class="petDescription">
+              <h6>Pet Name</h6>
+              <p><%= petArr[i].name %></p>
+              <h6>Type</h6>
+              <p><%= petArr[i].ptype %></p>
+              <h6>Special Requirements</h6>
+              <p><%= petArr[i].sp_req %></p>
+            </div>
+          </div>
+        <% } %>
+    <% } else { %>
+      <div>
+        <h6>No Pets Added<h6>
       </div>
+    <% } %>
       <div class="addPets">
         <div class="addPetButton">
           <button type="button" class="btn btn-outline-primary" onclick="location.href = '/addPets'">Add a Pet!</button>

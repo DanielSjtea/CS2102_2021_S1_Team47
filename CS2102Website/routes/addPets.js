@@ -6,7 +6,29 @@ var router = express.Router();
 var sql = require("../data/queries");
 
 router.get("/", function(req, res, next) {
-       res.render("addPets");
+//       res.render("addPets");
+    database.query(sql.is_owner, [user.username], (err, data) => {
+        if(err) {
+            console.log("SQL error: " + err);
+        } else {
+            if(data.rowCount > 0) {
+                cardDetails = data.rows;
+                database.query(sql.get_all_owned_pets, [user.username], (err, data) => {
+                    if (data.rowCount > 0){
+                        res.render("addPets", {
+                            cardDetails:cardDetails,
+                            petArr: data.rows //this returns arr
+                        });
+                    } else {
+                        res.render("addPets", {
+                            cardDetails:cardDetails,
+                            petArr: null
+                        });
+                    }
+                });
+            }
+        }
+    });
 });
 
 
