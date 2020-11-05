@@ -16,7 +16,7 @@
     <div class="mainTitle">
       <h1>Caretaker Profile</h1>
     </div>
-
+<% if (username != null) { %>
     <div class="RatingsBox">
       <div class="ratingsLeftCol">
         <div class="ratingsLeftColFirstText">
@@ -24,11 +24,51 @@
             <p><b>Ratings</b></p>
           </div>
           <div class="ratingStars">
-            <span class="fa fa-star checked"></span>
-            <span class="fa fa-star checked"></span>
-            <span class="fa fa-star checked"></span>
-            <span class="fa fa-star checked"></span>
-            <span class="fa fa-star checked"></span>
+            <% if (ratings == null) { %>
+              <span class="fa fa-star"></span>
+              <span class="fa fa-star"></span>
+              <span class="fa fa-star"></span>
+              <span class="fa fa-star"></span>
+              <span class="fa fa-star"></span>
+            <% } else { %>
+              <% if (ratings == 1) { %>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star"></span>
+                <span class="fa fa-star"></span>
+                <span class="fa fa-star"></span>
+                <span class="fa fa-star"></span>
+              <% } else if (ratings == 2) { %>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star"></span>
+                <span class="fa fa-star"></span>
+                <span class="fa fa-star"></span>
+              <% } else if (ratings == 3) { %>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star"></span>
+                <span class="fa fa-star"></span>
+              <% } else if (ratings == 4) { %>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star"></span>
+              <% } else if (ratings == 5) { %>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+              <% } else { %>
+                <span class="fa fa-star"></span>
+                <span class="fa fa-star"></span>
+                <span class="fa fa-star"></span>
+                <span class="fa fa-star"></span>
+                <span class="fa fa-star"></span>
+              <% } %>
+            <% } %>
           </div>
         </div>
         <br>
@@ -36,7 +76,12 @@
           <p> <b>Expected Salary (This Month)</b></p>
         </div>
         <div>
-          <p>Insert salary from EJS</p>
+          <% if (salary != null) { %>
+            <% console.log("hi: " + salary) %>
+            <p><%= "$" + salary.pay %></p>
+          <% } else { %>
+            <p>Expected salary not available yet.</p>
+          <% } %>
         </div>
       </div>
 
@@ -45,7 +90,11 @@
           <p><b>Total Pet Days (This Month)</b></p>
         </div>
         <div>
-          <p>Insert Total Pet Days from EJS</p>
+          <% if (petCareMonth != null) { %>
+            <p><%= petCareMonth[0].count %></p>
+          <% } else { %>
+            <p>Total Pet Days not available yet.</p>
+          <% } %>
         </div>
       </div>
     </div>
@@ -91,37 +140,27 @@
       <div class="tableheading">
         <h4>Daily Price</h4>
       </div>
+      <% if (ct_price_list.length != 0) { %>
       <div class="pricingtable">
         <table class="table">
           <tbody>
-            <tr>
-              <th scope="row">1</th>
-              <td>Cat</td>
-              <td class="noborderright">$20</td>
-            </tr>
-            <tr>
-              <th scope="row">2</th>
-              <td>Dog</td>
-              <td class="noborderright">$20</td>
-            </tr>
-            <tr>
-              <th scope="row">3</th>
-              <td>Bird</td>
-              <td class="noborderright">$20</td>
-            </tr>
-            <tr>
-              <th scope="row">4</th>
-              <td>Snake</td>
-              <td class="noborderright">$20</td>
-            </tr>
-            <tr>
-              <th scope="row">5</th>
-              <td>Hamster</td>
-              <td class="noborderright">$999</td>
-            </tr>
+            <% for(var i=0; i < ct_price_list.length; i++) { %>
+              <tr>
+                <th scope="row"><%=(i + 1)%></th>
+                <td><%= ct_price_list[i].ptype %></td>
+                <% if (ct_price_list[i].price == null) { %>
+                  <td class="noborderright">Not Specified</td>
+                <% } else { %>
+                <td class="noborderright"><%= "$" + ct_price_list[i].price %></td>
+                <% } %>
+              </tr>
+            <% } %> 
           </tbody>
         </table>
       </div>
+      <% } else { %>
+        <h6>No Daily Price for Pets found.</h6>
+      <% } %>
     </div>
 
 
@@ -129,62 +168,31 @@
       <div class="tableheading">
         <h4>Availability (Latest 7 Days)</h4>
       </div>
+      <% if (availability.length > 0) {%>
       <div class="availabilitytable">
         <table class="table">
           <tbody>
+            <% for(var i=0; i < availability.length; i++) { %>
             <tr>
-              <th scope="row">1</th>
-              <td>TO INPUT INFO INTO THIS TABLE FROM EJS</td>
-              <td>$20</td>
-              <td class="noborderright">$20</td>
+              <th scope="row"><%= (i + 1) %></th>
+              <td><%= availability[i].s_date.toString().substring(0, 15)%></td>
+              <td><%= availability[i].s_time.toString().substring(0, 5)%></td>
+              <td class="noborderright"><%= availability[i].e_time.toString().substring(0, 5)%></td>
             </tr>
-            <tr>
-              <th scope="row">2</th>
-              <td>Dog</td>
-              <td>$20</td>
-              <td class="noborderright">$20</td>
-            </tr>
-            <tr>
-              <th scope="row">3</th>
-              <td>Bird</td>
-              <td>$20</td>
-              <td class="noborderright">$20</td>
-            </tr>
-            <tr>
-              <th scope="row">4</th>
-              <td>Snake</td>
-              <td>$20</td>
-              <td class="noborderright">$20</td>
-            </tr>
-            <tr>
-              <th scope="row">5</th>
-              <td>Hamster</td>
-              <td>$999</td>
-              <td class="noborderright">$20</td>
-            </tr>
-            <tr>
-              <th scope="row">5</th>
-              <td>Hamster</td>
-              <td>$999</td>
-              <td class="noborderright">$20</td>
-            </tr>
-            <tr>
-              <th scope="row">5</th>
-              <td>Hamster</td>
-              <td>$999</td>
-              <td class="noborderright">$20</td>
-            </tr>
-            <tr>
-              <th scope="row">5</th>
-              <td>Hamster</td>
-              <td>$999</td>
-              <td class="noborderright">$20</td>
-            </tr>
+            <% } %>
           </tbody>
         </table>
       </div>
+      <% } else { %>
+        <h6>No availability found.</h6>
+      <% } %>
     </div>
-
+<% } else { %>
+    <div class="registerSitterMessage" >
+    <h3>Please register as a sitter first!</h3>
+    <button type="submit" onclick="location.href = '/sitterRegistration'" >Register</button>
+    </div>
+<% } %>
     <div class="filler">
 
     </div>

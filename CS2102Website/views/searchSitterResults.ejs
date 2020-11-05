@@ -46,7 +46,7 @@
             <br>
             <h5>Availability</h5>
               <p>Date: <%= sitterResults[i].s_date.substring(0, 10) %> | Time: <%= sitterResults[i].s_time.substring(0,5) + " to " + sitterResults[i].e_time.substring(0,5) %></p>
-  
+
             <h5>Pet Transfer Preference</h5>
             <% if (typeof caretaker != 'undefined') { %>
               <p><%= caretaker[i][0].trf_mthd%></p>
@@ -113,7 +113,7 @@
             <% } %>
             </div>
           </div>
-          <hr></hr>
+          <hr style="height:3px;border-width:0;color:gray;background-color:gray">
         <% } %>
       </div>
 
