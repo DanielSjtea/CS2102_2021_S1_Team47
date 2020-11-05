@@ -1,4 +1,4 @@
-// use Pool to connect to database 
+// use Pool to connect to database
 // as we need to connect to database many times
 const { Pool } = require('pg')
 

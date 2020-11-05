@@ -1213,7 +1213,7 @@ label.btn input[type=checkbox].filled-in:checked+label:after {
 .myBookingsBox {
   position: absolute;
   width: 1081px;
-  height: 200px;
+  height: 600px;
   left: 300px;
   top: 250px;
   background: #FFFFFF;
