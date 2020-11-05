@@ -20,26 +20,23 @@ router.get("/", function(req, res, next) {
 
                 var ratings;
                 var dataRatings = await database.db_get_promise(sql.get_avg_rating_caretaker, [username]);
-                //console.log("avg rating: " + dataRatings);
+
                 if (dataRatings != null) {
                     ratings = dataRatings[0].avg;
-                    //console.log("avg ratinggg: " + dataRatings[0].avg);
                 } 
 
                 var salary = null;
                 var currentDate = new Date().getFullYear() + "-" + (new Date().getMonth() + 1) + "-" + new Date().getDate();
                 var currentMonth = new Date().getMonth() + 1;
                 if (ctype == "Full Time") {
-                    console.log("ABC");
                     var result = await database.db_get_promise(sql.get_fulltime_self_salary_month, [username, currentDate]);
-                    if (result.rowCount > 0) {
-                        salary = result;
+                    if (result.length > 0) {
+                        salary = result[0].pay;
                     }
                 } else {
-                    console.log("ABCD");
                     var result = await database.db_get_promise(sql.get_parttime_self_salary_month, [username, currentDate]);
-                    if (result.rowCount > 0) {
-                        salary = result;
+                    if (result.length > 0) {
+                        salary = result[0].pay;
                     }
                 }
 
