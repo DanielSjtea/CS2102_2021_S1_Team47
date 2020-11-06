@@ -327,3 +327,20 @@ FOR EACH ROW EXECUTE PROCEDURE pet_limit_reached();
 --   HAVING COALESCE(AVG(B.rating), 0) < 2.5
 -- ) J2 ON J1.ct_username = J2.ct_username
 -- WHERE J2.num_jobs <= (J1.num_avail / 3)
+
+-- Get average price per hour for specific pet type and minimum average rating
+-- SELECT SUM(J2.price) / SUM(J2.work_hours)
+-- FROM (
+--   SELECT B1.care_taker_username as ct_username, COALESCE(AVG(B1.rating), 0) as avg_rating
+--   FROM bid B1
+--   GROUP BY B1.care_taker_username
+--   HAVING COALESCE(AVG(B1.rating), 0) >= $2
+-- ) J1 JOIN
+-- (
+--   SELECT B2.care_taker_username , EXTRACT(HOUR FROM (e_time - s_time)) as work_hours
+--   FROM bid B2 JOIN owns_pet P
+--   WHERE ptype = $1
+--   AND successful = TRUE
+-- ) J2 ON J1.ct_username = J2.ct_username
+
+
