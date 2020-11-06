@@ -201,6 +201,29 @@ $$
 $$
 LANGUAGE plpgsql;
 
+CREATE OR REPLACE FUNCTION pet_limit_reached()
+RETURNS TRIGGER AS
+$$
+  DECLARE ctx NUMERIC;
+  DECLARE is_fulltime NUMERIC;
+  DECLARE avg_rating NUMERIC;
+  BEGIN
+  SELECT COUNT(*) INTO ctx FROM bid B
+  WHERE B.care_taker_username = NEW.care_taker_username
+  AND B.successful = TRUE
+  AND B.s_date = NEW.s_date
+  AND ((B.s_time >= NEW.s_time AND B.s_time < NEW.e_time) OR (B.e_time > NEW.s_time AND B.e_time < NEW.e_time)); --Check timings
+  SELECT COUNT(*) INTO is_fulltime FROM care_taker C WHERE C.username = NEW.care_taker_username
+  AND  C.ctype = 'Full Time';
+  SELECT AVG(B2.rating) INTO avg_rating FROM bid B2 WHERE B2.care_taker_username = NEW.care_taker_username
+  AND B2.successful = TRUE;
+  IF (is_fulltime > 0 AND ctx >= 5) THEN RETURN NULL; END IF;
+  IF (is_fulltime = 0 AND ctx >= 2 AND (avg_rating IS NULL OR avg_rating < 4)) THEN RETURN NULL; END IF;
+  RETURN NEW;
+  END;
+$$
+LANGUAGE plpgsql;
+
 -- Trigger
 CREATE TRIGGER check_pet_owner()
 BEFORE INSERT OR UPDATE ON pet_owner
@@ -213,6 +236,10 @@ FOR EACH ROW EXECUTE PROCEDURE not_admin();
 CREATE TRIGGER specify_update_price_list()
 AFTER INSERT OR UPDATE ON specify
 FOR EACH ROW EXECUTE PROCEDURE specify_update_has_price_list();
+
+CREATE TRIGGER check_pet_limit_reached()
+BEFORE INSERT OR UPDATE ON bid
+FOR EACH ROW EXECUTE PROCEDURE pet_limit_reached();
 
 -- Complex Query
 
