@@ -79,7 +79,7 @@
         <div class="row">
           <div class="form-group col-md-6">
             <label for="inputEmail4">Name</label>
-            <input type="email" class="form-control" id="name" name="name" placeholder="Name" autocomplete="off">
+            <input type="text" class="form-control" id="name" name="input_name" placeholder="Name" autocomplete="off">
           </div>
           <div class="form-group col-md-6">
             <label for="inputPassword4">Username</label>
@@ -87,7 +87,7 @@
           </div>
         </div>
         <div class="addPetButton">
-          <button type="button" class="btn btn-outline-primary" onclick="location.href = '/pcsSalary'">Filter</button>
+          <button type="submit" class="btn btn-outline-primary" onclick="location.href = '/pcsSalary'">Filter</button>
         </div>
 
       </form>
@@ -114,6 +114,13 @@
               <td>Full Time</td>
               <td>$3000</td>
               <td class="noborderright">$20</td>
+            </tr>
+            <tr>
+              <td><%=ct_name%></td>
+              <td><%=username%></td>
+              <td><%=jobType%></td>
+              <td>$<%=salary%></td>
+              <td class="noborderright">$</td>
             </tr>
           </tbody>
         </table>
