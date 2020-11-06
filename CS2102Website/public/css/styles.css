@@ -612,6 +612,18 @@ button.secondary:focus {
   justify-content: flex-start;
   text-align: center;
 }
+.registerPetMessageText {
+  width: 800px;
+  height: 200px;
+  margin-left: 80px;
+  margin-top: 0px;
+  border-radius: 20px;
+  position: absolute;
+  padding: 25px;
+  display: flex;
+  justify-content: flex-start;
+  text-align: center;
+}
 
 .registerSitterMessageButton {
   width: 1000px;
@@ -697,6 +709,13 @@ button.secondary:focus {
 }
 
 /********* Search and search results *********/
+.noResults {
+  display: flex;
+  justify-content: center;
+  margin: 0;
+  background-color: #e5e5e5;
+}
+
 .searchSitterBox {
   width: 1000px;
   height: 400px;
@@ -721,19 +740,20 @@ button.secondary:focus {
   font-size: 28;
   background: #1B4965;
   border-radius: 10px;
-  z-index: 10;
+  z-index: 30;
 }
 
 .noPetsErrorBox {
   width: 850px;
   height: 480px;
-  margin-left: 270px;
-  margin-top: 500px;
+  margin-left: 320px;
+  margin-top: 650px;
   border-radius: 20px;
   position: absolute;
   padding: 50px;
   z-index: 20;
 };
+
 
 .searchResultBox {
   width: 800px;
@@ -748,12 +768,6 @@ button.secondary:focus {
   justify-content: flex-start;
 }
 
-.noResults {
-  display: flex;
-  justify-content: center;
-  margin: 0;
-}
-
 .resultLeftBox {
   margin-left: 250px;
   margin-top: 5px;
@@ -765,6 +779,7 @@ button.secondary:focus {
   padding-top: 5px;
   padding-bottom: 2px;
   background-color:white;
+  flex-direction: row;
 }
 
 .resultRightBox {
@@ -772,6 +787,7 @@ button.secondary:focus {
   margin-top: -30px;
   margin-left: 20px;
   display: flex;
+  background-color:white;
   justify-content: flex-end;
 }
 /*
@@ -798,8 +814,6 @@ button.secondary:focus {
   font-size: 28;
   margin-top: -150px;
 }
-
-
 
 .filler {
   background-color: #E5E5E5;

@@ -13,25 +13,29 @@ router.get("/", async function(req, res, next) {
             if (err) {
                 console.log("SQL error: " + err);
             } else {
-                if (data.rowCount == 1) {
+                if (data.rowCount > 0) {
                     database.query(sql.get_all_owned_pets, param, async (err, data) => {
                         if (err) {
                             console.log("SQL error: " + err);
                             res.render("signedIn", {user: req.user});
                         } else {
-                            let promise = [database.db_get_promise(sql.get_all_caretaker)];
-                            let careTakersResults = await Promise.all(promise);
-                            //console.log(careTakersResults[0]);
-                            ownedPets = data.rows;
-                            res.render("searchSitter", {
-                                user: req.user,
-                                ownedPets: ownedPets,
-                                careTakers: careTakersResults[0]
-                            });
+                            if (data.rowCount > 0) {
+                                let promise = [database.db_get_promise(sql.get_all_caretaker)];
+                                let careTakersResults = await Promise.all(promise);
+                                //console.log(careTakersResults[0]);
+                                ownedPets = data.rows;
+                                res.render("searchSitter", {
+                                    user: req.user,
+                                    ownedPets: ownedPets,
+                                    careTakers: careTakersResults[0]
+                                });
+                            } else {
+                                res.render("searchSitter", {
+                                    ownedPets: null
+                                });
+                            }
                         }
                     });
-                } else {
-                    res.render("searchSitter", {message: "No pets registered!"});
                 }
             }
         });
