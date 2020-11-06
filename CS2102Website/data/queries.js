@@ -219,7 +219,7 @@ var sql = {
         "HAVING COALESCE(AVG(B1.rating), 0) >= $2" +
         ") J1 JOIN" +
         "(" +
-        "SELECT B2.care_taker_username , EXTRACT(HOUR FROM (e_time - s_time)) as work_hours" +
+        "SELECT B2.care_taker_username as ct_username, B2.price as price, EXTRACT(HOUR FROM (e_time - s_time)) as work_hours" +
         "FROM bid B2 JOIN owns_pet P" +
         "WHERE P.ptype = $1" +
         "AND B2.successful = TRUE" +
