@@ -65,8 +65,16 @@
               <% } else { %>
               <td>Pending</td>
               <% } %>
-              <td class="noborderright"><button type="button" class="btn btn-outline-primary" onclick="location.href = '/viewReceivedBid'">View Bid</button>
-              </td>
+              <!--<td class="noborderright"><button type="button" class="btn btn-outline-primary" onclick="location.href = '/viewReceivedBid'">View Bid</button>
+              </td>-->
+              <form action="/myBids" method="POST">
+                <input id="petOwnerUsername" name="petOwnerUsername" value="<%=bidArr[i].pet_owner_username%>" type="hidden"/>
+                <input id="startDate" name="startDate" value="<%=bidArr[i].s_date.toDateString() %>" type="hidden"/>
+                <input id="startTime" name="startTime" value="<%=bidArr[i].s_time%>" type="hidden"/>
+                <td class="noborderright"><button type="submit"  class="btn btn-outline-primary" name="button">
+                  View Bid
+                </button></td>
+              </form>
             </tr>
           </tbody>
         <% } %>

@@ -199,6 +199,7 @@ var sql = {
     bids_pending_acceptance_as_petowner: 'SELECT care_taker_username, s_date, s_time, e_time, name, price, trf_mthd, pay_type, successful, svc_type FROM bid WHERE pet_owner_username = $1', //[pet_owner_username]
     successful_bids_made_as_petowner: 'SELECT care_taker_username, s_date, s_time, e_time, name, review, price, trf_mthd, pay_type, rating, svc_type, successful FROM bid WHERE pet_owner_username = $1 AND successful = TRUE', //[pet_owner_username]
     get_current_bids_as_caretaker: 'SELECT s_date, s_time, e_time, name, pet_owner_username, price, trf_mthd, pay_type, svc_type, successful FROM bid WHERE care_taker_username = $1 AND s_date > CURRENT_DATE ORDER BY s_date, s_time, price DESC', //[care_taker_username]
+    get_bid_received_from_petowner: 'SELECT * FROM bid WHERE care_taker_username = $1 AND pet_owner_username= $2 AND s_date = $3 AND s_time = $4', //[care_taker_username, pet_owner_username, s_date, s_time]
 
 
     //Reviews related
