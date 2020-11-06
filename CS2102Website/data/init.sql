@@ -307,6 +307,23 @@ FOR EACH ROW EXECUTE PROCEDURE pet_limit_reached();
 -- FROM bid B JOIN care_taker C ON B.care_taker_username = C.username
 -- WHERE C.ctype = 'Part Time'
 -- AND B.successful = TRUE
--- AND date_trunc('month', B.s_date) = date_trunc('month', CURRENT_DATE)
+-- AND date_trunc('month', B.s_date) = date_trunc('month', $1::timestamp)
 -- GROUP BY C.username) F;
 
+-- Show the Underperforming Caretaker?
+-- SELECT J1.ct_username as ct_username, J1.num_avail as num_avail, J2.num_jobs as num_jobs, J2.avg_rating as avg_rating
+-- FROM (
+--   SELECT H.care_taker_username as ct_username, COUNT(*) as num_avail
+--   FROM has_availability H
+--   WHERE date_trunc('month', H.s_date) = date_trunc('month', $1::timestamp)
+--   GROUP BY H.care_taker_username
+-- ) J1 JOIN
+-- (
+--   SELECT B.care_taker_username as ct_username, COALESCE(COUNT(*), 0) as num_jobs, COALESCE(AVG(B.rating), 0) as avg_rating
+--   FROM bid B
+--   WHERE date_trunc('month', B.s_date) = date_trunc('month', $1::timestamp)
+--   AND B.successful = TRUE
+--   GROUP BY B.care_taker_username
+--   HAVING COALESCE(AVG(B.rating), 0) < 2.5
+-- ) J2 ON J1.ct_username = J2.ct_username
+-- WHERE J2.num_jobs <= (J1.num_avail / 3)
