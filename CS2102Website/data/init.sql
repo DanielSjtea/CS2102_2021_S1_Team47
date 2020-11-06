@@ -194,9 +194,9 @@ $$
   BEGIN
   INSERT INTO has_price_list VALUES (NEW.care_taker_username, NEW.ptype, NEW.price) 
   ON CONFLICT(care_taker_username, ptype)
-  DO UPDATE price = NEW.price
+  DO UPDATE SET price = NEW.price
   WHERE care_taker_username = NEW.care_taker_username
-  AND ptype = NEW.ptype
+  AND ptype = NEW.ptype;
   END;
 $$
 LANGUAGE plpgsql;
@@ -225,19 +225,19 @@ $$
 LANGUAGE plpgsql;
 
 -- Trigger
-CREATE TRIGGER check_pet_owner()
+CREATE TRIGGER check_pet_owner
 BEFORE INSERT OR UPDATE ON pet_owner
 FOR EACH ROW EXECUTE PROCEDURE not_admin();
 
-CREATE TRIGGER check_care_taker()
+CREATE TRIGGER check_care_taker
 BEFORE INSERT OR UPDATE ON care_taker
 FOR EACH ROW EXECUTE PROCEDURE not_admin();
 
-CREATE TRIGGER specify_update_price_list()
+CREATE TRIGGER specify_update_price_list
 AFTER INSERT OR UPDATE ON specify
 FOR EACH ROW EXECUTE PROCEDURE specify_update_has_price_list();
 
-CREATE TRIGGER check_pet_limit_reached()
+CREATE TRIGGER check_pet_limit_reached
 BEFORE INSERT OR UPDATE ON bid
 FOR EACH ROW EXECUTE PROCEDURE pet_limit_reached();
 
@@ -327,3 +327,20 @@ FOR EACH ROW EXECUTE PROCEDURE pet_limit_reached();
 --   HAVING COALESCE(AVG(B.rating), 0) < 2.5
 -- ) J2 ON J1.ct_username = J2.ct_username
 -- WHERE J2.num_jobs <= (J1.num_avail / 3)
+
+-- Get average price per hour for specific pet type and minimum average rating
+-- SELECT SUM(J2.price) / SUM(J2.work_hours)
+-- FROM (
+--   SELECT B1.care_taker_username as ct_username, COALESCE(AVG(B1.rating), 0) as avg_rating
+--   FROM bid B1
+--   GROUP BY B1.care_taker_username
+--   HAVING COALESCE(AVG(B1.rating), 0) >= $2
+-- ) J1 JOIN
+-- (
+--   SELECT B2.care_taker_username , EXTRACT(HOUR FROM (e_time - s_time)) as work_hours
+--   FROM bid B2 JOIN owns_pet P
+--   WHERE ptype = $1
+--   AND successful = TRUE
+-- ) J2 ON J1.ct_username = J2.ct_username
+
+
