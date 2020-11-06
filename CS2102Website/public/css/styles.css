@@ -1,7 +1,15 @@
 /********************* Home Page **********************/
+
 .dropdown-menu {
-  width: 100%;
-  ;
+  margin: 0px;
+  width: 210px;
+  display: inline-block;
+  align-self: auto;
+}
+
+.dropdown-item {
+  margin-left: 0px;
+  width: 120px;
 }
 
 .parent {
