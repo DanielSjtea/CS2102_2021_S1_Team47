@@ -194,9 +194,9 @@ $$
   BEGIN
   INSERT INTO has_price_list VALUES (NEW.care_taker_username, NEW.ptype, NEW.price) 
   ON CONFLICT(care_taker_username, ptype)
-  DO UPDATE price = NEW.price
+  DO UPDATE SET price = NEW.price
   WHERE care_taker_username = NEW.care_taker_username
-  AND ptype = NEW.ptype
+  AND ptype = NEW.ptype;
   END;
 $$
 LANGUAGE plpgsql;
@@ -225,19 +225,19 @@ $$
 LANGUAGE plpgsql;
 
 -- Trigger
-CREATE TRIGGER check_pet_owner()
+CREATE TRIGGER check_pet_owner
 BEFORE INSERT OR UPDATE ON pet_owner
 FOR EACH ROW EXECUTE PROCEDURE not_admin();
 
-CREATE TRIGGER check_care_taker()
+CREATE TRIGGER check_care_taker
 BEFORE INSERT OR UPDATE ON care_taker
 FOR EACH ROW EXECUTE PROCEDURE not_admin();
 
-CREATE TRIGGER specify_update_price_list()
+CREATE TRIGGER specify_update_price_list
 AFTER INSERT OR UPDATE ON specify
 FOR EACH ROW EXECUTE PROCEDURE specify_update_has_price_list();
 
-CREATE TRIGGER check_pet_limit_reached()
+CREATE TRIGGER check_pet_limit_reached
 BEFORE INSERT OR UPDATE ON bid
 FOR EACH ROW EXECUTE PROCEDURE pet_limit_reached();
 
