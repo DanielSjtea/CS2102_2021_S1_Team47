@@ -149,6 +149,23 @@ var sql = {
         "AND date_trunc('month', B.s_date) = date_trunc('month', $1::timestamp)" +
         "GROUP BY C.username", //[month_datetime]
     get_total_pet_cared_month: 'SELECT COUNT(*) FROM bid WHERE successful = TRUE AND EXTRACT(MONTH FROM s_date) = $1', //[month] in numeric, where 1 = January
+    get_underperforming_ct:
+        "SELECT J1.ct_username as ct_username, J1.num_avail as num_avail, J2.num_jobs as num_jobs, J2.avg_rating as avg_rating" +
+        "FROM (" +
+        "SELECT H.care_taker_username as ct_username, COUNT(*) as num_avail" +
+        "FROM has_availability H" +
+        "WHERE date_trunc('month', H.s_date) = date_trunc('month', $1::timestamp)" +
+        "GROUP BY H.care_taker_username" +
+        ") J1 JOIN" +
+        "(" +
+        "SELECT B.care_taker_username as ct_username, COALESCE(COUNT(*), 0) as num_jobs, COALESCE(AVG(B.rating), 0) as avg_rating" +
+        "FROM bid B" +
+        "WHERE date_trunc('month', B.s_date) = date_trunc('month', $1::timestamp)" +
+        "AND B.successful = TRUE" +
+        "GROUP BY B.care_taker_username" +
+        "HAVING COALESCE(AVG(B.rating), 0) < 2.5" +
+        ") J2 ON J1.ct_username = J2.ct_username" +
+        "WHERE J2.num_jobs <= (J1.num_avail / 3)",
 
     //Caretaker statistics
     get_fulltime_self_salary_month:
@@ -192,6 +209,21 @@ var sql = {
     //Pet Owner statistics
     get_past_orders: 'SELECT care_taker_username, s_date, s_time, e_time, name, review, price, rating, svc_type FROM bid WHERE pet_owner_username = $1 AND successful = TRUE AND s_date < CURRENT_DATE ORDER BY s_date DESC', // [pet_owner_username]
     get_caretaker_nearby_area: 'SELECT * FROM care_taker WHERE area = $1', // [area]
+
+    get_avg_pet_price:
+        "SELECT SUM(J2.price) / SUM(J2.work_hours)" +
+        "FROM (" +
+        "SELECT B1.care_taker_username as ct_username, COALESCE(AVG(B1.rating), 0) as avg_rating" +
+        "FROM bid B1" +
+        "GROUP BY B1.care_taker_username" +
+        "HAVING COALESCE(AVG(B1.rating), 0) >= $2" +
+        ") J1 JOIN" +
+        "(" +
+        "SELECT B2.care_taker_username as ct_username, B2.price as price, EXTRACT(HOUR FROM (e_time - s_time)) as work_hours" +
+        "FROM bid B2 JOIN owns_pet P" +
+        "WHERE P.ptype = $1" +
+        "AND B2.successful = TRUE" +
+        ") J2 ON J1.ct_username = J2.ct_username",
 
     //Bids related
     get_ct_bids: 'SELECT * FROM bid WHERE care_taker_username = $1', // [care_taker_username] check if care taker have any bids

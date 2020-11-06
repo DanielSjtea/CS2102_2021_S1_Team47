@@ -81,7 +81,7 @@
         <h4>Username</h4>
         <p><%= username %></p>
         <h4>Contact Number</h4>
-        <p><%= user.contactNum %></p>
+        <p><%= contactNum %></p>
         <h4>Role(s)</h4>
         <% if (isCaretaker == 0) {%>
           <p>Pet Owner</p>
@@ -95,7 +95,8 @@
         </div>
       </div>
     </div>
-    <div class="myPets">
+
+    <div class="myPets" >
     <% if (petArr != null && petArr.length > 0 ) { %>
         <% for (var i = 0; i < petArr.length; i++) { %>
           <div class="myPetProfile">
@@ -115,7 +116,7 @@
         <% } %>
     <% } else { %>
       <div>
-        <h6>No Pets Added<h6>
+
       </div>
     <% } %>
       <div class="addPets">
