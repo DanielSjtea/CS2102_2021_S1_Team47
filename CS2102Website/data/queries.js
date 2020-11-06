@@ -149,6 +149,23 @@ var sql = {
         "AND date_trunc('month', B.s_date) = date_trunc('month', $1::timestamp)" +
         "GROUP BY C.username", //[month_datetime]
     get_total_pet_cared_month: 'SELECT COUNT(*) FROM bid WHERE successful = TRUE AND EXTRACT(MONTH FROM s_date) = $1', //[month] in numeric, where 1 = January
+    get_underperforming_ct:
+        "SELECT J1.ct_username as ct_username, J1.num_avail as num_avail, J2.num_jobs as num_jobs, J2.avg_rating as avg_rating" +
+        "FROM (" +
+        "SELECT H.care_taker_username as ct_username, COUNT(*) as num_avail" +
+        "FROM has_availability H" +
+        "WHERE date_trunc('month', H.s_date) = date_trunc('month', $1::timestamp)" +
+        "GROUP BY H.care_taker_username" +
+        ") J1 JOIN" +
+        "(" +
+        "SELECT B.care_taker_username as ct_username, COALESCE(COUNT(*), 0) as num_jobs, COALESCE(AVG(B.rating), 0) as avg_rating" +
+        "FROM bid B" +
+        "WHERE date_trunc('month', B.s_date) = date_trunc('month', $1::timestamp)" +
+        "AND B.successful = TRUE" +
+        "GROUP BY B.care_taker_username" +
+        "HAVING COALESCE(AVG(B.rating), 0) < 2.5" +
+        ") J2 ON J1.ct_username = J2.ct_username" +
+        "WHERE J2.num_jobs <= (J1.num_avail / 3)",
 
     //Caretaker statistics
     get_fulltime_self_salary_month:
@@ -199,6 +216,7 @@ var sql = {
     bids_pending_acceptance_as_petowner: 'SELECT care_taker_username, s_date, s_time, e_time, name, price, trf_mthd, pay_type, successful, svc_type FROM bid WHERE pet_owner_username = $1', //[pet_owner_username]
     successful_bids_made_as_petowner: 'SELECT care_taker_username, s_date, s_time, e_time, name, review, price, trf_mthd, pay_type, rating, svc_type, successful FROM bid WHERE pet_owner_username = $1 AND successful = TRUE', //[pet_owner_username]
     get_current_bids_as_caretaker: 'SELECT s_date, s_time, e_time, name, pet_owner_username, price, trf_mthd, pay_type, svc_type, successful FROM bid WHERE care_taker_username = $1 AND s_date > CURRENT_DATE ORDER BY s_date, s_time, price DESC', //[care_taker_username]
+    get_bid_received_from_petowner: 'SELECT * FROM bid WHERE care_taker_username = $1 AND pet_owner_username= $2 AND s_date = $3 AND s_time = $4', //[care_taker_username, pet_owner_username, s_date, s_time]
 
 
     //Reviews related

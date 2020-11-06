@@ -21,12 +21,12 @@
       <div class="mainTitle">
         <h1>Search for a Sitter</h1>
       </div>
-
+      <% if (ownedPets != null) { %>
       <div class="searchSitterBox">
         <form action="/searchSitter" method="POST">
           <div class="form-row">
             <div class="form-group col-md-6">
-              <label for="servicesDesired">Pet Services Desired</label>
+              <label for="servicesDesired"><b>Pet Services Desired * </b></label>
               <select id="servicesDesired" name="servicesDesired" class="form-control" required>
                 <option selected>Choose</option>
                 <option id="servicesDesired" name="servicesDesired" value="Pet Grooming">Pet Grooming</option>
@@ -75,6 +75,15 @@
           </button>
         </form>
       </div>
+      <% } else { %>
+        <div class="registerSitterMessage" >
+          <h3 class="registerPetMessageText" >Please add a pet before finding a sitter!</h3>
+          <div class="registerSitterMessageButton">
+            <button type="submit" class="btn btn-outline-primary" onclick="location.href = '/myProfile'" >Add a Pet</button>
+          </div>
+        </div>
+      <% } %>
+
       <div class="noPetsErrorBox">
         <% if(message.length > 0) { %>
             <div class="alert alert-warning alert-dismissible fade show" role="alert">
@@ -85,10 +94,14 @@
             </div>
       <% } %>
     </div>
+
     <div class="filler">
 
     </div>
+    <div class="filler">
+
     </div>
+  </div>
 </body>
 
 </html>

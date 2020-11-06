@@ -25,4 +25,11 @@ router.get("/", function(req, res, next) {
     });
 });
 
+router.post("/", async function(req, res, next) {
+    req.session.petOwnerUsername = req.body.petOwnerUsername;
+    req.session.startDate = req.body.startDate;
+    req.session.startTime = req.body.startTime;
+    res.redirect("viewReceivedBid");
+})
+
 module.exports = router;

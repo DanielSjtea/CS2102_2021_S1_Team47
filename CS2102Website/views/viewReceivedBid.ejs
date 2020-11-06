@@ -25,28 +25,32 @@
       <div class="bidDetails">
         <div class="firstcol">
           <h4>Name</h4>
-          <p>Retrieve Name from EJS</p>
+          <p><%= po_name %></p>
           <h4>Username</h4>
-          <p>Retrieve Username from EJS</p>
+          <p><%= po_username %></p>
           <h4>Start Time</h4>
-          <p>Retrieve start time from EJS</p>
+          <p><%= startTime %></p>
           <h4>Status</h4>
-          <p>Retrieve status from EJS</p>
+          <% if (successful) { %>
+            <p>Successful</p>
+          <% } else { %>
+            <p>Pending</p>
+          <% } %>
           <h4>Service Provided</h4>
-          <p>Retrieve service from EJS</p>
+          <p><%=svcType %></p>
         </div>
 
         <div class="secondcol">
           <h4>Bid Amount</h4>
-          <p>Retrieve bid amount from EJS</p>
+          <p>$<%= bid %></p>
           <h4>Date</h4>
-          <p>Retrieve date from EJS</p>
+          <p><%= startDate %></p>
           <h4>End Time</h4>
-          <p>Retrieve end time from EJS</p>
+          <p><%=endTime %></p>
           <h4>Transfer Method</h4>
-          <p>Retrieve transfer method from EJS</p>
+          <p><%=trfMethod %></p>
           <h4>Payment Type</h4>
-          <p>Credit Card</p>
+          <p><%=payType %></p>
         </div>
       </div>
 
@@ -58,11 +62,11 @@
           </div>
           <div class="petDescription">
             <h6>Pet Name</h6>
-            <p>Retrieve from EJS</p>
+            <p><%=petName %></p>
             <h6>Type</h6>
-            <p>Retrieve from EJS</p>
+            <p><%= petType %></p>
             <h6>Special Requirements</h6>
-            <p>Retrieve from EJS</p>
+            <p><%= sp_req%></p>
 
           </div>
         </div>
@@ -80,7 +84,11 @@
             </div>
             <br>
             <h6>Reviews</h6>
-            <p>No Reviews Found</p>
+            <% if (review == null) { %>
+              <p>No Reviews Found</p>
+            <% } else { %>
+              <p><%= review %></p>
+            <% } %>
           </div>
 
         </div>
