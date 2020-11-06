@@ -194,7 +194,7 @@ $$
   BEGIN
   INSERT INTO has_price_list VALUES (NEW.care_taker_username, NEW.ptype, NEW.price) 
   ON CONFLICT(care_taker_username, ptype)
-  DO UPDATE price = NEW.price
+  DO UPDATE SET price = NEW.price
   WHERE care_taker_username = NEW.care_taker_username
   AND ptype = NEW.ptype
   END;
