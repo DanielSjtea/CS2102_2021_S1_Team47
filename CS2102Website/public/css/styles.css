@@ -84,7 +84,7 @@
   width: 800px;
   height: 200px;
   background-color: white;
-  margin-left: 391px;
+  margin-left: 331px;
   margin-top: 100px;
   border-radius: 20px;
   margin-bottom: 100px;
@@ -95,7 +95,7 @@
   position: absolute;
   width: 538px;
   height: 34px;
-  left: 540px;
+  left: 460px;
   top: 678px;
   padding-top: 60px;
   font-family: Roboto;
@@ -111,7 +111,7 @@
   position: absolute;
   width: 579px;
   height: 70px;
-  left: 499px;
+  left: 439px;
   top: 738px;
   background: #62B6CB;
   justify-content: center;
@@ -184,7 +184,7 @@
   padding: 50px;
   background-color: white;
   border-radius: 20px;
-  width: 1400px;
+  width: 1350px;
   margin-left: 60px;
 }
 
@@ -193,7 +193,7 @@
   position: absolute;
   width: 409px;
   height: 66px;
-  left: 560px;
+  left: 520px;
   top: 880px;
   color: white;
   font-size: 28;
@@ -545,7 +545,7 @@ button.secondary:focus {
 /****************** Sign Up Page *****************/
 .signUpBox {
     width: 900px;
-    height: 320px;
+    height: 340px;
     background-color: white;
     margin-left: 330px;
     margin-top: 150px;
@@ -988,7 +988,7 @@ button.secondary:focus {
   width: 1000px;
   height: 380px;
   background-color: white;
-  margin-left: 200px;
+  margin-left: 240px;
   margin-top: 200px;
   border-radius: 20px;
   position: absolute;
@@ -1135,6 +1135,8 @@ label.btn input[type=checkbox].filled-in:checked+label:after {
 
 .registerCreditCardRight {
   width: 1500px;
+  margin-top: 50px;
+  margin-left: 110px;
   background: #E5E5E5;
   display: flex;
   flex-direction: column;
@@ -1202,9 +1204,23 @@ label.btn input[type=checkbox].filled-in:checked+label:after {
   flex-direction: row;
 }
 
+.addPetsPage {
+  width: 500px;
+  height: 360px;
+  background-color: white;
+  margin-left: 820px;
+  margin-top: 320px;
+  border-radius: 20px;
+  position: absolute;
+  padding: 25px;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: row;
+}
+
 .addPets {
   width: 500px;
-  height: 320px;
+  height: 260px;
   background-color: white;
   margin-left: 820px;
   margin-top: 320px;
@@ -1222,13 +1238,13 @@ label.btn input[type=checkbox].filled-in:checked+label:after {
 }
 
 .newPetPhoto {
-  margin-top: -75px;
+  margin-top: 0px;
   margin-left: 0px;
 }
 
 .newPetDescription {
   padding: 20px;
-  margin-top: -120px;
+  margin-top: -30px;
 }
 
 /************ My Bookings *********************/
@@ -1236,7 +1252,7 @@ label.btn input[type=checkbox].filled-in:checked+label:after {
   position: absolute;
   width: 1081px;
   height: 600px;
-  left: 300px;
+  left: 200px;
   top: 250px;
   background: #FFFFFF;
   border-radius: 20px;

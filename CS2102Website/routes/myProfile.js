@@ -29,7 +29,7 @@ router.get("/", async function(req, res, next) {
                                 isCaretaker: isCaretaker,
                                 petArr: data.rows
                             });
-                        });ind
+                        });
                     } else {
                         database.query(sql.get_profile, [user.username], (err, odata) => {
                             res.render("myProfile", {

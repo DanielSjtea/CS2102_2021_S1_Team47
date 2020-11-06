@@ -165,13 +165,13 @@
 
     <div class="availabilityBox">
       <div class="tableheading">
-        <h4>Availability (Latest 7 Days)</h4>
+        <h4>Availability (Nearest 7 Days)</h4>
       </div>
       <% if (availability.length > 0) {%>
       <div class="availabilitytable">
         <table class="table">
           <tbody>
-            <% for(var i=0; i < availability.length; i++) { %>
+            <% for(var i=0; i < 7; i++) { %>
             <tr>
               <th scope="row"><%= (i + 1) %></th>
               <td><%= availability[i].s_date.toString().substring(0, 15)%></td>
@@ -195,23 +195,14 @@
   </div>
 <% } %>
     <div class="filler">
-
     </div>
-
     <div class="filler">
-
     </div>
-
     <div class="filler">
-
     </div>
-
     <div class="filler">
-
     </div>
-
     <div class="filler">
-
     </div>
 
 
