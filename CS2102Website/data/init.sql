@@ -196,7 +196,7 @@ $$
   ON CONFLICT(care_taker_username, ptype)
   DO UPDATE SET price = NEW.price
   WHERE care_taker_username = NEW.care_taker_username
-  AND ptype = NEW.ptype
+  AND ptype = NEW.ptype;
   END;
 $$
 LANGUAGE plpgsql;
