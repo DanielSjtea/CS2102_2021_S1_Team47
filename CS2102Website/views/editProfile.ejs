@@ -23,7 +23,7 @@
           <img class="profileLogo" src="https://www.creativefabrica.com/wp-content/uploads/2018/03/Cat-Paw-Print.jpg" alt="">
         </div>
         <div class="changePhoto">
-          <form class="md-form" action="/myProfile" method="post">
+          <form class="md-form" action="/editProfile" method="post">
             <div class="file-field">
               <div class="btn btn-primary btn-sm float-left">
                 <input type="file" value="newProfilePhoto">
@@ -66,8 +66,8 @@
         </div>
       </div>
 
-      <div class="profileUserDetails">
-        <form>
+      <div class="profileUserDetails"  method="post" >
+        <form method="post">
           <div class="form-group">
             <label for="updateName">Name</label>
             <input type="text" class="form-control" id="updateName" name="updateName" aria-describedby="emailHelp">
@@ -92,12 +92,13 @@
             <label for="updateArea">Area</label>
             <input type="text" class="form-control" id="updateArea" name="updateArea" aria-describedby="emailHelp">
           </div>
-          <button type="submit" class="btn btn-primary" name= "button">Submit</button>
+          <button type="submit" class="btn btn-primary" name= "button" >Submit</button>
         </form>
       </div>
     </div>
 
     <div class="myPets">
+    <% if (typeof petArr != 'undefined') { %>
     <% if (petArr != null && petArr.length > 0 ) { %>
         <% for (var i = 0; i < petArr.length; i++) { %>
           <div class="myPetProfile">
@@ -119,6 +120,7 @@
       <div>
         <h6>No Pets Added<h6>
       </div>
+    <% } %>
     <% } %>
       <div class="addPets">
         <div class="addPetButton">
