@@ -16,7 +16,7 @@
       <div class="mainTitle">
         <h1>My Bookings</h1>
       </div>
-      <% if (ctUsername != null ) {%>
+      <% if (bidArr != null ) {%>
       <div class="subTitle">
         <% const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];%>
         <% const d = new Date(); %>
@@ -38,16 +38,19 @@
                 </th>
 
               </tr>
+              <% for (var i = 0; i < bidArr.length; i++) { %>
               <tr>
-                <td><%= ctName %> </td>
-                <td><%= ctUsername %> </td>
-                <td><%= contact %> </td>
-                <td><%= sDate %></td>
-                <td><%= pType %></td>
+                <td><%= bidArr[i].ctName %> </td>
+                <td><%= bidArr[i].ctUsername %> </td>
+                <td><%= bidArr[i].contact %> </td>
+                <td><%= bidArr[i].sDate.toString().substring(1,10) %></td>
+                <td><%= bidArr[i].pType%></td>
+
                 <td class="noborderright">
                   <button type="button" class="btn btn-outline-primary" onclick="location.href = '/viewSitterProfile'">View Profile</button>
                 </td>
               </tr>
+              <% } %>
             </tbody>
           </table>
         </div>
