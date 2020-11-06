@@ -221,8 +221,8 @@ var sql = {
         "(" +
         "SELECT B2.care_taker_username , EXTRACT(HOUR FROM (e_time - s_time)) as work_hours" +
         "FROM bid B2 JOIN owns_pet P" +
-        "WHERE ptype = $1" +
-        "AND successful = TRUE" +
+        "WHERE P.ptype = $1" +
+        "AND B2.successful = TRUE" +
         ") J2 ON J1.ct_username = J2.ct_username",
 
     //Bids related
