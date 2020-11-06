@@ -7,31 +7,45 @@ var sql = require("../data/queries");
 
 router.get("/", function(req, res, next) {
     var user = req.user;
-    database.query(sql.successful_bids_made_as_petowner, [user.username], (err, data) => {
+    database.query(sql.successful_bids_made_as_petowner, [user.username], (err, podata) => {
         if(err) {
             console.log("SQL error: " + err);
         } else {
-            if(data.rowCount > 0) {
-                var ctUsername = data.rows[0].care_taker_username;
-                var sDate = data.rows[0].s_date;
-                database.query(sql.get_ct_pet_types, [user.username], (err, data) => {
-                    var pType = data.rows[0].ptype;
-                    //get the CT profile.
-                    database.query(sql.get_profile, [ctUsername], (err, data) => {
-                        var ctName = data.rows[0].name;
-                        var contact = data.rows[0].contact_num;
-                        res.render("PetOwnerBookings", {
-                            ctUsername: ctUsername,
-                            contact: contact,
-                            sDate: sDate,
-                            pType: pType,
-                            ctName: ctName
-                        });
+            var bidArr = new Array(); // array to store dictionary of things
+            if(podata.rowCount > 0) {
+            var dict = {};
+            for (var i = 0; i < podata.rowCount; i++) {
+                var ctUsername = podata.rows[i].care_taker_username;
+//                var sDate = podata.rows[i].s_date;
+                dict["pType"] = new Array();
+                dict["ctUsername"] = podata.rows[i].care_taker_username;
+                dict["sDate"] = podata.rows[i].s_date;
+             };
+
+             //getting name of username
+             for (var i = 0; i < podata.rowCount; i++) {
+                database.query(sql.get_profile, [podata.rows[i].care_taker_username], (err, profdata) => {
+                   dict["ctName"] = profdata.rows[0].name;
+                   dict["contact"] = profdata.rows[0].contact_num;
+                });
+             };
+              // getting petType of username
+             for (var i = 0; i < podata.rowCount; i++) {
+                database.query(sql.get_ct_pet_types, [podata.rows[i].care_taker_username], (err, pdata) => {
+                   //var pType = pdata.rows[0].ptype;
+                   for (var i = 0; i < podata.rowCount; i++) {
+                       dict["pType"].push(pdata.rows[i].ptype); // pet types
+                   }
+                   bidArr.push(dict);
+                   console.log("stringify " + JSON.stringify(bidArr));
+                    res.render("PetOwnerBookings",{
+                        bidArr:bidArr
                     });
                 });
-            } else {
+             };
+             }else {
                 res.render("PetOwnerBookings", {
-                    ctUsername: null
+                    bidArr: null
                 });
             }
         }
