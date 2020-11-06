@@ -7,6 +7,7 @@ var sql = require("../data/queries");
 
 router.get("/", async function(req, res, next) {
     var user = req.user;
+    console.log("enteres profile")
     var isCaretaker = await database.db_get_promise_rows(sql.is_caretaker, [user.username]);
     database.query(sql.is_owner, [user.username], (err, data) => {
         if(err) {
@@ -16,28 +17,31 @@ router.get("/", async function(req, res, next) {
                 cardDetails = data.rows;
                 database.query(sql.get_all_owned_pets, [user.username], (err, data) => {
                     if (data.rowCount > 0){
-                    console.log("data length" + data.rows.length);
                         var area = data.rows[0].area;
-                        res.render("myProfile", {
-                            name: user.name,
-                            email: user.email,
-                            username: user.username,
-                            contact_num: user.contact_num,
-                            cardDetails : cardDetails,
-                            area: area,
-                            isCaretaker: isCaretaker,
-                            petArr: data.rows //this returns arr
-                        });
+                        database.query(sql.get_profile, [user.username], (err, odata) => {
+                            res.render("myProfile", {
+                                name: odata.rows[0].name,
+                                email: odata.rows[0].email,
+                                username: odata.rows[0].username,
+                                contactNum:odata.rows[0].contact_num,
+                                cardDetails : cardDetails,
+                                area: area,
+                                isCaretaker: isCaretaker,
+                                petArr: data.rows
+                            });
+                        });ind
                     } else {
-                        res.render("myProfile", {
-                            name: user.name,
-                            email: user.email,
-                            username: user.username,
-                            contact_num: user.contact_num,
-                            cardDetails : cardDetails,
-                            area: area,
-                            isCaretaker: isCaretaker,
-                            petArr: null
+                        database.query(sql.get_profile, [user.username], (err, odata) => {
+                            res.render("myProfile", {
+                                name: odata.rows[0].name,
+                                email: odata.rows[0].email,
+                                username: odata.rows[0].username,
+                                contactNum:odata.rows[0].contact_num,
+                                cardDetails : cardDetails,
+                                area: area,
+                                isCaretaker: isCaretaker,
+                                petArr: null
+                            });
                         });
                     }
                 });
