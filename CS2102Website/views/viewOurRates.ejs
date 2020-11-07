@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<%- include('headerSignedOut.ejs') %>
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+
+<body>
+  <div class="parent">
+    <div class="mainTitle">
+      <h1>Sign In</h1>
+    </div>
+
+    <div class="signInBox">
+      <form class="signInForm" action="/viewOurRates" method="post">
+        <div class="form-group row">
+          <label for="petType" class="col-sm-2 col-form-label">Pet Type: </label>
+          <div class="col-sm-6">
+            <input type="text" class="form-control" id="petType" placeholder="Pet Type" autocomplete="off">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="averageRating" class="col-sm-2 col-form-label">Average Rating: </label>
+          <div class="col-sm-6">
+            <input type="text" class="form-control" id="averageRating" placeholder="Average Rating" autocomplete="off">
+          </div>
+        </div>
+        <br>
+        <br>
+        <div>
+          <button type="button" class="averageRatesText" name="button" onclick="location.href = '/ratesSearchResults'">
+            Look for Average Bidding Rates!
+          </button>
+        </div>
+
+      </form>
+    </div>
+
+    <div class="filler">
+
+    </div>
+    <div class="filler">
+
+    </div>
+  </div>
+</body>
+
+</html>
