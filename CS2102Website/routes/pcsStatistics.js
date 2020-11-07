@@ -27,13 +27,36 @@ router.get("/", async function(req, res, next) {
     console.log('print: '+ month_underperforming);
     var numPetsTakenCare = await database.db_get_promise(sql.get_total_pet_cared_month, [month_numPets]);
     //var underperforming = await database.db_get_promise(sql.get_underperforming_ct, [month_underperforming]);
-    //console.log(underperforming[0]);
+    database.query(sql.get_underperforming_ct, [month_underperforming], async (err, data) => {
+        if (err) {
+            console.log("Error: " + err);
+            const invalid = "Invalid !";
+            res.render("pcsStatistics", {
+                numPetsTakenCare: numPetsTakenCare[0].count,
+                underperforming_ct: 'No underperforming caretakers this month'
+            });
+        } else {
+            res.render("pcsStatistics", {
+                numPetsTakenCare: numPetsTakenCare[0].count,
+                underperforming_ct: underperforming[0].num_avail
+                //monthHighestNum: monthHighestNum[0]. 
+            });
+        }
+    });
+    //var underperforming_ct;
+    //console.log(underperforming.rowCount);
+    /*if (err) {
+        underperforming_ct = 'No underperforming caretakers this month';
+    } else {
+        underperforming_ct = underperforming[0].num_avail;
+    }*/
+    //console.log(underperforming_ct);
     //var monthHighestNum = await database.db_get_promise(sql., [month]);
-    res.render("pcsStatistics", {
-        numPetsTakenCare: numPetsTakenCare[0].count,
+    /*res.render("pcsStatistics", {
+        numPetsTakenCare: numPetsTakenCare[0].count
         //underperforming: underperforming[0].num_avail
         //monthHighestNum: monthHighestNum[0]. 
-    });
+    });*/
 });
 
 
