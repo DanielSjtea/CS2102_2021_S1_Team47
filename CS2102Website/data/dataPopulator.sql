@@ -458,3 +458,7 @@ INSERT INTO bid (care_taker_username, s_date, s_time, e_time, name, pet_owner_us
 ('jmaddysonh', '2020-11-07', '08:00', '10:00', 'Molly', 'rshilvocke', 'Joana is definitely a qualified sitter. Do book her if you can!' , 50, 'Car', 'Credit Card', 5, TRUE, 'Pet Grooming'),
 ('gniavei', '2020-12-07', '08:00', '10:00', 'Daisy', 'lverne4', ' Gardy is my favourite sitter. Thank you for taking care of Daisy!' , 50, 'Car', 'Credit Card', 5, TRUE, 'Pet Grooming'),
 ('aachesonj', '2020-11-07', '10:00', '12:00', 'Buddy', 'emacneilage1', 'Amory did a really good job! Would book her as my sitter again!' , 50, 'Car', 'Credit Card', 5, TRUE, 'Pet Grooming');
+('sollicitudin', '2020-11-08', '08:00', '20:00', 'Buddy', 'emacneilage1', 'Sollicitudin poorly took care of buddy!', 50, 'Car', 'jcb', 0, TRUE, 'Full Day Pet Care'),
+('sollicitudin', '2020-11-09', '08:00', '20:00', 'Buddy', 'emacneilage1', 'I do not recommend this caretaker!', 50, 'Car', 'jcb', 1, TRUE, 'Full Day Pet Care'),
+('sollicitudin', '2020-11-10', '08:00', '20:00', 'Buddy', 'emacneilage1', 'Sollicitudin poorly took care of buddy!', 50, 'Car', 'jcb', 1, TRUE, 'Full Day Pet Care'),
+('sollicitudin', '2020-11-11', '08:00', '20:00', 'Buddy', 'emacneilage1', 'I do not recommend this caretaker!', 50, 'Car', 'jcb', 2, TRUE, 'Full Day Pet Care');
