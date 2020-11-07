@@ -6,13 +6,13 @@ var router = express.Router();
 var sql = require("../data/queries");
 
 router.get("/", function(req, res, next) {
-    console.log("in get");
+   //console.log("in get");
     var user = req.user;
     database.query(sql.is_owner, [user.username], (err, data) => {
         if(err) {
             console.log("SQL error: " + err);
         } else {
-            console.log("in else condition of get");
+            //console.log("in else condition of get");
             if(data.rowCount > 0) {
                 cardDetails = data.rows;
                 database.query(sql.get_all_owned_pets, [user.username], (err, data) => {
