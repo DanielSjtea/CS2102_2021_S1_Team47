@@ -1216,6 +1216,32 @@ label.btn input[type=checkbox].filled-in:checked+label:after {
   justify-content: flex-start;
   flex-direction: row;
 }
+.viewAllPetsProfileTwo {
+  width: 500px;
+  height: 260px;
+  background-color: white;
+  margin-left: 1000px;
+  margin-top: 150px;
+  border-radius: 20px;
+  position: absolute;
+  padding: 25px;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: row;
+}
+.viewAllPetsProfileThree {
+  width: 500px;
+  height: 260px;
+  background-color: white;
+  margin-left: 150px;
+  margin-top: 500px;
+  border-radius: 20px;
+  position: absolute;
+  padding: 25px;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: row;
+}
 
 .addPetsPage {
   width: 500px;
