@@ -49,7 +49,8 @@ router.post("/", async function(req, res, next) {
                     let params = [username, date];
                     var salary = await database.db_get_promise(sql.get_parttime_self_salary_month, params);
                 }
-                
+                //let totalSalaryParams = [date, username];
+                //var totalSalary = await database.db_get_promise(sql.get_totol_salary_month, totalSalaryParams);
                 res.render("pcsSalary", { 
                     username: username,
                     ct_name: ct_name,
