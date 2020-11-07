@@ -1618,6 +1618,17 @@ label.btn input[type=checkbox].filled-in:checked+label:after {
 }
 
 /*************** View Our Rates Page *******************/
+.viewRatesBox {
+  width: 800px;
+  height: 280px;
+  background-color: white;
+  margin-left: 330px;
+  margin-top: 150px;
+  border-radius: 20px;
+  position: absolute;
+  padding: 50px;
+}
+
 .averageRatesText {
   position: absolute;
   width: 409px;
@@ -1628,6 +1639,43 @@ label.btn input[type=checkbox].filled-in:checked+label:after {
   font-size: 28;
   background: #1B4965;
   border-radius: 10px;
+}
+
+.ratingsComment {
+  margin-left: 10px;
+}
+
+.ratesErrorBox {
+  width: 900px;
+  height: 480px;
+  margin-left: -100px;
+  margin-top: 150px;
+  border-radius: 20px;
+  position: absolute;
+  padding: 50px;
+};
+
+.noRateResults {
+  display: flex;
+  justify-content: center;
+  margin-left: 450px;
+  background-color: #e5e5e5;
+
+}
+
+.noRateResultsHeader {
+  display: flex;
+  justify-content: center;
+  margin-top: 100px;
+  z-index: 10;
+}
+
+.noRateResultsText {
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+  background-color: #e5e5e5;
+
 }
 
 /**************** Rates Search Results Page ********************/
@@ -1644,8 +1692,8 @@ label.btn input[type=checkbox].filled-in:checked+label:after {
   width: 650px;
   height: 100px;
   background-color: white;
-  margin-left: 440px;
-  margin-top: 500px;
+  margin-left: 400px;
+  margin-top: 490px;
   border-radius: 20px;
   position: absolute;
   padding: 23px;
@@ -1660,7 +1708,7 @@ label.btn input[type=checkbox].filled-in:checked+label:after {
   background-color: #E5E5E5;
   padding: 0;
   margin-top: 200px;
-  margin-left: 100px;
+  margin-left: 80px;
   flex-direction: row;
 }
 

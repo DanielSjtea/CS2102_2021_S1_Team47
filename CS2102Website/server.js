@@ -85,7 +85,7 @@ app.use('/searchSitterResults', searchSitterResultsRouter);
 app.use('/viewSitterProfile', viewSitterProfileRouter);
 app.use('/bidSent', bidSentRouter);
 app.use('/viewOurRates', viewOurRatesRouter);
-app.use('/ratesSearchResults', ratesSearchResults);
+app.use('/ratesSearchResults', ratesSearchResultsRouter);
 app.use('/PetOwnerBookings', PetOwnerBookingsRouter);
 app.use('/CareTakerBookings', CareTakerBookingsRouter);
 app.use('/myProfile', myProfileRouter);

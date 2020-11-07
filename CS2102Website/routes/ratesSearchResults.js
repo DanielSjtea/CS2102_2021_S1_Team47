@@ -6,7 +6,15 @@ var router = express.Router();
 var sql = require("../data/queries");
 
 router.get("/", function(req, res, next) {
-    res.render("ratesSearchResults");
+    var petType = req.session.petType;
+    var averageRating = req.session.averageRating;
+    var averagePrice = req.session.averagePrice; 
+    res.render("ratesSearchResults", {
+        petType: petType,
+        averageRating: averageRating,
+        averagePrice: averagePrice
+    });
+
 });
 
 module.exports = router;

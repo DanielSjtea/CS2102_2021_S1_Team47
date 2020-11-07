@@ -211,18 +211,19 @@ var sql = {
     get_caretaker_nearby_area: 'SELECT * FROM care_taker WHERE area = $1', // [area]
 
     get_avg_pet_price:
-        "SELECT SUM(J2.price) / SUM(J2.work_hours)" +
-        "FROM (" +
-        "SELECT B1.care_taker_username as ct_username, COALESCE(AVG(B1.rating), 0) as avg_rating" +
-        "FROM bid B1" +
-        "GROUP BY B1.care_taker_username" +
-        "HAVING COALESCE(AVG(B1.rating), 0) >= $2" +
-        ") J1 JOIN" +
-        "(" +
-        "SELECT B2.care_taker_username as ct_username, B2.price as price, EXTRACT(HOUR FROM (e_time - s_time)) as work_hours" +
-        "FROM bid B2 JOIN owns_pet P" +
-        "WHERE P.ptype = $1" +
-        "AND B2.successful = TRUE" +
+        "SELECT (SUM(J2.price) / SUM(J2.work_hours)) AS averagePrice " +
+        "FROM ( " +
+        "SELECT B1.care_taker_username as ct_username, COALESCE(AVG(B1.rating), 0) as avg_rating " +
+        "FROM bid B1 " +
+        "GROUP BY B1.care_taker_username " +
+        "HAVING COALESCE(AVG(B1.rating), 0) >= $2 " +
+        ") J1 JOIN " +
+        "( " +
+        "SELECT B2.care_taker_username as ct_username, B2.price as price, EXTRACT(HOUR FROM (B2.e_time - B2.s_time)) as work_hours " +
+        "FROM bid B2 JOIN owns_pet P " +
+        "ON B2.pet_owner_username = P.pet_owner_username " +
+        "WHERE P.ptype = $1 " +
+        "AND B2.successful = TRUE " +
         ") J2 ON J1.ct_username = J2.ct_username",
 
     //Bids related
