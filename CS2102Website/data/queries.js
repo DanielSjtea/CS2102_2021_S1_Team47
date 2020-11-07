@@ -85,7 +85,7 @@ var sql = {
 
     //PCS statistics
     get_total_salary_month:
-        "SELECT F.pay " +
+        "SELECT SUM(F.pay) " +
         "FROM " +
         "( SELECT P.ct_username as ct_username, " +
         "CASE " +
@@ -167,15 +167,15 @@ var sql = {
         ") J2 ON J1.ct_username = J2.ct_username " +
         "WHERE J2.num_jobs <= (J1.num_avail / 3)",
     get_month_highest_jobs: "SELECT B1.s_month, COUNT(*) " +
-    "FROM ( " +
-    "SELECT date_trunc('month', s_date) AS s_month " +
-    "FROM bid " +
-    "WHERE successful = TRUE " +
-    ") B1 " +
-    "GROUP BY B1.s_month " +
-    "HAVING COUNT(*) >= ALL(SELECT COUNT (*) FROM (SELECT date_trunc('month', s_date) as s_month " +
-    "FROM bid " +
-    "WHERE successful = TRUE) B1 GROUP BY B1.s_month);",
+        "FROM ( " +
+        "SELECT date_trunc('month', s_date) AS s_month " +
+        "FROM bid " +
+        "WHERE successful = TRUE " +
+        ") B1 " +
+        "GROUP BY B1.s_month " +
+        "HAVING COUNT(*) >= ALL(SELECT COUNT (*) FROM (SELECT date_trunc('month', s_date) as s_month " +
+        "FROM bid " +
+        "WHERE successful = TRUE) B1 GROUP BY B1.s_month);",
 
     get_bonus: 'SELECT * FROM pay WHERE care_taker_username = $1 AND EXTRACT(MONTH FROM date) = $2', //[username, month]
 
@@ -214,7 +214,6 @@ var sql = {
         "AND date_trunc('month', B.s_date) = date_trunc('month', $2::timestamp) " +
         "AND C.username = $1 " +
         "GROUP BY C.username", //[care_taker_username, date] // date in YYYY-MM-DD
-    get_petdays_month: '',
     get_past_work: 'SELECT s_date, s_time, e_time, name, pet_owner_username, review, price, rating, svc_type FROM bid WHERE care_taker_username = $1 AND successful = TRUE AND s_date < CURRENT_DATE ORDER BY s_date DESC',//[care_taker_username]
     get_work_schedule: 'SELECT * FROM bid WHERE care_taker_username = $1 AND successful = TRUE AND s_date >= CURRENT_DATE ORDER BY s_date ASC', //[care_taker_username]
 

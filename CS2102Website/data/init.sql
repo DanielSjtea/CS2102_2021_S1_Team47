@@ -25,7 +25,7 @@ CREATE TABLE pet_owner (
   username VARCHAR(255) PRIMARY KEY REFERENCES users(username) ON DELETE cascade,
   card_cvc VARCHAR(10),
   card_name VARCHAR(255),
-  card_no VARCHAR(255),
+  card_no VARCHAR(255) NOT NULL UNIQUE,
   card_brand VARCHAR(255),
   area VARCHAR(255)
 );
@@ -224,7 +224,7 @@ $$
 $$
 LANGUAGE plpgsql;
 
--- Trigger
+-- Triggers
 CREATE TRIGGER check_pet_owner
 BEFORE INSERT OR UPDATE ON pet_owner
 FOR EACH ROW EXECUTE PROCEDURE not_admin();
@@ -240,107 +240,5 @@ FOR EACH ROW EXECUTE PROCEDURE specify_update_has_price_list();
 CREATE TRIGGER check_pet_limit_reached
 BEFORE INSERT OR UPDATE ON bid
 FOR EACH ROW EXECUTE PROCEDURE pet_limit_reached();
-
--- Complex Query
-
--- Show all salary for all caretakers
-
--- SELECT P.ct_username as ct_username,
---   CASE 
---     WHEN P.pet_days <= 60 THEN P.pet_days * 50
---     WHEN P.pet_days > 60 THEN 3000 + P2.bonus * 0.8
---   END as pay
--- FROM (
---   SELECT COUNT(*) as pet_days, C.username as ct_username
---   FROM bid B JOIN care_taker C ON B.care_taker_username = C.username
---   WHERE C.ctype = 'Full Time'
---   AND B.successful = TRUE
---   AND date_trunc('month', B.s_date) = date_trunc('month', $1::timestamp)
---   GROUP BY C.username
--- ) P LEFT JOIN
--- (
---   SELECT SUM(B2.price) as bonus, C2.username as ct_username
---   FROM bid B2 JOIN care_taker C2 ON B2.care_taker_username = C2.username
---   WHERE C2.ctype = 'Full Time'
---   AND B2.successful = TRUE
---   AND date_trunc('month', B2.s_date) = date_trunc('month', $1::timestamp)
---   GROUP BY C2.username
---   ORDER BY MAX(B2.s_date) ASC
---   OFFSET 61 ROWS 
--- ) P2 ON P.ct_username = P2.ct_username
--- UNION 
--- SELECT C.username as ct_username, SUM(B.price) * 0.75 as pay
--- FROM bid B JOIN care_taker C ON B.care_taker_username = C.username
--- WHERE C.ctype = 'Part Time'
--- AND B.successful = TRUE
--- AND date_trunc('month', B.s_date) = date_trunc('month', $1::timestamp)
--- GROUP BY C.username;
-
--- -- Show sum of all salary
--- SELECT SUM(F.price)
--- FROM
--- (SELECT P.ct_username as ct_username,
---   CASE 
---     WHEN P.pet_days <= 60 THEN P.pet_days * 50
---     WHEN P.pet_days > 60 THEN 3000 + P2.bonus * 0.8
---   END as pay
--- FROM (
---  SELECT COUNT(*) as pet_days, C.username as ct_username
---   FROM bid B JOIN care_taker C ON B.care_taker_username = C.username
---   WHERE C.ctype = 'Full Time'
---   AND B.successful = TRUE
---   AND date_trunc('month', B.s_date) = date_trunc('month', $1::timestamp)
---   GROUP BY C.username
--- ) P LEFT JOIN
--- (
---   SELECT SUM(B2.price) as bonus, C2.username as ct_username
---   FROM bid B2 JOIN care_taker C2 ON B2.care_taker_username = C2.username
---   WHERE C2.ctype = 'Full Time'
---   AND B2.successful = TRUE
---   AND date_trunc('month', B2.s_date) = date_trunc('month', $1::timestamp)
---   GROUP BY C2.username
---   ORDER BY MAX(B2.s_date) ASC
---   OFFSET 61 ROWS 
--- ) P2 ON P.ct_username = P2.ct_username
--- UNION 
--- SELECT C.username as ct_username, SUM(B.price) * 0.75 as pay
--- FROM bid B JOIN care_taker C ON B.care_taker_username = C.username
--- WHERE C.ctype = 'Part Time'
--- AND B.successful = TRUE
--- AND date_trunc('month', B.s_date) = date_trunc('month', $1::timestamp)
--- GROUP BY C.username) F;
-
--- Show the Underperforming Caretaker?
--- SELECT J1.ct_username as ct_username, J1.num_avail as num_avail, J2.num_jobs as num_jobs, J2.avg_rating as avg_rating
--- FROM (
---   SELECT H.care_taker_username as ct_username, COUNT(*) as num_avail
---   FROM has_availability H
---   WHERE date_trunc('month', H.s_date) = date_trunc('month', $1::timestamp)
---   GROUP BY H.care_taker_username
--- ) J1 JOIN
--- (
---   SELECT B.care_taker_username as ct_username, COALESCE(COUNT(*), 0) as num_jobs, COALESCE(AVG(B.rating), 0) as avg_rating
---   FROM bid B
---   WHERE date_trunc('month', B.s_date) = date_trunc('month', $1::timestamp)
---   AND B.successful = TRUE
---   GROUP BY B.care_taker_username
---   HAVING COALESCE(AVG(B.rating), 0) < 2.5
--- ) J2 ON J1.ct_username = J2.ct_username
--- WHERE J2.num_jobs <= (J1.num_avail / 3)
-
--- Get average price per hour for specific pet type and minimum average rating
--- SELECT SUM(J2.price) / SUM(J2.work_hours)
--- FROM (
---   SELECT B1.care_taker_username as ct_username, COALESCE(AVG(B1.rating), 0) as avg_rating
---   FROM bid B1
---   GROUP BY B1.care_taker_username
---   HAVING COALESCE(AVG(B1.rating), 0) >= $2
--- ) J1 JOIN
--- (
---   SELECT B2.care_taker_username , EXTRACT(HOUR FROM (e_time - s_time)) as work_hours
---   FROM bid B2 JOIN owns_pet P
---   WHERE ptype = $1
---   AND successful = TRUE
--- ) J2 ON J1.ct_username = J2.ct_username
 
 
