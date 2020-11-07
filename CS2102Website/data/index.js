@@ -3,13 +3,21 @@
 const { Pool } = require('pg')
 
 // credentials to be changed
-const pool = new Pool({
+// for local development purposes
+/*const pool = new Pool({
     user: 'postgres',
     host: 'localhost',
     database: 'postgres',
     password: 'password',
     port: 5432,
-});
+});*/
+
+const pool = new Pool({
+    connectionString: process.env.DATABASE_URL,
+    ssl: {
+      rejectUnauthorized: false
+    }
+  });
 
 pool.db = function(sql, params) {
     pool.query(sql, params, (err, res) => {
