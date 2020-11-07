@@ -20,7 +20,6 @@ var sql = require("../data/queries");
 
 
 router.get("/", async function(req, res, next) { 
-    
     const formatYmd = date => date.toISOString().slice(0, 10);  
     var month_underperforming = formatYmd(new Date());
     let month_numPets = new Date(Date.now()).getMonth() + 1;
@@ -36,11 +35,20 @@ router.get("/", async function(req, res, next) {
                 underperforming_ct: 'No underperforming caretakers this month'
             });
         } else {
-            res.render("pcsStatistics", {
-                numPetsTakenCare: numPetsTakenCare[0].count,
-                underperforming_ct: underperforming[0].num_avail
-                //monthHighestNum: monthHighestNum[0]. 
-            });
+            if (data.rowCount > 0) {
+                res.render("pcsStatistics", {
+                    numPetsTakenCare: numPetsTakenCare[0].count,
+                    underperforming_ct: data.rows[0].num_avail,
+                    ct_list: data.rows
+                    //monthHighestNum: monthHighestNum[0]. 
+                });
+            } else {
+                res.render("pcsStatistics", {
+                    numPetsTakenCare: numPetsTakenCare[0].count,
+                    underperforming_ct: 'No underperforming caretakers this month'
+                });
+            }
+            
         }
     });
     //var underperforming_ct;
