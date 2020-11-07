@@ -6,6 +6,5 @@
 
 ## 2. Resources Folder
 - Contains ER Diagram in PNG and PDF format
-- Contains Constraints document
 - Contains Project Report
 

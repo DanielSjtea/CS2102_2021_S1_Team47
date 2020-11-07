@@ -47,7 +47,7 @@
                 <td><%= bidArr[i].pType%></td>
 
                 <td class="noborderright">
-                  <form action="/PetOwnerBookings/viewProfile" method="POST">
+                  <form action="/PetOwnerBookings" method="POST">
                     <input id="careTakerUser" name="careTakerUser" value="<%= bidArr[i].ctUsername %>" hidden/>
                     <button type="submit" class="btn btn-outline-primary">View Profile</button>
                   </form>
@@ -62,7 +62,7 @@
         <div class="registerSitterMessage" >
           <h3 class="registerSitterMessageText" >Place your first booking now!</h3>
           <div class="registerSitterMessageButton">
-            <button type="submit" class="btn btn-outline-primary" onclick="location.href = '/searchSitter'">Book a sitter!</button>
+            <button type="button" class="btn btn-outline-primary" onclick="location.href = '/searchSitter'">Book a sitter!</button>
           </div>
         </div>
       <% } %>
