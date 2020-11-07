@@ -7,7 +7,7 @@ var sql = require("../data/queries");
 
 router.get("/", function(req, res, next) {
     var user = req.user;
-    database.query(sql.successful_bids_made_as_petowner, [user.username], (err, podata) => {
+    database.query(sql.successful_bids_made_as_petowner, [user.username], async (err, podata) => {
         if(err) {
             console.log("SQL error: " + err);
         } else {
@@ -26,25 +26,23 @@ router.get("/", function(req, res, next) {
 
                 //getting name of username
                 for (var i = 0; i < podata.rowCount; i++) {
-                    database.query(sql.get_profile, [podata.rows[i].care_taker_username], (err, profdata) => {
-                    dict["ctName"] = profdata.rows[0].name;
-                    dict["contact"] = profdata.rows[0].contact_num;
-                    });
+                    var profdata = await database.db_get_promise(sql.get_profile, [podata.rows[i].care_taker_username]);
+                    dict["ctName"] = profdata[0].name;
+                    dict["contact"] = profdata[0].contact_num;
                 };
                 // getting petType of username
                 for (var i = 0; i < podata.rowCount; i++) {
-                    database.query(sql.get_ct_pet_types, [podata.rows[i].care_taker_username], (err, pdata) => {
+                    var pdata = await database.db_get_promise(sql.get_ct_pet_types, [podata.rows[i].care_taker_username]);
                     for (var i = 0; i < podata.rowCount; i++) {
-                        if (pdata.rows[i] != null) {
-                            dict["pType"].push(pdata.rows[i].ptype); // pet types
+                        if (pdata[i] != null) {
+                            dict["pType"].push(pdata[i].ptype); // pet types
                         }
                     }
                     bidArr.push(dict);
-                    });
                 };
-                    res.render("PetOwnerBookings",{
-                        bidArr:bidArr
-                    });
+                res.render("PetOwnerBookings",{
+                    bidArr:bidArr
+                });
 
              }else {
                 res.render("PetOwnerBookings", {
@@ -55,7 +53,7 @@ router.get("/", function(req, res, next) {
     });
 });
 
-router.post("/viewProfile", function(req, res, next) {
+router.post("/", function(req, res, next) {
     var ctUser = req.body.careTakerUser;
     req.session.caretakerUsername = ctUser;
     res.redirect("viewSitterProfile");
