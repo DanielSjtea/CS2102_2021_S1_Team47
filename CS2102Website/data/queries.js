@@ -85,87 +85,89 @@ var sql = {
 
     //PCS statistics
     get_total_salary_month:
-        "SELECT F.price" +
+        "SELECT F.pay " +
         "FROM " +
-        "(SELECT P.ct_username as ct_username," +
+        "( SELECT P.ct_username as ct_username, " +
         "CASE " +
-        "WHEN P.pet_days <= 60 THEN P.pet_days * 50" +
-        "WHEN P.pet_days > 60 THEN 3000 + P2.bonus * 0.8" +
-        "END as pay" +
-        "FROM (" +
-        "SELECT COUNT(*) as pet_days, C.username as ct_username" +
-        "FROM bid B JOIN care_taker C ON B.care_taker_username = C.username" +
-        "WHERE C.ctype = 'Full Time'" +
-        "AND B.successful = TRUE" +
-        "AND date_trunc('month', B.s_date) = date_trunc('month', $1::timestamp)" +
-        "GROUP BY C.username" +
-        ") P LEFT JOIN" +
-        "(" +
-        "SELECT SUM(B2.price) as bonus, C2.username as ct_username" +
-        "FROM bid B2 JOIN care_taker C2 ON B2.care_taker_username = C2.username" +
-        "WHERE C2.ctype = 'Full Time'" +
-        "AND B2.successful = TRUE" +
-        "AND date_trunc('month', B2.s_date) = date_trunc('month', $1::timestamp)" +
-        "GROUP BY C2.username" +
-        "ORDER BY MAX(B2.s_date) ASC" +
-        "OFFSET 61 ROWS" +
-        ") P2 ON P.ct_username = P2.ct_username" +
+        "WHEN P.pet_days <= 60 THEN P.pet_days * 50 " +
+        "WHEN P.pet_days > 60 THEN 3000 + P2.bonus * 0.8 " +
+        "END as pay " +
+        "FROM ( " +
+        "SELECT COUNT(*) as pet_days, C.username as ct_username " +
+        "FROM bid B JOIN care_taker C ON B.care_taker_username = C.username " +
+        "WHERE C.ctype = 'Full Time' " +
+        "AND B.successful = TRUE " +
+        "AND date_trunc('month', B.s_date) = date_trunc('month', $1::timestamp) " +
+        "GROUP BY C.username " +
+        ") P LEFT JOIN " +
+        "( " +
+        "SELECT SUM(B2.price) as bonus, C2.username as ct_username " +
+        "FROM bid B2 JOIN care_taker C2 ON B2.care_taker_username = C2.username " +
+        "WHERE C2.ctype = 'Full Time' " +
+        "AND B2.successful = TRUE " +
+        "AND date_trunc('month', B2.s_date) = date_trunc('month', $1::timestamp) " +
+        "GROUP BY C2.username " +
+        "ORDER BY MAX(B2.s_date) ASC " +
+        "OFFSET 61 ROWS " +
+        ") P2 ON P.ct_username = P2.ct_username " +
         "UNION " +
-        "SELECT C.username as ct_username, SUM(B.price) * 0.75 as pay" +
-        "FROM bid B JOIN care_taker C ON B.care_taker_username = C.username" +
-        "WHERE C.ctype = 'Part Time'" +
-        "AND B.successful = TRUE" +
-        "AND date_trunc('month', B.s_date) = date_trunc('month', $1::timestamp)" +
-        "GROUP BY C.username) F",//[month_datetime]
+        "SELECT C.username as ct_username, SUM(B.price) * 0.75 as pay " +
+        "FROM bid B JOIN care_taker C ON B.care_taker_username = C.username " +
+        "WHERE C.ctype = 'Part Time' " +
+        "AND B.successful = TRUE " +
+        "AND date_trunc('month', B.s_date) = date_trunc('month', $1::timestamp) " +
+        "GROUP BY C.username) F ",//[month_datetime]
     get_all_caretaker_salary:
-        "SELECT P.ct_username as ct_username," +
+        "SELECT P.ct_username as ct_username, " +
         "CASE " +
-        "WHEN P.pet_days <= 60 THEN P.pet_days * 50" +
-        "WHEN P.pet_days > 60 THEN 3000 + P2.bonus * 0.8" +
-        "END as pay" +
-        "FROM (" +
-        "SELECT COUNT(*) as pet_days, C.username as ct_username" +
-        "FROM bid B JOIN care_taker C ON B.care_taker_username = C.username" +
-        "WHERE C.ctype = 'Full Time'" +
-        "AND B.successful = TRUE" +
-        "AND date_trunc('month', B.s_date) = date_trunc('month', $1::timestamp)" +
-        "GROUP BY C.username" +
+        "WHEN P.pet_days <= 60 THEN P.pet_days * 50 " +
+        "WHEN P.pet_days > 60 THEN 3000 + P2.bonus * 0.8 " +
+        "END as pay " +
+        "FROM ( " +
+        "SELECT COUNT(*) as pet_days, C.username as ct_username " +
+        "FROM bid B JOIN care_taker C ON B.care_taker_username = C.username " +
+        "WHERE C.ctype = 'Full Time' " +
+        "AND B.successful = TRUE " +
+        "AND date_trunc('month', B.s_date) = date_trunc('month', $1::timestamp) " +
+        "GROUP BY C.username " +
         ") P LEFT JOIN " +
         "(" +
-        "SELECT SUM(B2.price) as bonus, C2.username as ct_username" +
-        "FROM bid B2 JOIN care_taker C2 ON B2.care_taker_username = C2.username" +
-        "WHERE C2.ctype = 'Full Time'" +
-        "AND B2.successful = TRUE" +
-        "AND date_trunc('month', B2.s_date) = date_trunc('month', $1::timestamp)" +
-        "GROUP BY C2.username" +
-        "ORDER BY MAX(B2.s_date) ASC" +
-        "OFFSET 61 ROWS" +
-        ") P2 ON P.ct_username = P2.ct_username" +
+        "SELECT SUM(B2.price) as bonus, C2.username as ct_username " +
+        "FROM bid B2 JOIN care_taker C2 ON B2.care_taker_username = C2.username " +
+        "WHERE C2.ctype = 'Full Time' " +
+        "AND B2.successful = TRUE " +
+        "AND date_trunc('month', B2.s_date) = date_trunc('month', $1::timestamp) " +
+        "GROUP BY C2.username " +
+        "ORDER BY MAX(B2.s_date) ASC " +
+        "OFFSET 61 ROWS " +
+        ") P2 ON P.ct_username = P2.ct_username " +
         "UNION " +
-        "SELECT C.username as ct_username, SUM(B.price) * 0.75 as pay" +
-        "FROM bid B JOIN care_taker C ON B.care_taker_username = C.username" +
-        "WHERE C.ctype = 'Part Time'" +
-        "AND B.successful = TRUE" +
-        "AND date_trunc('month', B.s_date) = date_trunc('month', $1::timestamp)" +
+        "SELECT C.username as ct_username, SUM(B.price) * 0.75 as pay " +
+        "FROM bid B JOIN care_taker C ON B.care_taker_username = C.username " +
+        "WHERE C.ctype = 'Part Time' " +
+        "AND B.successful = TRUE " +
+        "AND date_trunc('month', B.s_date) = date_trunc('month', $1::timestamp) " +
         "GROUP BY C.username", //[month_datetime]
     get_total_pet_cared_month: 'SELECT COUNT(*) FROM bid WHERE successful = TRUE AND EXTRACT(MONTH FROM s_date) = $1', //[month] in numeric, where 1 = January
     get_underperforming_ct:
-        "SELECT J1.ct_username as ct_username, J1.num_avail as num_avail, J2.num_jobs as num_jobs, J2.avg_rating as avg_rating" +
-        "FROM (" +
-        "SELECT H.care_taker_username as ct_username, COUNT(*) as num_avail" +
-        "FROM has_availability H" +
-        "WHERE date_trunc('month', H.s_date) = date_trunc('month', $1::timestamp)" +
-        "GROUP BY H.care_taker_username" +
-        ") J1 JOIN" +
+        "SELECT J1.ct_username as ct_username, J1.num_avail as num_avail, J2.num_jobs as num_jobs, J2.avg_rating as avg_rating " +
+        "FROM ( " +
+        "SELECT H.care_taker_username as ct_username, COUNT(*) as num_avail " +
+        "FROM has_availability H " +
+        "WHERE date_trunc('month', H.s_date) = date_trunc('month', $1::timestamp) " +
+        "GROUP BY H.care_taker_username " +
+        ") J1 JOIN " +
         "(" +
-        "SELECT B.care_taker_username as ct_username, COALESCE(COUNT(*), 0) as num_jobs, COALESCE(AVG(B.rating), 0) as avg_rating" +
-        "FROM bid B" +
-        "WHERE date_trunc('month', B.s_date) = date_trunc('month', $1::timestamp)" +
-        "AND B.successful = TRUE" +
-        "GROUP BY B.care_taker_username" +
-        "HAVING COALESCE(AVG(B.rating), 0) < 2.5" +
-        ") J2 ON J1.ct_username = J2.ct_username" +
+        "SELECT B.care_taker_username as ct_username, COALESCE(COUNT(*), 0) as num_jobs, COALESCE(AVG(B.rating), 0) as avg_rating " +
+        "FROM bid B " +
+        "WHERE date_trunc('month', B.s_date) = date_trunc('month', $1::timestamp) " +
+        "AND B.successful = TRUE " +
+        "GROUP BY B.care_taker_username " +
+        "HAVING COALESCE(AVG(B.rating), 0) < 2.5 " +
+        ") J2 ON J1.ct_username = J2.ct_username " +
         "WHERE J2.num_jobs <= (J1.num_avail / 3)",
+
+    get_bonus: 'SELECT * FROM pay WHERE care_taker_username = $1 AND EXTRACT(MONTH FROM date) = $2', //[username, month]
 
     //Caretaker statistics
     get_fulltime_self_salary_month:
@@ -211,18 +213,19 @@ var sql = {
     get_caretaker_nearby_area: 'SELECT * FROM care_taker WHERE area = $1', // [area]
 
     get_avg_pet_price:
-        "SELECT SUM(J2.price) / SUM(J2.work_hours)" +
-        "FROM (" +
-        "SELECT B1.care_taker_username as ct_username, COALESCE(AVG(B1.rating), 0) as avg_rating" +
-        "FROM bid B1" +
-        "GROUP BY B1.care_taker_username" +
-        "HAVING COALESCE(AVG(B1.rating), 0) >= $2" +
-        ") J1 JOIN" +
-        "(" +
-        "SELECT B2.care_taker_username as ct_username, B2.price as price, EXTRACT(HOUR FROM (e_time - s_time)) as work_hours" +
-        "FROM bid B2 JOIN owns_pet P" +
-        "WHERE P.ptype = $1" +
-        "AND B2.successful = TRUE" +
+        "SELECT (SUM(J2.price) / SUM(J2.work_hours)) AS averagePrice " +
+        "FROM ( " +
+        "SELECT B1.care_taker_username as ct_username, COALESCE(AVG(B1.rating), 0) as avg_rating " +
+        "FROM bid B1 " +
+        "GROUP BY B1.care_taker_username " +
+        "HAVING COALESCE(AVG(B1.rating), 0) >= $2 " +
+        ") J1 JOIN " +
+        "( " +
+        "SELECT B2.care_taker_username as ct_username, B2.price as price, EXTRACT(HOUR FROM (B2.e_time - B2.s_time)) as work_hours " +
+        "FROM bid B2 JOIN owns_pet P " +
+        "ON B2.pet_owner_username = P.pet_owner_username " +
+        "WHERE P.ptype = $1 " +
+        "AND B2.successful = TRUE " +
         ") J2 ON J1.ct_username = J2.ct_username",
 
     //Bids related

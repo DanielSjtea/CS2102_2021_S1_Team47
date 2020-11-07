@@ -14,10 +14,12 @@
 <body>
   <div class="parent">
       <div class="mainTitle">
-        <h1>Salaries</h1>
+        <h1>Statistics</h1>
       </div>
       <div class="subTitle">
-        <p>Input month here through ejs</p>
+        <% const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];%>
+        <% const d = new Date(); %>
+        <p><%= monthNames[d.getMonth()] %></p>
       </div>
 
 
@@ -60,15 +62,25 @@
           <table class="table">
             <tbody>
               <tr>
-                <th scope="row">Name</th>
-                <th>Username</th>
-                <th>Job Type</th>
+                <th scope="row">Username</th>
+                <th>Number of Jobs</th>
+                <th>Average Rating</th>
               </tr>
-              <tr>
-                <td>Bob</td>
-                <td>bobby</td>
-                <td class="noborderright">Full Time</td>
-              </tr>
+              <% if (typeof ct_list != 'undefined') { %>
+                <% for (var i = 0; i < ct_list.length; i++) { %>
+                  <tr>
+                    <td><%= ct_list[i].ct_username %></td>
+                    <td><%= ct_list[i].num_jobs %></td>
+                    <td class="noborderright"><%= ct_list[i].avg_rating %></td>
+                  </tr>
+                <% } %>
+              <% } else { %>
+                <tr>
+                  <td>NIL</td>
+                  <td>NIL</td>
+                  <td class="noborderright">NIL</td>
+                </tr>
+              <% } %>
             </tbody>
           </table>
         </div>
