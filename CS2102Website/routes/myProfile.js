@@ -7,7 +7,7 @@ var sql = require("../data/queries");
 
 router.get("/", async function(req, res, next) {
     var user = req.user;
-    console.log("enteres profile")
+//    console.log("enteres profile")
     var isCaretaker = await database.db_get_promise_rows(sql.is_caretaker, [user.username]);
     database.query(sql.is_owner, [user.username], (err, data) => {
         if(err) {

@@ -31,7 +31,7 @@
         <th scope="col">Username</th>
         <th scope="col">Date</th>
         <th scope="col">Bid Amount</th>
-        <th scope="col">Successful</th>
+        <th scope="col">Status</th>
           <th scope="col"></th>
         </tr>
       </thead>
@@ -46,7 +46,7 @@
                   <% } else { %>
                   <td>Pending</td>
                   <% } %>
-                  <td class="noborderright"><button type="button" class="btn btn-outline-primary" onclick="location.href = '/viewReceivedBid'">View Bid</button>
+                  <td class="noborderright"><button type="button" class="btn btn-outline-primary" onclick="location.href = '/viewSubmittedBid'">View Bid</button>
                   </td>
                 </tr>
               </tbody>
@@ -60,7 +60,7 @@
             <th scope="col">Username</th>
             <th scope="col">Date</th>
             <th scope="col">Bid Amount</th>
-            <th scope="col">Successful</th>
+            <th scope="col">Status</th>
             </tr>
           </thead>
           <tbody>
