@@ -43,11 +43,14 @@
                 <td><%= bidArr[i].ctName %> </td>
                 <td><%= bidArr[i].ctUsername %> </td>
                 <td><%= bidArr[i].contact %> </td>
-                <td><%= bidArr[i].sDate.toString().substring(1,10) %></td>
+                <td><%= bidArr[i].sDate.toString().substring(0,10) %></td>
                 <td><%= bidArr[i].pType%></td>
 
                 <td class="noborderright">
-                  <button type="button" class="btn btn-outline-primary" onclick="location.href = '/viewSitterProfile'">View Profile</button>
+                  <form action="/PetOwnerBookings/viewProfile" method="POST">
+                    <input id="careTakerUser" name="careTakerUser" value="<%= bidArr[i].ctUsername %>" hidden/>
+                    <button type="submit" class="btn btn-outline-primary">View Profile</button>
+                  </form>
                 </td>
               </tr>
               <% } %>
