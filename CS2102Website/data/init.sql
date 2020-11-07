@@ -25,7 +25,7 @@ CREATE TABLE pet_owner (
   username VARCHAR(255) PRIMARY KEY REFERENCES users(username) ON DELETE cascade,
   card_cvc VARCHAR(10),
   card_name VARCHAR(255),
-  card_no VARCHAR(255),
+  card_no VARCHAR(255) NOT NULL UNIQUE,
   card_brand VARCHAR(255),
   area VARCHAR(255)
 );
