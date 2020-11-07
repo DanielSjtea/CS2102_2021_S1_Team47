@@ -22,6 +22,8 @@ var searchSitterRouter = require('./routes/searchSitter');
 var searchSitterResultsRouter = require('./routes/searchSitterResults');
 var viewSitterProfileRouter = require('./routes/viewSitterProfile');
 var bidSentRouter = require('./routes/bidSent');
+var viewOurRatesRouter = require('./routes/viewOurRates');
+var ratesSearchResultsRouter = require('./routes/ratesSearchResults');
 var PetOwnerBookingsRouter = require('./routes/PetOwnerBookings');
 var CareTakerBookingsRouter = require('./routes/CareTakerBookings')
 var myProfileRouter = require('./routes/myProfile');
@@ -82,6 +84,8 @@ app.use('/searchSitter', searchSitterRouter);
 app.use('/searchSitterResults', searchSitterResultsRouter);
 app.use('/viewSitterProfile', viewSitterProfileRouter);
 app.use('/bidSent', bidSentRouter);
+app.use('/viewOurRates', viewOurRatesRouter);
+app.use('/ratesSearchResults', ratesSearchResults);
 app.use('/PetOwnerBookings', PetOwnerBookingsRouter);
 app.use('/CareTakerBookings', CareTakerBookingsRouter);
 app.use('/myProfile', myProfileRouter);

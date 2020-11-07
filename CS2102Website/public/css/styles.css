@@ -1616,3 +1616,73 @@ label.btn input[type=checkbox].filled-in:checked+label:after {
   justify-content: flex-start;
   margin-left: 0px;
 }
+
+/*************** View Our Rates Page *******************/
+.averageRatesText {
+  position: absolute;
+  width: 409px;
+  height: 66px;
+  left: 200px;
+  top: 200px;
+  color: white;
+  font-size: 28;
+  background: #1B4965;
+  border-radius: 10px;
+}
+
+/**************** Rates Search Results Page ********************/
+.ratingsImage {
+  height: 400px;
+  width: 600px;
+  border-radius: 20px;
+}
+
+.ratesResults {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 650px;
+  height: 100px;
+  background-color: white;
+  margin-left: 440px;
+  margin-top: 500px;
+  border-radius: 20px;
+  position: absolute;
+  padding: 23px;
+  color: #1B4965;
+}
+
+
+
+.testimonials {
+  display: flex;
+  justify-content: left;
+  background-color: #E5E5E5;
+  padding: 0;
+  margin-top: 200px;
+  margin-left: 100px;
+  flex-direction: row;
+}
+
+.firsttestimonialPhoto {
+  height: 120px;
+  width: 240px;
+  border-radius: 20px;
+  margin-bottom: 50px;
+}
+
+.secondtestimonialPhoto {
+  height: 120px;
+  width: 240px;
+  border-radius: 20px;
+  margin-bottom: 50px;
+  margin-left: -40px;
+}
+
+.thirdtestimonialPhoto {
+  height: 120px;
+  width: 240px;
+  border-radius: 20px;
+  margin-bottom: 30px;
+  margin-left: 40px;
+}
