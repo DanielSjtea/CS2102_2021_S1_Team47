@@ -34,8 +34,8 @@
         </div>
 
         <div class="statisticsMiddleSection">
-          <div class="secondBoxText">
-            <p class="SmallText"><%=underperforming_ct%></p>
+          <div class="secondBoxBigText">
+            <p class="BigText"><%=underperforming_ct%></p>
           </div>
           <div class="secondBoxSmallText">
             <p><b>Underperforming Care Takers</b></p>
@@ -75,7 +75,8 @@
                   <tr>
                     <td><%= ct_list[i].ct_username %></td>
                     <td><%= ct_list[i].num_jobs %></td>
-                    <td class="noborderright"><%= ct_list[i].avg_rating %></td>
+                    <% var rate = Number(ct_list[i].avg_rating) %>
+                    <td class="noborderright"><%= rate.toFixed(2) %></td>
                   </tr>
                 <% } %>
               <% } else { %>

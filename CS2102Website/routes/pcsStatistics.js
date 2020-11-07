@@ -33,41 +33,27 @@ router.get("/", async function(req, res, next) {
             const invalid = "Invalid !";
             res.render("pcsStatistics", {
                 numPetsTakenCare: numPetsTakenCare[0].count,
-                underperforming_ct: 'No underperforming caretakers this month'
+                underperforming_ct: 'NIL',
+                monthHighestJob: monthHighestJob
             });
         } else {
             if (data.rowCount > 0) {
                 res.render("pcsStatistics", {
                     numPetsTakenCare: numPetsTakenCare[0].count,
-                    underperforming_ct: data.rows[0].num_avail,
+                    underperforming_ct: data.rowCount,
                     ct_list: data.rows,
                     monthHighestJob: monthHighestJob
-                    //monthHighestNum: monthHighestNum[0]. 
                 });
             } else {
                 res.render("pcsStatistics", {
                     numPetsTakenCare: numPetsTakenCare[0].count,
-                    underperforming_ct: 'No underperforming caretakers this month',
+                    underperforming_ct: 'NIL',
                     monthHighestJob: monthHighestJob
                 });
             }
             
         }
     });
-    //var underperforming_ct;
-    //console.log(underperforming.rowCount);
-    /*if (err) {
-        underperforming_ct = 'No underperforming caretakers this month';
-    } else {
-        underperforming_ct = underperforming[0].num_avail;
-    }*/
-    //console.log(underperforming_ct);
-    //var monthHighestNum = await database.db_get_promise(sql., [month]);
-    /*res.render("pcsStatistics", {
-        numPetsTakenCare: numPetsTakenCare[0].count
-        //underperforming: underperforming[0].num_avail
-        //monthHighestNum: monthHighestNum[0]. 
-    });*/
 });
 
 

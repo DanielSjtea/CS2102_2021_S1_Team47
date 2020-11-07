@@ -16,7 +16,7 @@ router.post("/", async function(req, res, next) {
     var averageRating = req.body.averageRating;
 
     var averagePrice = await database.db_get_promise(sql.get_avg_pet_price, [petType, averageRating]);
-    if (averagePrice[0].averagePrice != null) {
+    if (averagePrice[0].averageprice != null) {
         req.session.petType = petType;
         req.session.averageRating = averageRating;
         req.session.averagePrice = averagePrice[0];
