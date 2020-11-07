@@ -25,13 +25,13 @@
       <div class="bidDetails">
         <div class="firstcol">
           <h4>Name</h4>
-          <p>Retrieve Name from EJS</p>
+          <p><%= name %></p>
           <h4>Username</h4>
-          <p><%= ctusername %></p>
+          <p id="ctusername" name = "ctusername"><%= ctusername %></p>
           <h4>Start Time</h4>
-          <p><%= startTime %></p>
+          <p id="startTime" name = "startTime"><%= startTime %></p>
           <h4>Status</h4>
-          <p>Retrieve status from EJS</p>
+          <p><%= status %></p>
           <h4>Service Provided</h4>
           <p><%= svcType %></p>
         </div>
@@ -40,7 +40,7 @@
           <h4>Bid Amount</h4>
           <p>$ <%= bid %></p>
           <h4>Date</h4>
-          <p><%= startDate %></p>
+          <p name = "startDate"><%= startDate %></p>
           <h4>End Time</h4>
           <p><%= endTime %></p>
           <h4>Transfer Method</h4>
@@ -58,12 +58,11 @@
           </div>
           <div class="petDescription">
             <h6>Pet Name</h6>
-            <p>Retrieve from EJS</p>
+            <p><%= petName %></p>
             <h6>Type</h6>
-            <p>Retrieve from EJS</p>
+            <p></p>
             <h6>Special Requirements</h6>
-            <p>Retrieve from EJS</p>
-
+            <p name = "spReq"></p>
           </div>
         </div>
 
@@ -84,7 +83,7 @@
           </div>
 
           <div class="petRatingRight">
-            <form action="/bidsSubmitted" method="action">
+            <form action="/viewSubmittedBid" method="post">
               <div class="form-group">
                 <label for="rating">Rate from 1 to 5</label>
                 <input type="number" class="form-control" id="rating" name="rating" aria-describedby="emailHelp" placeholder="5">
@@ -93,6 +92,9 @@
                 <label for="review">Add a Review</label>
                 <input type="text" class="form-control" id="review" name="review" placeholder="Be nice!">
               </div>
+              <input id="startDateRes" name="startDateRes" value="<%= startDate %>" hidden/>
+              <input id="ctusername" name="ctusername" value="<%= ctusername %>" hidden/>
+              <input id="startTime" name="startTime" value="<%= startTime %>" hidden/>
               <button type="submit" class="btn btn-primary">Submit</button>
             </form>
 

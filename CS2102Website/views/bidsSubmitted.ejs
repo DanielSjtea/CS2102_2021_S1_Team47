@@ -46,7 +46,24 @@
                   <% } else { %>
                   <td>Pending</td>
                   <% } %>
-                  <td class="noborderright"><button type="button" class="btn btn-outline-primary" onclick="location.href = '/viewSubmittedBid'">View Bid</button>
+                  <td class="noborderright">
+                  <form action="/bidsSubmitted" method="POST">
+                  <input id="ctusername" name="ctusername" value="<%= bidArr[i].care_taker_username %>" hidden/>
+                  <input id="startDate" name="startDate" value="<%= bidArr[i].s_date %>" hidden/>
+                  <input id="startTime" name="startTime" value="<%= bidArr[i].s_time %>" hidden/>
+                  <input id="petName" name="petName" value="<%= bidArr[i].name %>" hidden/>
+                  <input id="bid" name="bid" value="<%= bidArr[i].price %>" hidden/>
+                  <input id="status" name="status" value="<%= bidArr[i].successful %>" hidden/>
+                  <input id="endTime" name="endTime" value="<%= bidArr[i].e_time %>" hidden/>
+                  <input id="payType" name="payType" value="<%= bidArr[i].pay_type %>" hidden/>
+                  <input id="review" name="review" value="<%= bidArr[i].review %>" hidden/>
+                  <input id="rating" name="rating" value="<%= bidArr[i].rating %>" hidden/>
+                  <input id="svcType" name="svcType" value="<%= bidArr[i].svc_type %>" hidden/>
+                  <input id="trfMethod" name="trfMethod" value="<%= bidArr[i].trf_mthd %>" hidden/>
+
+
+                  <button type="submit" class="btn btn-outline-primary">View Bid</button>
+                  </form>
                   </td>
                 </tr>
               </tbody>

@@ -16,19 +16,6 @@ router.get("/", function(req, res, next) {
                     ctusername: user.username,
                     bidArr: data.rows
                 });
-//                    var name = null;
-//                    ctusername = data.rows[0].care_taker_username;
-//                    var startDate = data.rows[0].s_date;
-//                    var bid = data.rows[0].price;
-//                    database.query(sql.get_caretaker_profile, [ctusername], (err, ctdata) => {
-//                        name = ctdata.rows[0].name;
-//                        res.render("bidsSubmitted",{
-//                            ctusername: ctusername,
-//                            startDate: startDate,
-//                            bid: bid,
-//                            name: name
-//                        });
-//                    });
         } else {
             res.render("bidsSubmitted", {
                 ctusername: null
@@ -37,4 +24,33 @@ router.get("/", function(req, res, next) {
      });
 
 });
+
+router.post("/", function(req, res, next) {
+    var ctusername = req.body.ctusername;
+    req.session.ctusername = ctusername;
+    var startDate = req.body.startDate;
+    req.session.startDate = startDate;
+    var startTime = req.body.startTime;
+    req.session.startTime = startTime;
+    var petName = req.body.petName;
+    req.session.petName = petName;
+    var bid = req.body.bid;
+    req.session.bid = bid;
+    var status = req.body.status;
+    req.session.status = status;
+    var endTime = req.body.endTime;
+    req.session.endTime = endTime;
+    var payType = req.body.payType;
+    req.session.payType = payType;
+    var review = req.body.review;
+    req.session.review = review;
+    var rating = req.body.rating;
+    req.session.rating = rating;
+    var svcType = req.body.svcType;
+    req.session.svcType = svcType;
+    var trfMethod = req.body.trfMethod;
+    req.session.trfMethod = trfMethod;
+
+    res.redirect("viewSubmittedBid");
+})
 module.exports = router;

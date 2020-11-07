@@ -37,8 +37,7 @@ router.get('/', async function(req, res, next) {
         past_reviews: past_reviews,
         review_count: review_count,
         pricelist: pricelist
-    }); 
-
+    });
 });
 
 
