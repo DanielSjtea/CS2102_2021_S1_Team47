@@ -25,6 +25,7 @@ router.get("/", async function(req, res, next) {
     let month_numPets = new Date(Date.now()).getMonth() + 1;
     console.log('print: '+ month_underperforming);
     var numPetsTakenCare = await database.db_get_promise(sql.get_total_pet_cared_month, [month_numPets]);
+    var monthHighestJob = await database.db_get_promise(sql.get_month_highest_jobs);
     //var underperforming = await database.db_get_promise(sql.get_underperforming_ct, [month_underperforming]);
     database.query(sql.get_underperforming_ct, [month_underperforming], async (err, data) => {
         if (err) {
@@ -39,13 +40,15 @@ router.get("/", async function(req, res, next) {
                 res.render("pcsStatistics", {
                     numPetsTakenCare: numPetsTakenCare[0].count,
                     underperforming_ct: data.rows[0].num_avail,
-                    ct_list: data.rows
+                    ct_list: data.rows,
+                    monthHighestJob: monthHighestJob
                     //monthHighestNum: monthHighestNum[0]. 
                 });
             } else {
                 res.render("pcsStatistics", {
                     numPetsTakenCare: numPetsTakenCare[0].count,
-                    underperforming_ct: 'No underperforming caretakers this month'
+                    underperforming_ct: 'No underperforming caretakers this month',
+                    monthHighestJob: monthHighestJob
                 });
             }
             

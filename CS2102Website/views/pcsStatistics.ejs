@@ -44,7 +44,11 @@
 
         <div class="statisticsRightSection">
           <div class="thirdBoxBigText">
-            <p class="BigText">Jan 2020</p>
+            <% if (typeof monthHighestJob[0] != 'undefined') { %>
+              <p class="BigText"><%= monthHighestJob[0].s_month.toString().substring(4, 7) + " " + monthHighestJob[0].s_month.toString().substring(11, 15)%></p>
+            <% } else { %>
+              <p class="BigText">NIL</p>
+            <% } %>
           </div>
           <div class="thirdBoxSmallText">
             <p><b>Month with Highest Number of Jobs</b></p>

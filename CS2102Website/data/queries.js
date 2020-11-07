@@ -166,6 +166,16 @@ var sql = {
         "HAVING COALESCE(AVG(B.rating), 0) < 2.5 " +
         ") J2 ON J1.ct_username = J2.ct_username " +
         "WHERE J2.num_jobs <= (J1.num_avail / 3)",
+    get_month_highest_jobs: "SELECT B1.s_month, COUNT(*) " +
+    "FROM ( " +
+    "SELECT date_trunc('month', s_date) AS s_month " +
+    "FROM bid " +
+    "WHERE successful = TRUE " +
+    ") B1 " +
+    "GROUP BY B1.s_month " +
+    "HAVING COUNT(*) >= ALL(SELECT COUNT (*) FROM (SELECT date_trunc('month', s_date) as s_month " +
+    "FROM bid " +
+    "WHERE successful = TRUE) B1 GROUP BY B1.s_month);",
 
     get_bonus: 'SELECT * FROM pay WHERE care_taker_username = $1 AND EXTRACT(MONTH FROM date) = $2', //[username, month]
 
