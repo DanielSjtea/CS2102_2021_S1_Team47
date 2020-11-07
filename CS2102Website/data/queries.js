@@ -85,7 +85,7 @@ var sql = {
 
     //PCS statistics
     get_total_salary_month:
-        "SELECT F.pay " +
+        "SELECT SUM(F.pay) " +
         "FROM " +
         "( SELECT P.ct_username as ct_username, " +
         "CASE " +
