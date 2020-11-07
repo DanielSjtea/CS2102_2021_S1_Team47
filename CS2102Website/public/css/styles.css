@@ -1280,6 +1280,16 @@ label.btn input[type=checkbox].filled-in:checked+label:after {
   flex-direction: column;
 }
 
+.pcsErrorBox {
+  width: 900px;
+  height: 480px;
+  margin-left: 250px;
+  margin-top: 680px;
+  border-radius: 20px;
+  position: absolute;
+  padding: 50px;
+}
+
 /********** PCS Salaries Page *************/
 .Salaries {
   width: 1230px;
