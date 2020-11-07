@@ -4,6 +4,7 @@ const { check, validationResult } = require('express-validator');
 var database = require("../data/index");
 var router = express.Router();
 var sql = require("../data/queries");
+const { start } = require("repl");
 
 router.get("/", async function(req, res, next) {
     var petsChosen = req.session.petsChosen;
@@ -56,7 +57,11 @@ router.get("/", async function(req, res, next) {
 
 router.post("/", async function(req, res, next) {
     var caretakerUsername = req.body.caretakerUsername;
+    var startTime = req.body.startTime;
+    var endTime = req.body.endTime;
     req.session.caretakerUsername = caretakerUsername;
+    req.session.startTime = startTime;
+    req.session.endTime = endTime;
     res.redirect("viewSitterProfile");
 })
 
