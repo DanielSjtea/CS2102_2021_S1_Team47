@@ -40,6 +40,7 @@ npm start
 - index.js: connects to database and contain database related functions
 - queries.js: contains all the SQL queries
 - init.sql: SQL script to initialise the tables
+- dataPopulator.sql: contains test data to populate database
 
 2. Routes Folder
 - Contains all the routings and logic for GET and POST requests
