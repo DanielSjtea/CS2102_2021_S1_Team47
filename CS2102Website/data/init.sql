@@ -195,8 +195,9 @@ $$
   INSERT INTO has_price_list VALUES (NEW.care_taker_username, NEW.ptype, NEW.price) 
   ON CONFLICT(care_taker_username, ptype)
   DO UPDATE SET price = NEW.price
-  WHERE care_taker_username = NEW.care_taker_username
-  AND ptype = NEW.ptype;
+  WHERE has_price_list.care_taker_username = NEW.care_taker_username
+  AND has_price_list.ptype = NEW.ptype;
+  RETURN NEW;
   END;
 $$
 LANGUAGE plpgsql;
