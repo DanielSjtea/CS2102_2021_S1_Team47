@@ -10,11 +10,11 @@ Ng Shi Xuan, Aerin (A0205054U) & Alyssa Nah Xiao Ting (A0202400J) & Daniel Seah 
 - Contains ER Diagram in PNG and PDF format
 - Contains Project Report
 
-## Website Link
-#### You may view our website at https://fierce-sands-59863.herokuapp.com/
-
 ## Demo Video Link 
 #### You may view our demo video at https://youtu.be/uQqqlH9INsg
+
+## Website Link
+#### You may view our website at https://fierce-sands-59863.herokuapp.com/
 
 ### Login Credentials:
 
